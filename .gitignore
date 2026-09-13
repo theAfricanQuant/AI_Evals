@@ -1,0 +1,18 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+
+# Python and notebook artifacts
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Local services, generated outputs, and operating-system files
+data/
+artifacts/
+reports/generated/
+.DS_Store

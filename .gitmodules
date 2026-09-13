@@ -1,0 +1,27 @@
+[submodule "references/evals-skills"]
+	path = references/evals-skills
+	url = https://github.com/hamelsmu/evals-skills.git
+[submodule "references/cartwheel-homeworks"]
+	path = references/cartwheel-homeworks
+	url = https://github.com/ai-evals-course/cartwheel-homeworks.git
+[submodule "references/recipe-chatbot"]
+	path = references/recipe-chatbot
+	url = https://github.com/ai-evals-course/recipe-chatbot.git
+[submodule "references/evals-skills-course"]
+	path = references/evals-skills-course
+	url = https://github.com/ai-evals-course/evals-skills.git
+[submodule "references/judgy"]
+	path = references/judgy
+	url = https://github.com/ai-evals-course/judgy.git
+[submodule "references/braintrust-ai-evals-course-2025"]
+	path = references/braintrust-ai-evals-course-2025
+	url = https://github.com/braintrustdata/ai-evals-course-2025.git
+[submodule "references/isaac-fasthtml-workshop"]
+	path = references/isaac-fasthtml-workshop
+	url = https://github.com/ai-evals-course/isaac-fasthtml-workshop.git
+[submodule "references/spade-experiments"]
+	path = references/spade-experiments
+	url = https://github.com/shreyashankar/spade-experiments.git
+[submodule "references/prompt-eval-recommendation"]
+	path = references/prompt-eval-recommendation
+	url = https://github.com/shreyashankar/prompt-eval-recommendation.git
