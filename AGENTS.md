@@ -16,6 +16,7 @@ This workspace is run from a dedicated Telegram topic. Agreements made there are
 4. Every push is one agreed decision. The commit message names the decision. Always run `git pull --rebase` immediately before every push — the remote may have advanced through another agent's or the user's work — and never force-push.
 5. Safety holds: no API keys, cookies, or private source text in these files; NotebookLM queries only when the user has asked.
 6. Deliverables presented to the user in the topic render as self-contained HTML in the SisengAI website colors (teal palette); the repository baseline stays Markdown.
+7. [MEMORY.md](MEMORY.md) is the coordination ledger. Every agent reads AGENTS.md and MEMORY.md before working. Any commit that changes the workspace also updates MEMORY.md: append a dated log entry (never edit or delete past entries) and refresh the Current state block. Other agents may be working from this repository — never delete or redo work recorded in the log without an explicit instruction from the owner.
 
 ## Working rules
 
