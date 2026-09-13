@@ -14,6 +14,7 @@ Workspace initialized (`8caf672`): syllabus + 12 lesson files for *AI Evals for 
 
 ## Last actions (append-only, newest first)
 
+- 2026-09-13 — Expanded study note 001 to the full kickoff scope: agreed working rules + ledger rationale, course structure, evals vs TDD, why it is new, deployment layers/harnesses, the people behind the course (Shreya's papers + Hamel's guides), reference projects and learning order. Nigerian-anchored 10th-grade examples added per the owner's request. HTML re-rendered to match (LivingStory colors). By: Hermes (Telegram topic).
 - 2026-09-13 — Correction: the first HTML render used the German-tenses teal palette, which is NOT the website theme. Re-rendered study note 001 in the correct sisengai.com palette (LivingStory: cream `#FDFBF7`, mahogany `#321208`, amber `#D4720A`; Inter + Playfair Display), verified from the live site CSS. Skill `ricky-phone-html-design` updated with the site palette and a pitfall entry. By: Hermes (Telegram topic).
 - 2026-09-13 — First study note: AI Evals Foundations (`notes/2026-09-13-evals-foundations.md`) — what evals are, evals vs TDD, why it is new, where evals deploy. HTML render delivered to the owner (`reports/generated/`, not pushed). By: Hermes (Telegram topic).
 - 2026-09-13 — Added 6 source cards for the core papers and reports behind the course: Shreya Shankar's Who Validates the Validators?, SPADE, PromptEvals, Task Cascades; Hamel Husain's AI Evals FAQ; the Applied-LLMs industry report. Commit `8e89bd1`. By: Hermes (Telegram topic).
