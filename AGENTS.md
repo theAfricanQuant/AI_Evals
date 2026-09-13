@@ -13,7 +13,7 @@ This workspace is run from a dedicated Telegram topic. Agreements made there are
 1. The topic is the only channel for decisions about this workspace. What we agree there gets committed to `main`; nothing is pushed that was not settled there.
 2. Keep the baseline sacred. The syllabus and numbered lesson files keep their wording; interpretations, exercises, and extensions go in `notes/`, `sources/`, and `projects/`.
 3. Trace → Test → Teach. Every study session ends with a dated note (`notes/YYYY-MM-DD-<topic>.md`) and a working artifact (test set, evaluator, trace, or analysis). No advancing on summaries alone.
-4. Every push is one agreed decision. The commit message names the decision; `git pull --rebase` before push; never force-push.
+4. Every push is one agreed decision. The commit message names the decision. Always run `git pull --rebase` immediately before every push — the remote may have advanced through another agent's or the user's work — and never force-push.
 5. Safety holds: no API keys, cookies, or private source text in these files; NotebookLM queries only when the user has asked.
 6. Deliverables presented to the user in the topic render as self-contained HTML in the SisengAI website colors (teal palette); the repository baseline stays Markdown.
 
