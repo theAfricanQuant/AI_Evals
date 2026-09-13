@@ -10,11 +10,12 @@ Coordination ledger for every agent working in this repository (Hermes in the Te
 
 ## Current state
 
-Workspace initialized (`8caf672`): syllabus + 12 lesson files for *AI Evals for Engineers & PMs* (Hamel Husain, Shreya Shankar), `AGENTS.md`, `STUDY_METHOD.md`, `KNOWLEDGE_SOURCES.md`, `README.md`, and 9 pinned reference submodules under `references/`. `sources/` holds 7 source cards: `course-repositories-audit.md` plus six paper/report cards (Who Validates the Validators, SPADE, PromptEvals, Task Cascades, Applied-LLMs report, Hamel's AI Evals FAQ). `notes/` and `projects/` are created on demand. Working agreement with the owner (AGENTS.md § Working channel): the Telegram topic is the decision channel; deliverables to the owner render as self-contained HTML in SisengAI teal colors; the repository baseline stays Markdown.
+Workspace initialized (`8caf672`): syllabus + 12 lesson files for *AI Evals for Engineers & PMs* (Hamel Husain, Shreya Shankar), `AGENTS.md`, `STUDY_METHOD.md`, `KNOWLEDGE_SOURCES.md`, `README.md`, and 9 pinned reference submodules under `references/`. `sources/` holds 7 source cards: `course-repositories-audit.md` plus six paper/report cards (Who Validates the Validators, SPADE, PromptEvals, Task Cascades, Applied-LLMs report, Hamel's AI Evals FAQ). `notes/` holds the first dated study note (`2026-09-13-evals-foundations.md`); rendered HTML for the owner lives in `reports/generated/` (gitignored). Working agreement with the owner (AGENTS.md § Working channel): the Telegram topic is the decision channel; deliverables to the owner render as self-contained HTML in SisengAI teal colors; the repository baseline stays Markdown.
 
 ## Last actions (append-only, newest first)
 
-- 2026-09-13 — Added 6 source cards for the core papers and reports behind the course: Shreya Shankar's Who Validates the Validators?, SPADE, PromptEvals, Task Cascades; Hamel Husain's AI Evals FAQ; the Applied-LLMs industry report. By: Hermes (Telegram topic).
+- 2026-09-13 — First study note: AI Evals Foundations (`notes/2026-09-13-evals-foundations.md`) — what evals are, evals vs TDD, why it is new, where evals deploy. HTML render in SisengAI teal palette delivered to the owner (`reports/generated/`, not pushed). By: Hermes (Telegram topic).
+- 2026-09-13 — Added 6 source cards for the core papers and reports behind the course: Shreya Shankar's Who Validates the Validators?, SPADE, PromptEvals, Task Cascades; Hamel Husain's AI Evals FAQ; the Applied-LLMs industry report. Commit `8e89bd1`. By: Hermes (Telegram topic).
 - 2026-09-13 — Created the coordination ledger (`MEMORY.md`) and added AGENTS.md rule 7 (read AGENTS.md + MEMORY.md before work; every workspace commit also updates the ledger; never delete or redo logged work without the owner's instruction). Commit `2abc115`. By: Hermes (Telegram topic).
 - 2026-09-13 — AGENTS.md: strengthened rule 4 — always `git pull --rebase` immediately before every push; the remote may be advanced by other agents. Commit `1c87051`. By: Hermes (Telegram topic).
 - 2026-09-13 — AGENTS.md: added the Telegram working-channel agreement (6 rules). Commit `d7a76fb`. By: Hermes (Telegram topic).
@@ -22,7 +23,7 @@ Workspace initialized (`8caf672`): syllabus + 12 lesson files for *AI Evals for 
 
 ## In progress
 
-- Nothing in progress. First study session not started.
+- Nothing in progress. First study session complete; next session not started.
 
 ## Open decisions
 
@@ -30,4 +31,5 @@ Workspace initialized (`8caf672`): syllabus + 12 lesson files for *AI Evals for 
 
 ## Next up
 
-- Start the first Trace → Test → Teach session (suggested: Lesson 5 evaluator work via `references/recipe-chatbot/` Homework 2, per `sources/course-repositories-audit.md`).
+- Start the first Trace step: choose a decision-relevant question from Lessons 1–3.
+- Practice manual trace review with `references/recipe-chatbot/` Homework 2 (per `sources/course-repositories-audit.md`).
