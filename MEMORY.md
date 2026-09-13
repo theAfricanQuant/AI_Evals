@@ -14,7 +14,7 @@ Workspace initialized (`8caf672`): syllabus + 12 lesson files for *AI Evals for 
 
 ## Last actions (append-only, newest first)
 
-- 2026-09-13 — Created the coordination ledger (`MEMORY.md`) and added AGENTS.md rule 7 (read AGENTS.md + MEMORY.md before work; every workspace commit also updates the ledger; never delete or redo logged work without the owner's instruction). Commit `202c954`. By: Hermes (Telegram topic).
+- 2026-09-13 — Created the coordination ledger (`MEMORY.md`) and added AGENTS.md rule 7 (read AGENTS.md + MEMORY.md before work; every workspace commit also updates the ledger; never delete or redo logged work without the owner's instruction). Commit `2abc115`. By: Hermes (Telegram topic).
 - 2026-09-13 — AGENTS.md: strengthened rule 4 — always `git pull --rebase` immediately before every push; the remote may be advanced by other agents. Commit `1c87051`. By: Hermes (Telegram topic).
 - 2026-09-13 — AGENTS.md: added the Telegram working-channel agreement (6 rules). Commit `d7a76fb`. By: Hermes (Telegram topic).
 - 2026-09-13 — Initialized the workspace: course baseline, study method, knowledge-source catalog, reference submodules. Commit `8caf672`. By: Hermes (Telegram topic).
