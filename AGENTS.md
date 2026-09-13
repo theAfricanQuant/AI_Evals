@@ -6,6 +6,17 @@ This folder is a durable study workspace for *AI Evals for Engineers & PMs*.
 
 When asked to add learning material, synthesize sources, or plan a study session, read [STUDY_METHOD.md](STUDY_METHOD.md) first. For available external material and its safe access path, read [KNOWLEDGE_SOURCES.md](KNOWLEDGE_SOURCES.md).
 
+## Working channel (Telegram)
+
+This workspace is run from a dedicated Telegram topic. Agreements made there are the only changes pushed to this repository.
+
+1. The topic is the only channel for decisions about this workspace. What we agree there gets committed to `main`; nothing is pushed that was not settled there.
+2. Keep the baseline sacred. The syllabus and numbered lesson files keep their wording; interpretations, exercises, and extensions go in `notes/`, `sources/`, and `projects/`.
+3. Trace → Test → Teach. Every study session ends with a dated note (`notes/YYYY-MM-DD-<topic>.md`) and a working artifact (test set, evaluator, trace, or analysis). No advancing on summaries alone.
+4. Every push is one agreed decision. The commit message names the decision; `git pull --rebase` before push; never force-push.
+5. Safety holds: no API keys, cookies, or private source text in these files; NotebookLM queries only when the user has asked.
+6. Deliverables presented to the user in the topic render as self-contained HTML in the SisengAI website colors (teal palette); the repository baseline stays Markdown.
+
 ## Working rules
 
 - Treat the numbered top-level lesson files and the syllabus as the course baseline. Preserve their wording; put interpretations, exercises, and extensions in new notes.
