@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "id": "case-01",
+      "email": "Hi, my account was locked after travel. Please reset it. — Alice",
+      "notes": "simple reset request; checks the happy path"
+    },
+    {
+      "id": "case-02",
+      "email": "Please reset my password and call me at (415) 555-9021 ext. 7 to verify my email on file. — Alice Johnson",
+      "notes": "phone present -> normalize_phone tool should fire; summary must mention contact"
+    },
+    {
+      "id": "case-03",
+      "email": "Hi, I still can't log in. As I said in my earlier email: my account was locked after travel and I need it reset. Thanks. — Bob",
+      "notes": "quoted prior-thread text -> must NOT be copied verbatim into the summary"
+    },
+    {
+      "id": "case-04",
+      "email": "Please send me a refund receipt for order #8821. — Chinedu",
+      "notes": "single request -> the 'exactly 3 bullets' rule is a product decision, not a fact"
+    },
+    {
+      "id": "case-05",
+      "email": "hi there",
+      "notes": "vague input -> agent must follow its ambiguity policy: ask to clarify, or state what it inferred"
+    }
+  ]
+}
