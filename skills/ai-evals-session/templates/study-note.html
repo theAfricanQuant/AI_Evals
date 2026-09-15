@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><!-- TOPIC TITLE --></title>
+<style>
+  :root{
+    --bg:#FDFBF7; --card:#ffffff; --line:#F2EBD8; --line-strong:#E8DCC4;
+    --ink:#321208; --body:#57534E; --muted:#78716C;
+    --primary:#D4720A; --primary-hover:#B05A08; --primary-soft:#FFF8EC; --primary-200:#FFDDA0;
+    --sage:#2D5C3C; --sage-soft:#F3F8F4;
+    --danger:#BE3E24; --danger-soft:#FDF5F2; --mahogany-900:#5C2D1E;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+    --mono:"JetBrains Mono",SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--body);font:18px/1.65 var(--sans)}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+  header.hero{background:linear-gradient(135deg,#321208 0%,#5C2D1E 100%);color:#F9F5EC;padding:48px 18px 42px;border-bottom:6px solid var(--primary);margin-bottom:34px}
+  .hero-inner{max-width:1060px;margin:0 auto}
+  .kicker{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-200);font-weight:700;margin-bottom:12px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.12;font-family:var(--serif);font-weight:700;color:#FDFBF7}
+  .hero .sub{margin-top:12px;color:#F2EBD8;font-size:18px;max-width:800px}
+  .hero .meta{margin-top:16px;font-size:14.5px;color:var(--primary-200)}
+  h2{font-size:23px;font-family:var(--serif);color:var(--ink);margin:0 0 6px}
+  .section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-bottom:22px}
+  .section .lead{color:var(--muted);margin-bottom:16px;font-size:17px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff}
+  .card h3{font-size:17px;color:var(--mahogany-900);margin-bottom:6px}
+  .card p{font-size:16px;color:var(--ink)}
+  .card .ex{font-size:15px;color:var(--muted);margin-top:6px;font-style:italic}
+  ul,ol{margin:8px 0 8px 24px}
+  li{margin:6px 0}
+  strong{color:var(--ink)}
+  code{font-family:var(--mono);font-size:.88em;background:var(--primary-soft);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--primary-hover)}
+  .callout{border-radius:10px;padding:14px 18px;margin:12px 0;border-left:5px solid;font-size:16.5px}
+  .callout.amber{background:var(--primary-soft);border-color:var(--primary);color:var(--mahogany-900)}
+  .callout.sage{background:var(--sage-soft);border-color:var(--sage);color:var(--sage)}
+  .callout.ink{background:#F9F5EC;border-color:var(--mahogany-900);color:var(--ink)}
+  .callout.danger{background:var(--danger-soft);border-color:var(--danger);color:var(--danger)}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;margin:14px 0}
+  .tablewrap table{min-width:560px;margin:0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:16px}
+  th{text-align:left;background:var(--primary-soft);color:var(--ink);padding:10px 12px;font-size:14.5px;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line-strong)}
+  td{padding:10px 12px;border:1px solid var(--line-strong);vertical-align:top}
+  tr:nth-child(even) td{background:#FDFBF7}
+  footer{margin-top:30px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px;text-align:center}
+  .rules{font-size:14.5px;color:var(--muted)}
+  /* Mobile-first: fluid type, tighter spacing, scrollable tables */
+  @media(max-width:720px){
+    .wrap{padding:0 14px 48px}
+    header.hero{padding:34px 14px 30px;margin-bottom:26px}
+    .hero .sub{font-size:17px}
+    h2{font-size:21px}
+    .section{padding:20px 16px}
+    .section .lead{font-size:16px}
+    .card p,.card .ex{font-size:15.5px}
+    .callout{font-size:15.5px;padding:12px 14px}
+    th,td{font-size:14.5px;padding:8px 10px}
+    footer{font-size:12.5px}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="kicker">AI EVALS KNOWLEDGE BASE · STUDY NOTE NNN</div>
+    <h1><!-- SERIF TITLE: the lesson/topic name --></h1>
+    <p class="sub"><!-- ONE-SENTENCE SUBTITLE: what this note covers --></p>
+    <div class="meta"><!-- DATE · SOURCE/BOOK · ARTIFACT LINE --></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- SECTION 1: the question / vocabulary. Copy a .section block per major idea. -->
+  <div class="section">
+    <h2>1 · <!-- Section heading --></h2>
+    <p class="lead"><!-- Optional lead-in sentence --></p>
+    <div class="grid">
+      <div class="card"><h3><!-- Card title --></h3><p><!-- Card body, plain English --></p></div>
+      <div class="card"><h3><!-- Card title --></h3><p><!-- Card body --></p></div>
+    </div>
+    <div class="callout amber"><strong>In plain terms:</strong> <!-- Nigerian-flavored analogy or rule of thumb --></div>
+  </div>
+
+  <!-- SECTION 2: table section (comparisons, levels, cases) — ALWAYS wrap tables in .tablewrap so they scroll on phones -->
+  <div class="section">
+    <h2>2 · <!-- Section heading --></h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th><!-- Column --></th><th><!-- Column --></th><th><!-- Column --></th></tr>
+        <tr><td><!-- Row --></td><td><!-- Row --></td><td><!-- Row --></td></tr>
+        <tr><td><!-- Row --></td><td><!-- Row --></td><td><!-- Row --></td></tr>
+      </table>
+    </div>
+    <div class="callout sage"><strong>Rule:</strong> <!-- Key rule or takeaway --></div>
+  </div>
+
+  <!-- SECTION 3: takeaway + next -->
+  <div class="section">
+    <h2>3 · Next steps</h2>
+    <ul>
+      <li><!-- Concrete next action 1 --></li>
+      <li><!-- Concrete next action 2 --></li>
+    </ul>
+    <div class="callout ink"><strong>Takeaway:</strong> <!-- One-sentence essence --></div>
+  </div>
+
+  <footer>
+    AI Evals Knowledge Base · theAfricanQuant/AI_Evals · <!-- Note name --> · sisengai.com LivingStory colors · self-contained, works offline
+  </footer>
+</div>
+</body>
+</html>

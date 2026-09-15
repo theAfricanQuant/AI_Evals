@@ -4,7 +4,7 @@ This folder is a durable study workspace for *AI Evals for Engineers & PMs*.
 
 ## Start here
 
-When asked to add learning material, synthesize sources, or plan a study session, read [STUDY_METHOD.md](STUDY_METHOD.md) first. For available external material and its safe access path, read [KNOWLEDGE_SOURCES.md](KNOWLEDGE_SOURCES.md).
+When asked to add learning material, synthesize sources, or plan a study session, read [STUDY_METHOD.md](STUDY_METHOD.md) first. For available external material and its safe access path, read [KNOWLEDGE_SOURCES.md](KNOWLEDGE_SOURCES.md). Before producing any deliverable (study note or HTML report), read the shared skill at [skills/ai-evals-session/SKILL.md](skills/ai-evals-session/SKILL.md) and copy its template — every harness must produce identical output.
 
 ## Working channel (Telegram)
 
@@ -15,8 +15,9 @@ This workspace is run from a dedicated Telegram topic. Agreements made there are
 3. Trace → Test → Teach. Every study session ends with a dated note (`notes/YYYY-MM-DD-<topic>.md`) and a working artifact (test set, evaluator, trace, or analysis). No advancing on summaries alone.
 4. Every push is one agreed decision. The commit message names the decision. Always run `git pull --rebase` immediately before every push — the remote may have advanced through another agent's or the user's work — and never force-push.
 5. Safety holds: no API keys, cookies, or private source text in these files; NotebookLM queries only when the user has asked.
-6. Deliverables presented to the user in the topic render as self-contained HTML in the SisengAI website colors (teal palette); the repository baseline stays Markdown.
+6. Deliverables presented to the user in the topic render as self-contained HTML in the owner's website theme (sisengai.com "LivingStory": cream `#FDFBF7`, mahogany `#321208`, amber `#D4720A`, Inter + Playfair Display), using the shared template in `skills/ai-evals-session/`; the repository baseline stays Markdown.
 7. [MEMORY.md](MEMORY.md) is the coordination ledger. Every agent reads AGENTS.md and MEMORY.md before working. Any commit that changes the workspace also updates MEMORY.md: append a dated log entry (never edit or delete past entries) and refresh the Current state block. Other agents may be working from this repository — never delete or redo work recorded in the log without an explicit instruction from the owner.
+8. Shared deliverable skill. `skills/ai-evals-session/SKILL.md` and `skills/ai-evals-session/templates/study-note.html` define the deliverable workflow and the exact HTML template (owner's website colors and fonts). Every agent producing study notes or HTML for the owner reads the skill and uses the template, so all harnesses produce identical output. If the skill and these rules disagree, these rules win.
 
 ## Working rules
 
