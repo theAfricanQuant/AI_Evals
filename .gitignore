@@ -11,8 +11,7 @@ __pycache__/
 .mypy_cache/
 .ipynb_checkpoints/
 
-# Local services, generated outputs, and operating-system files
+# Local services and operating-system files
 data/
 artifacts/
-reports/generated/
 .DS_Store

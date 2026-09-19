@@ -26,7 +26,7 @@ Every session ends with BOTH the dated note AND a working artifact. No advancing
 
 ## 3. HTML deliverables — the owner's website theme (LivingStory)
 
-- **Output path:** `reports/generated/YYYY-MM-DD-<topic>.html` — gitignored, never pushed. The repository baseline stays Markdown.
+- **Output path:** `reports/generated/chNN-exNN-topic-YYYY-MM-DD.html` — tracked and committed with the related learning addition. Chapter and exercise come first for browsing; date comes last for later clarifications. Never put API keys, private source text, or other secrets in an HTML report.
 - **Template:** copy `skills/ai-evals-session/templates/study-note.html` and replace the content sections. Do not restyle it.
 - **Palette** (verified from the live sisengai.com CSS):
   - background cream `#FDFBF7`; cards white; borders `#F2EBD8` / `#E8DCC4`;
@@ -50,4 +50,4 @@ Every session ends with BOTH the dated note AND a working artifact. No advancing
 - One decision per commit; the commit message names the decision.
 - Always `git pull --rebase` immediately before every push; never force-push; other agents may have advanced the remote.
 - On every workspace-changing commit, append a dated entry to MEMORY.md "Last actions" (never edit or delete past entries) and refresh the "Current state" block.
-- Push only Markdown sources (notes/, sources/, projects/, skills/, AGENTS.md, MEMORY.md). HTML stays in `reports/generated/`.
+- Push the agreed study materials: notes/, sources/, projects/, skills/, AGENTS.md, MEMORY.md, and the self-contained reports in `reports/generated/`.
