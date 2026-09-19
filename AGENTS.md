@@ -19,6 +19,10 @@ This workspace is run from a dedicated Telegram topic. Agreements made there are
 7. [MEMORY.md](MEMORY.md) is the coordination ledger. Every agent reads AGENTS.md and MEMORY.md before working. Any commit that changes the workspace also updates MEMORY.md: append a dated log entry (never edit or delete past entries) and refresh the Current state block. Other agents may be working from this repository — never delete or redo work recorded in the log without an explicit instruction from the owner.
 8. Shared deliverable skill. `skills/ai-evals-session/SKILL.md` and `skills/ai-evals-session/templates/study-note.html` define the deliverable workflow and the exact HTML template (owner's website colors and fonts). Every agent producing study notes or HTML for the owner reads the skill and uses the template, so all harnesses produce identical output. If the skill and these rules disagree, these rules win.
 
+## Python toolchain
+
+Use **uv only** for Python work in this workspace: create environments, add or remove dependencies, lock them, and run scripts or tests with `uv run`. Do not introduce `pip`, `venv`, Conda, Poetry, or another Python environment/package workflow.
+
 ## Working rules
 
 - Treat the numbered top-level lesson files and the syllabus as the course baseline. Preserve their wording; put interpretations, exercises, and extensions in new notes.
