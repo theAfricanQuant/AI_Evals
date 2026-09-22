@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Summarizer Practicum — First Live Model Run</title>
+<title>Email Summarizer Practicum — Build It Yourself</title>
 <style>
   :root{
     --bg:#FDFBF7; --card:#ffffff; --line:#F2EBD8; --line-strong:#E8DCC4;
@@ -72,23 +72,23 @@
 <header class="hero">
   <div class="hero-inner">
     <div class="kicker">AI EVALS KNOWLEDGE BASE · HANDS-ON PRACTICUM</div>
-    <h1>The Email Summarizer: First Live Run</h1>
-    <p class="sub">Boss, we will make exactly one real model call, print its answer, and keep that answer as our honest baseline.</p>
-    <div class="meta">19 September 2026 · Course Lesson 2 · Existing artifact: projects/email-summarizer/</div>
+    <h1>The Email Summarizer: Build It Yourself</h1>
+    <p class="sub">Boss, you will create a blank lab, write one real model call, print its answer, and keep that answer as your honest baseline.</p>
+    <div class="meta">22 September 2026 · Course Lesson 2 · Your self-built lab</div>
   </div>
 </header>
 
 <div class="wrap">
   <div class="section">
-    <h2>1 · What we are doing — and not doing — today</h2>
-    <p class="lead">This is the first example from the book: one email goes in, one model answer comes out. No retrieval, tools, agents, grading, or prompt “improvement” yet.</p>
+    <h2>1 · What you are doing — and not doing — today</h2>
+    <p class="lead">Start in a blank folder you create yourself. One email goes in, one model answer comes out. No retrieval, tools, agents, grading, or prompt “improvement” yet.</p>
     <div class="flow" aria-label="Straight first-run workflow">
-      <div class="step"><b>1. Choose one email</b>Use <code>case-01</code>, the simple reset request.</div>
-      <div class="step"><b>2. Call the model</b>Send the prompt and email to OpenAI once.</div>
+      <div class="step"><b>1. Write one email</b>Make up a simple reset request in your own words.</div>
+      <div class="step"><b>2. Call the model</b>Send the prompt and your email to OpenAI once.</div>
       <div class="step"><b>3. Print the answer</b>See exactly what the model said in the terminal.</div>
       <div class="step"><b>4. Freeze the baseline</b>Do not “fix” it before we inspect it together.</div>
     </div>
-    <div class="callout amber"><strong>Why only one?</strong> Think of a keke rider testing the engine in an empty compound before carrying passengers. First, we learn what the machine actually does. Only then do we measure whether it is good enough.</div>
+    <div class="callout amber"><strong>Why only one?</strong> Think of a keke rider testing the engine in an empty compound before carrying passengers. First, you learn what the machine actually does. Only then do you measure whether it is good enough.</div>
   </div>
 
   <div class="section">
@@ -126,10 +126,12 @@
   </div>
 
   <div class="section">
-    <h2>4 · One-time setup in the terminal</h2>
-    <p class="lead">Run these from the existing exercise folder. <code>uv</code> creates a small local Python environment and installs LiteLLM, the library used by the course examples.</p>
+    <h2>4 · Create your own lab in the terminal</h2>
+    <p class="lead">Do not alter the existing <code>email-summarizer</code> example. Make a clean folder beside it, then let <code>uv</code> create the small project and install LiteLLM, the library used by the course examples.</p>
     <div class="code-title">macOS or Linux (including your Zed setup)</div>
-    <div class="tablewrap"><pre>cd projects/email-summarizer
+    <div class="tablewrap"><pre>cd ~/Documents/06_DataScience/AI_stuff/AI_Evals
+mkdir -p projects/first-litellm-call
+cd projects/first-litellm-call
 uv --version
 uv init --bare
 uv add litellm
@@ -137,89 +139,56 @@ uv add litellm
 # Paste your own key only in this terminal. Do not put it in run_live.py.
 export OPENAI_API_KEY="your_api_key_here"
 
-# Later, after you create the file in Step 5:
-uv run python run_live.py case-01</pre></div>
+# Later, after you create the file in Step 5 yourself:
+uv run python run_live.py</pre></div>
     <div class="code-title">Windows PowerShell</div>
-    <div class="tablewrap"><pre>cd projects/email-summarizer
+    <div class="tablewrap"><pre>cd AI_Evals
+mkdir projects/first-litellm-call
+cd projects/first-litellm-call
 uv --version
 uv init --bare
 uv add litellm
 
 $env:OPENAI_API_KEY = "your_api_key_here"
-uv run python run_live.py case-01</pre></div>
+uv run python run_live.py</pre></div>
     <div class="callout danger"><strong>Security stop sign:</strong> if a key begins with <code>sk-</code>, treat it like your ATM PIN. Do not paste it in Git, chat screenshots, <code>run_live.py</code>, or this report. If one leaks, revoke it in the API dashboard.</div>
   </div>
 
   <div class="section">
     <h2>5 · Create <code>run_live.py</code></h2>
-    <p class="lead">In <code>projects/email-summarizer</code>, create a new file called <code>run_live.py</code>. Paste this exact first version. It loads one known fake email and prints the model’s raw answer.</p>
-    <div class="tablewrap"><pre>import json
-import os
-import sys
-from pathlib import Path
+    <p class="lead">In your new <code>projects/first-litellm-call</code> folder, create a file called <code>run_live.py</code>. Type this first version yourself. Then change the email text so it is your own example. It prints the model’s raw answer.</p>
+    <div class="tablewrap"><pre>import os
 
 from litellm import completion
 
-MODEL = "openai/gpt-5-nano"
+if not os.environ.get("OPENAI_API_KEY"):
+    raise SystemExit("OPENAI_API_KEY is not set in this terminal.")
 
-SYSTEM_PROMPT = """You are an assistant for our internal support team.
-Extract the sender's name and summarize the key requests.
-Return exactly this format:
-Sender: &lt;name&gt;
-Requests:
-- &lt;request 1&gt;
-- &lt;request 2&gt;
-- &lt;request 3&gt;
-Do not quote prior email threads or signatures. Keep it plain and professional."""
+email = """Hello support team,
+My account is locked after I changed phones.
+Please reset my access and tell me when I can sign in again.
+Thanks, Ada"""
 
+response = completion(
+    model="gpt-5",
+    messages=[
+        {
+            "role": "system",
+            "content": "Summarize the email in two short bullet points. Name the sender.",
+        },
+        {"role": "user", "content": email},
+    ],
+)
 
-def load_case(case_id: str) -&gt; dict:
-    cases_path = Path(__file__).with_name("testset.json")
-    cases = json.loads(cases_path.read_text())["cases"]
-    for case in cases:
-        if case["id"] == case_id:
-            return case
-    raise SystemExit(f"Unknown case: {case_id}")
-
-
-def main() -&gt; None:
-    if not os.environ.get("OPENAI_API_KEY"):
-        raise SystemExit("OPENAI_API_KEY is not set in this terminal.")
-
-    case_id = sys.argv[1] if len(sys.argv) &gt; 1 else "case-01"
-    case = load_case(case_id)
-    response = completion(
-        model=MODEL,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": "Email:\n\n" + case["email"]},
-        ],
-    )
-
-    answer = response.choices[0].message.content
-    print(f"CASE: {case_id}")
-    print(f"MODEL: {MODEL}")
-    print("\n--- RAW MODEL OUTPUT ---")
-    print(answer)
-
-
-if __name__ == "__main__":
-    main()</pre></div>
-    <div class="callout amber"><strong>What “print out the first” means:</strong> the final two <code>print()</code> lines deliberately show us the untouched model response in the terminal. We are not asking it to pass a test yet. We are collecting the first trace.</div>
+print(response.choices[0].message.content)</pre></div>
+    <div class="callout amber"><strong>What “print out the first” means:</strong> the final two <code>print()</code> lines deliberately show you the untouched model response in the terminal. You are not asking it to pass a test yet. You are collecting the first trace.</div>
   </div>
 
   <div class="section">
     <h2>6 · What success looks like today</h2>
-    <p class="lead">After you run <code>uv run python run_live.py case-01</code>, expect a terminal block shaped like this. Your actual wording may differ, and that is useful evidence.</p>
-    <div class="tablewrap"><pre>CASE: case-01
-MODEL: openai/gpt-5-nano
-
---- RAW MODEL OUTPUT ---
-Sender: Alice
-Requests:
-- Reset account access
-- Confirm the account is unlocked
-- Send a status update</pre></div>
+    <p class="lead">After you run <code>uv run python run_live.py</code>, expect a terminal block shaped like this. Your actual wording may differ, and that is useful evidence.</p>
+    <div class="tablewrap"><pre>- Ada needs her account access reset.
+- She wants to know when she can sign in again.</pre></div>
     <div class="grid">
       <div class="card"><h3>If it prints an answer</h3><p>Stop. Save or copy the whole output, including the model name. That is our baseline trace. Do not tune the prompt yet.</p></div>
       <div class="card"><h3>If it errors</h3><p>Copy the error text, not your key. The likely early causes are: no API billing/credits, missing key in this terminal, or LiteLLM not installed in this project.</p></div>
@@ -230,9 +199,9 @@ Requests:
   <div class="section">
     <h2>7 · Next</h2>
     <ol>
-      <li>Open this repository in Zed or VS Code and complete Steps 4–5.</li>
-      <li>Run only <code>case-01</code> and bring back the printed output (with no API key).</li>
-      <li>We will then add trace saving and connect the live answer to the Chapter 2 mechanical checks.</li>
+      <li>Open this repository in Zed or VS Code and create <code>projects/first-litellm-call</code> yourself.</li>
+      <li>Write your own first email in <code>run_live.py</code>, run it once, and bring back the printed output (with no API key).</li>
+      <li>We will then add trace saving and you will decide which Chapter 2 mechanical check to build first.</li>
     </ol>
     <div class="callout ink"><strong>Takeaway:</strong> an eval does not begin with a clever score. It begins when we can point to a real input, the exact model configuration, and the output it produced.</div>
   </div>
