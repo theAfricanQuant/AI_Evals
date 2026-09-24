@@ -13,8 +13,8 @@
 <header class="hero"><div class="hero-inner">
   <div class="kicker">AI EVALS KNOWLEDGE BASE · CHAPTER 2 · SELF-BUILT LAB</div>
   <h1>Scaffold a Nous Email Evaluator</h1>
-  <p class="sub">Boss, you have created the project yourself. Next you will make one direct Nous request, print its raw output, and use that trace—not guesswork—to decide what to evaluate.</p>
-  <div class="meta">24 September 2026 · Course Lesson 2 · Working artifact: projects/nous-email-evals/</div>
+  <p class="sub">Boss, you created the project yourself, made one direct Nous request, and saved the raw result. That trace—not guesswork—is our starting point for deciding what to evaluate.</p>
+  <div class="meta">24 September 2026 · Course Lesson 2 · Working artifact: projects/nous-email-evals/ · Trace 001 saved</div>
 </div></header>
 <div class="wrap">
   <div class="section">
@@ -36,7 +36,7 @@
       <tr><td><code>uv init --bare</code></td><td>Created a minimal Python project without writing an application for you.</td><td><code>pyproject.toml</code> records project intent; you still author the program yourself.</td></tr>
       <tr><td><code>uv add httpx</code></td><td>Added the HTTP client and created <code>uv.lock</code>.</td><td>The dependency version is frozen, so a later rerun uses the same client environment.</td></tr>
     </table></div>
-    <div class="callout sage"><strong>What exists now:</strong> <code>pyproject.toml</code> declares <code>httpx</code>; <code>uv.lock</code> records the exact resolved versions. There is intentionally no stored key, model output, or evaluator yet.</div>
+    <div class="callout sage"><strong>What exists now:</strong> <code>pyproject.toml</code> declares <code>httpx</code> and Ruff; <code>uv.lock</code> records the exact resolved versions. <code>main.py</code> and a key-free first trace are saved. There is still no evaluator or pass rate.</div>
   </div>
 
   <div class="section">
@@ -62,6 +62,7 @@ export NOUS_MODEL="copy-the-exact-model-ID-from-Nous-Portal"</pre></div>
       <div class="card"><h3>Why two variables</h3><p>The key is secret; the model ID is configuration. Keeping both outside the code lets you change providers or models without editing the program.</p></div>
     </div>
     <div class="callout ink"><strong>Do not run a model yet if you have not chosen an ID:</strong> open the Nous Portal, copy one available text model ID exactly, then return here. The public catalog changes, so an old model name can fail even when the code is correct.</div>
+    <div class="callout sage"><strong>About the <code>VIRTUAL_ENV</code> warning:</strong> if <code>uv run</code> reports that an existing virtual environment does not match this project's <code>.venv</code>, it is already doing the right thing: it ignores the unrelated environment and uses this project. <code>unset VIRTUAL_ENV</code> is optional; it removes only that variable from this terminal and does not delete or deactivate any environment. Do not use <code>uv run --active</code> for this project.</div>
   </div>
 
   <div class="section">
@@ -119,26 +120,41 @@ print(answer)</pre></div>
   </div>
 
   <div class="section">
-    <h2>6 · Run, then preserve the first trace</h2>
-    <p class="lead">Save <code>main.py</code>, then run it once. If an answer prints, do not refine the prompt yet.</p>
-    <div class="tablewrap"><pre>uv run python main.py
-
-# After checking the output contains no private information:
-mkdir -p traces
-uv run python main.py | tee traces/first-run.txt</pre></div>
+    <h2>6 · Format the Python client with Ruff</h2>
+    <p class="lead">Rust has <code>cargo fmt</code>. Python does not include one formatter by default, so this project adds Ruff as a development-only dependency.</p>
+    <div class="tablewrap"><pre>uv add --dev ruff
+uv run ruff format main.py
+uv run ruff check main.py</pre></div>
     <div class="grid">
-      <div class="card"><h3>If an answer prints</h3><p>Return the model ID and output only. That is your first trace. We will inspect it before defining a pass condition.</p></div>
-      <div class="card"><h3>If it errors</h3><p>Return the error text without the key. Common early causes are a missing terminal variable, an unavailable model ID, depleted credits, or a network problem.</p></div>
+      <div class="card"><h3><code>ruff format</code></h3><p>Rewrites valid Python into consistent layout. It fixed the copied indentation and line-wrapping issues before the API call.</p></div>
+      <div class="card"><h3><code>ruff check</code></h3><p>Looks for common code-quality issues. Neither Ruff command calls Nous or consumes API credits.</p></div>
     </div>
-    <div class="callout sage"><strong>Why save twice?</strong> The first run proves connectivity. The second command writes the same kind of raw output into a named file, creating an auditable trace that later evaluation can use.</div>
+    <div class="callout sage"><strong>Result:</strong> the learner ran <code>uv run ruff format main.py</code>; Ruff reported one file reformatted.</div>
   </div>
 
   <div class="section">
-    <h2>7 · Next</h2>
+    <h2>7 · First live Nous trace</h2>
+    <p class="lead">The learner ran one request using <code>deepseek/deepseek-v4.1-flash</code> and saved the non-sensitive input, model configuration, and raw output in <code>traces/trace-001.md</code>.</p>
+    <div class="tablewrap"><pre>MODEL: deepseek/deepseek-v4.1-flash
+
+--- RAW MODEL OUTPUT ---
+- Ada reports her account got locked after she changed phones.
+- She asks support to reset her access and tell her when she can sign in again.
+
+Sender: Ada</pre></div>
+    <div class="grid">
+      <div class="card"><h3>What it captured</h3><p>It correctly named Ada and captured the two essential requests: reset access and tell her when she can sign in again.</p></div>
+      <div class="card"><h3>What remains undecided</h3><p>The sender appears after the bullets. That is not a failure until we state an expected format. One trace cannot establish reliability.</p></div>
+    </div>
+    <div class="callout sage"><strong>Important:</strong> this is a successful trace, not a passing evaluation. It proves that the client and model can produce one useful answer; it does not yet measure how often that happens.</div>
+  </div>
+
+  <div class="section">
+    <h2>8 · Next</h2>
     <ol>
-      <li>Set <code>NOUS_API_KEY</code> and <code>NOUS_MODEL</code in your terminal only.</li>
-      <li>Type <code>main.py</code>, run one email, and bring back the printed output without the key.</li>
-      <li>Then create four more deliberate cases and decide which one requirement should become your first mechanical evaluator.</li>
+      <li>Create four new support emails that change one thing at a time: two requests, a vague sender, a phone number, or a quoted older email.</li>
+      <li>Before calling Nous, write one binary decision rule. Example: every answer must contain a <code>Sender:</code> line.</li>
+      <li>Run the same prompt and model on all five cases, save each trace, and inspect failures before automating a check.</li>
     </ol>
     <div class="callout ink"><strong>Takeaway:</strong> an evaluation begins with a reproducible trace: one input, one explicit model configuration, and one saved output. A score comes later.</div>
   </div>
