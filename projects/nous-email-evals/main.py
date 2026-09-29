@@ -11,9 +11,9 @@ if not api_key or not model:
     raise SystemExit("Set NOUS_API_KEY and NOUS_MODEL in this terminal first.")
 
 email = """Hello support team,
-My account is locked after I changed phones.
-Please reset my access and tell me when I can sign in again.
-Thanks, Ada"""
+My account is still locked.
+Please reset it and call me on 0803 555 0142 when I can log in.
+Thanks, Amina"""
 
 payload = {
     "model": model,
@@ -26,7 +26,7 @@ payload = {
         },
         {"role": "user", "content": email},
     ],
-    "max_tokens": 160,
+    "max_tokens": 320,
 }
 
 try:
@@ -44,7 +44,16 @@ except httpx.HTTPStatusError as error:
 except httpx.RequestError as error:
     raise SystemExit(f"Could not reach Nous: {error}")
 
-answer = response.json()["choices"][0]["message"]["content"]
+body = response.json()
+choice = body["choices"][0]
+message = choice["message"]
+answer = message.get("content")
+
 print(f"MODEL: {model}")
 print("\n--- RAW MODEL OUTPUT ---")
 print(answer)
+
+if answer is None:
+    print("\n--- RESPONSE METADATA ---")
+    print(f"finish_reason: {choice.get('finish_reason')}")
+    print(f"message keys: {', '.join(message.keys())}")

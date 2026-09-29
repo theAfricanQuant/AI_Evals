@@ -10,9 +10,9 @@ A private, hands-on learning workspace for *AI Evals for Engineers & PMs*. It ho
 
 ## Current hands-on progress
 
-Chapter 2 now has a learner-built live Nous API lab at [`projects/nous-email-evals/`](projects/nous-email-evals/). The owner created the project with `uv`, used direct `httpx` rather than an OpenAI dependency, formatted the client with Ruff, and saved one key-free Nous trace from `deepseek/deepseek-v4.1-flash`.
+Chapter 2 now has a learner-built live Nous API lab at [`projects/nous-email-evals/`](projects/nous-email-evals/). The owner created the project with `uv`, used direct `httpx` rather than an OpenAI dependency, formatted the client with Ruff, and saved key-free Nous traces from `deepseek/deepseek-v4.1-flash`.
 
-The first trace correctly captured Ada's locked-account problem, reset request, and request for a sign-in update. It is evidence of one successful connection and response—not an evaluation score or a claim that the prompt is reliable. See the [study note](notes/2026-09-24-nous-email-evals-scaffold.md) and [Nous scaffold report](reports/generated/ch02-ex02-nous-api-scaffold-2026-09-24.html).
+Chapter 3 used those traces for a small callback-number reliability test. The learner declared the pass rule before running three identical trials at `max_tokens=320`: two passed and one failed because it omitted the number and ended mid-sentence. That is evidence of a concrete failure mode, not a reliable pass rate. See the [scaffold note](notes/2026-09-24-nous-email-evals-scaffold.md), [error-analysis note](notes/2026-09-29-nous-email-error-analysis.md), and [Chapter 3 report](reports/generated/ch03-ex01-nous-email-error-analysis-2026-09-29.html).
 
 ## Reference projects
 
