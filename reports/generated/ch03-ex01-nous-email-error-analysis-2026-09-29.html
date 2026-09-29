@@ -13,7 +13,7 @@
 <header class="hero"><div class="hero-inner">
   <div class="kicker">AI EVALS KNOWLEDGE BASE · CHAPTER 3 · TRACE → TEST → TEACH</div>
   <h1>Read the Failure Before Fixing It</h1>
-  <p class="sub">Boss, one callback-number requirement turned eight raw traces into a small, honest reliability test: 2 of 3 planned runs passed, so the system is not yet dependable.</p>
+  <p class="sub">Boss, three hand-written emails and eleven saved traces became a small, honest reliability test: 2 of 3 planned runs passed, so the system is not yet dependable.</p>
   <div class="meta">29 September 2026 · Course Lesson 3 · Working artifact: projects/nous-email-evals/</div>
 </div></header>
 <div class="wrap">
@@ -28,7 +28,48 @@
   </div>
 
   <div class="section">
-    <h2>2 · What the first traces taught us</h2>
+    <h2>2 · The exact emails you wrote</h2>
+    <p class="lead">These are synthetic practice emails, written deliberately to vary one behavior at a time. They are inputs, not “correct answers.”</p>
+    <div class="grid">
+      <div class="card"><h3>Ada · baseline with two requests</h3><p class="ex">Tests the basic task: name the sender, reset access, and sign-in update.</p><div class="tablewrap"><pre>Hello support team,
+My account is locked after I changed phones.
+Please reset my access and tell me when I can sign in again.
+Thanks, Ada</pre></div></div>
+      <div class="card"><h3>Chidi · one direct request</h3><p class="ex">Tests the ambiguity created by demanding two bullets when there is only one request.</p><div class="tablewrap"><pre>Hello support team,
+I cannot log in to my account.
+Please reset my password.
+Thanks, Chidi</pre></div></div>
+      <div class="card"><h3>Amina · callback number</h3><p class="ex">Tests whether a decision-relevant detail survives the summary. This became the reliability-test input.</p><div class="tablewrap"><pre>Hello support team,
+My account is still locked.
+Please reset it and call me on 0803 555 0142 when I can log in.
+Thanks, Amina</pre></div></div>
+      <div class="card"><h3>Why hand-written cases?</h3><p>Each email changes a useful dimension: number of requests, presence of a callback number, and output-format pressure. That creates trace diversity instead of five near-duplicate emails.</p></div>
+    </div>
+    <div class="callout amber"><strong>Learning move:</strong> write an input that can disprove an assumption. A “normal” email alone would not have exposed the one-request ambiguity or dropped callback number.</div>
+  </div>
+
+  <div class="section">
+    <h2>3 · The small code changes you made</h2>
+    <p class="lead">The client stayed deliberately small. Each edit had one purpose, and the trace was saved before moving to the next one.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Change</th><th>Before</th><th>After / reason</th></tr>
+      <tr><td>Make empty responses inspectable</td><td>The program printed only <code>None</code>.</td><td>It now reads the response into <code>body</code> and, when text is missing, prints safe <code>finish_reason</code> and message keys. This exposed <code>length</code>.</td></tr>
+      <tr><td>Increase the token allowance</td><td><code>"max_tokens": 160</code></td><td><code>"max_tokens": 320</code>. The lower setting produced an empty completion with <code>finish_reason: length</code>.</td></tr>
+      <tr><td>Test the phone instruction fairly</td><td>The original prompt only said to summarize and name the sender.</td><td>You briefly added an explicit phone-preservation instruction, then returned to the original prompt at 320 tokens for a one-run comparison. That prevented a false “the instruction fixed it” claim.</td></tr>
+    </table></div>
+    <div class="tablewrap"><pre>body = response.json()
+choice = body["choices"][0]
+message = choice["message"]
+answer = message.get("content")
+
+if answer is None:
+    print(f"finish_reason: {choice.get('finish_reason')}")
+    print(f"message keys: {', '.join(message.keys())}")</pre></div>
+    <div class="callout sage"><strong>What this code does not do:</strong> it does not print the API key. It only reports non-secret response metadata when visible text is absent.</div>
+  </div>
+
+  <div class="section">
+    <h2>4 · What the first traces taught us</h2>
     <div class="tablewrap"><table>
       <tr><th>Trace</th><th>Observed behavior</th><th>Open code — describe before diagnosing</th></tr>
       <tr><td>001</td><td>Sender appeared after the bullets.</td><td>sender format varies</td></tr>
@@ -40,7 +81,7 @@
   </div>
 
   <div class="section">
-    <h2>3 · Diagnose the empty result before blaming the prompt</h2>
+    <h2>5 · Diagnose the empty result before blaming the prompt</h2>
     <p class="lead">The learner added safe response metadata only when <code>content</code> was missing. It did not print the API key.</p>
     <div class="tablewrap"><pre>--- RAW MODEL OUTPUT ---
 None
@@ -56,7 +97,7 @@ message keys: role, content, refusal, reasoning, reasoning_details</pre></div>
   </div>
 
   <div class="section">
-    <h2>4 · A fair comparison avoids a false story</h2>
+    <h2>6 · A fair comparison avoids a false story</h2>
     <p class="lead">The phone-preservation instruction and the token limit changed close together. One success cannot tell us which change mattered.</p>
     <div class="tablewrap"><table>
       <tr><th>Configuration</th><th>Result</th><th>What it lets us say</th></tr>
@@ -68,7 +109,30 @@ message keys: role, content, refusal, reasoning, reasoning_details</pre></div>
   </div>
 
   <div class="section">
-    <h2>5 · The predeclared three-run reliability test</h2>
+    <h2>7 · Sample traces: pass, failure, and diagnosis</h2>
+    <p class="lead">These excerpts show why the visible output alone is not enough. Keep the input, settings, and result together in each saved trace.</p>
+    <div class="tablewrap"><pre>TRACE 004 · readable, but callback number omitted
+- Amina says her account is still locked.
+- She asks support to reset it and call her.
+
+TRACE 006 · empty output, then safe metadata
+--- RAW MODEL OUTPUT ---
+None
+--- RESPONSE METADATA ---
+finish_reason: length
+
+TRACE 009 · planned trial 1, pass
+- Amina says her account is still locked and asks support to reset it.
+- She requests a call at 0803 555 0142 once she can log in.
+
+TRACE 011 · planned trial 3, fail
+- Amina reports that her account is still locked.
+- She asks support to reset it and call her at</pre></div>
+    <div class="callout danger"><strong>Notice the final word “at”:</strong> it is a visible symptom of an incomplete result. We did not record <code>finish_reason</code> for that non-empty response, so its exact cause remains unproven.</div>
+  </div>
+
+  <div class="section">
+    <h2>8 · The predeclared three-run reliability test</h2>
     <p class="lead">Before seeing the three trial outputs, the learner froze the original prompt, the Amina email, model <code>deepseek/deepseek-v4.1-flash</code>, and <code>max_tokens=320</code>.</p>
     <div class="tablewrap"><table>
       <tr><th>Trial</th><th>Text returned?</th><th>Digits retained?</th><th>Result</th></tr>
@@ -80,7 +144,7 @@ message keys: role, content, refusal, reasoning, reasoning_details</pre></div>
   </div>
 
   <div class="section">
-    <h2>6 · What comes next</h2>
+    <h2>9 · What comes next</h2>
     <ol>
       <li>Record <code>finish_reason</code> for every response, including visible but incomplete ones.</li>
       <li>Add varied emails—quoted threads, vague senders, and different phone formats—then open-code those traces before adding another rule.</li>
