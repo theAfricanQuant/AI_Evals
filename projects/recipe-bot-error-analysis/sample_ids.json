@@ -1,0 +1,17 @@
+{
+  "source_dataset": "../../references/recipe-chatbot/homeworks/hw2/reference_files/query_response.jsonl",
+  "selection_method": "Fixed 20-trace teaching slice: every fifth synthetic-query cluster from SYN001 through SYN096. IDs are explicit so the sample is reproducible.",
+  "dimensions_covered": [
+    "dietary, religious, and health constraints",
+    "time and effort constraints",
+    "ingredient availability and pantry claims",
+    "cuisine and meal type",
+    "food-safety guidance"
+  ],
+  "trace_ids": [
+    "SYN001", "SYN006", "SYN011", "SYN016", "SYN021",
+    "SYN026", "SYN031", "SYN036", "SYN041", "SYN046",
+    "SYN051", "SYN056", "SYN061", "SYN066", "SYN071",
+    "SYN076", "SYN081", "SYN086", "SYN091", "SYN096"
+  ]
+}

@@ -1,0 +1,21 @@
+trace_id,decision,open_code,failure_mode
+SYN001,unacceptable,"recipe gives quantities but never states how many people it serves",missing_serving_context
+SYN006,unacceptable,"low FODMAP claim is pushed back to the user with 'check for FODMAP content' instead of verified ingredients",unverified_restriction
+SYN011,unacceptable,"calls chicken bacon and cheese pantry staples although they are perishable fridge items",pantry_claim_mismatch
+SYN016,unacceptable,"calls the meal fast but gives no total time or clear time budget",unsupported_time_claim
+SYN021,unacceptable,"recipe has ingredient quantities but no serving count",missing_serving_context
+SYN026,acceptable,"vegetarian Mediterranean request is met within the stated 30–60 minute range",
+SYN031,acceptable,"ingredients and parallel steps support the under-30-minute high-protein meal claim",
+SYN036,acceptable,"the listed cooking steps plausibly fit the under-30-minute vegetable curry request",
+SYN041,acceptable,"soy-free advanced request is met without adding an unsupported time claim",
+SYN046,acceptable,"salmon asparagus lemon request is directly answered with a short, coherent recipe",
+SYN051,unacceptable,"calls shrimp and butter pantry staples although they normally require chilled or frozen storage",pantry_claim_mismatch
+SYN056,unacceptable,"chicken is only described as cooked through with no safe internal-temperature guidance",missing_safety_guidance
+SYN061,unacceptable,"low-sodium recipe depends on miso and optional soy sauce without a specific sodium-safe rule",unverified_restriction
+SYN066,unacceptable,"45-minute promise is not supported by the summed soaking cooking and preparation steps",unsupported_time_claim
+SYN071,acceptable,"dairy-free coconut curry request is directly met with a plausible quick preparation",
+SYN076,unacceptable,"labels a dish kosher without requiring kosher-certified ingredients",unverified_restriction
+SYN081,unacceptable,"calls a quinoa salad super quick even though the plan depends on pre-cooked quinoa or 12–15 minutes of cooking",unsupported_time_claim
+SYN086,acceptable,"egg-free tofu pepper soy-sauce request is met with a short coherent stir-fry",
+SYN091,unacceptable,"labels a dish halal without requiring halal-certified meat and dairy ingredients",unverified_restriction
+SYN096,unacceptable,"calls the turkey zucchini recipe quick although its stated cook and bake steps do not support that claim",unsupported_time_claim
