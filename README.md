@@ -16,6 +16,8 @@ Chapter 3 used those traces for a small callback-number reliability test. The le
 
 An earlier Chapter 3 practice session applies the same method to a fixed 20-trace slice of the Recipe Chatbot Homework 2 data. Its reproducible trace-review artifact found 13 unacceptable traces; unverified dietary, religious, or health restrictions and unsupported time claims each occurred in 4 of 20. See the [study note](notes/2026-09-17-ch3-error-analysis.md), [working artifact](projects/recipe-bot-error-analysis/), and [Chapter 3 practice report](reports/generated/ch03-ex02-recipe-bot-error-analysis-2026-09-17.html).
 
+Chapter 4 now has a learner-built review-agreement pilot at [`projects/recipe-bot-review-agreement/`](projects/recipe-bot-review-agreement/). The owner wrote a requested-ingredient rubric and labeled ten fixed traces. All ten passed, so the pilot correctly stops short of reporting inter-annotator agreement: it has one reviewer and no Fail labels. See the [study note](notes/2026-10-03-ch4-review-agreement-pilot.md) and [pilot report](reports/generated/ch04-ex01-review-agreement-pilot-2026-10-03.html).
+
 ## Reference projects
 
 The `references/` directory contains Git submodules: clean, pinned checkouts of the course's public tools and adjacent research. They are read-only study references; personal work belongs outside them.
