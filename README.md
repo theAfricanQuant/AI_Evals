@@ -18,6 +18,8 @@ An earlier Chapter 3 practice session applies the same method to a fixed 20-trac
 
 Chapter 4 now has a learner-built review-agreement pilot at [`projects/recipe-bot-review-agreement/`](projects/recipe-bot-review-agreement/). The owner wrote a requested-ingredient rubric and labeled ten fixed traces. All ten passed, so the pilot correctly stops short of reporting inter-annotator agreement: it has one reviewer and no Fail labels. See the [study note](notes/2026-10-03-ch4-review-agreement-pilot.md) and [pilot report](reports/generated/ch04-ex01-review-agreement-pilot-2026-10-03.html).
 
+Chapter 5 now has a small code-based ingredient-presence evaluator at [`projects/recipe-bot-automated-evaluator/`](projects/recipe-bot-automated-evaluator/). It matched two real Pass labels and one synthetic Fail fixture; this demonstrates the check's basic behavior but is not a Recipe Bot failure-rate estimate or rubric-validation result. See the [study note](notes/2026-10-06-ch5-ingredient-presence-evaluator.md) and [Chapter 5 report](reports/generated/ch05-ex01-ingredient-presence-evaluator-2026-10-06.html).
+
 ## Reference projects
 
 The `references/` directory contains Git submodules: clean, pinned checkouts of the course's public tools and adjacent research. They are read-only study references; personal work belongs outside them.
