@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -14,6 +15,12 @@ TRACES_PATH = (
     / "reference_files"
     / "query_response.jsonl"
 )
+
+
+INGREDIENT_ALIASES = {
+    "scallions": ["scallions", "green onions"],
+}
+
 
 def read_jsonl(path):
     with path.open(encoding="utf-8") as file:
@@ -33,11 +40,18 @@ def response_for(case):
 
 def evaluate_case(case):
     response = response_for(case).casefold()
-    missing = [
-        ingredient
-        for ingredient in case["requested_ingredients"]
-        if ingredient.casefold() not in response
-    ]
+    missing = []
+    for ingredient in case["requested_ingredients"]:
+        aliases = INGREDIENT_ALIASES.get(
+            ingredient.casefold(),
+            [ingredient.casefold()],
+        )
+        found = any(
+            re.search(rf"\b{re.escape(alias.casefold())}\b", response)
+            for alias in aliases
+        )
+        if not found:
+            missing.append(ingredient)
     label = "Fail" if missing else "Pass"
     return label, missing
 

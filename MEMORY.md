@@ -18,7 +18,11 @@ Latest Chapter 3 sessions: the owner expanded the Nous lab with traces 002–011
 
 Owner learning preference (2026-09-22): practical sessions are learner-led—start from a blank lab the owner creates and advance one small observable step at a time; existing artifacts are references, not pre-built homework.
 
+Chapter 5 update (2026-10-07): Exercise 2 extended `projects/recipe-bot-automated-evaluator/` with an explicit `scallions`/`green onions` alias and regex whole-word matching. Two synthetic fixtures revealed and then checked an alias false negative and a substring false positive (`ham` inside `shamrock`). The owner's run matched all five labels across two real Pass traces and three synthetic fixtures. Details are in `notes/2026-10-07-ch5-ingredient-matching-edge-cases.md` and `reports/generated/ch05-ex02-ingredient-matching-edge-cases-2026-10-07.html`. This does not validate production performance; next is manual review of real Fail and borderline traces.
+
 ## Last actions (append-only, newest first)
+
+- 2026-10-07 — Owner extended Chapter 5 with alias and whole-word matching. Two synthetic edge cases exposed an alias false negative (`scallions`/`green onions`) and a substring false positive (`ham` inside `shamrock`). Added an explicit alias map and regex word-boundary check. The owner ran `uv run python projects/recipe-bot-automated-evaluator/check.py`; all five labels matched (two real Pass traces, three synthetic fixtures). Updated the project README and added `notes/2026-10-07-ch5-ingredient-matching-edge-cases.md` and `reports/generated/ch05-ex02-ingredient-matching-edge-cases-2026-10-07.html`. This does not validate production behavior; next is manual review of real Fail and borderline cases. By: Codex and owner (conversation).
 
 - 2026-10-06 — Owner completed the first Chapter 5 code-evaluator exercise in a blank learner-created project. Added `cases.jsonl` with two Recipe Bot Pass cases and one explicitly synthetic Fail fixture, then wrote `check.py` to load the source traces by ID and apply a case-insensitive substring check to manually recorded canonical ingredients. The owner ran `uv run python projects/recipe-bot-automated-evaluator/check.py`; all three labels matched and the synthetic fixture reported missing `salmon`. Added the project README, dated study note, root README link, and `ch05-ex01-ingredient-presence-evaluator-2026-10-06.html`. This only demonstrates code behavior and does not lift Chapter 4's decision to wait for a second reviewer and balanced labels before operational use; it also does not establish real failure prevalence, synonym handling, or production validity. By: Codex and owner (conversation).
 - 2026-10-03 — Owner decision: study reports should read as original course chapters grounded in the owner’s actual lab work. Updated the shared deliverable skill and HTML template to require a secret-free lab log with commands, observed/expected outputs, and limitations. Expanded the Chapter 4 pilot report and note accordingly; added the reproducible `projects/recipe-bot-review-agreement/check.py` validator. By: Codex (owner conversation).
@@ -44,7 +48,7 @@ Owner learning preference (2026-09-22): practical sessions are learner-led—sta
 
 ## In progress
 
-- No implementation step in progress. Chapter 5 Exercise 1 is complete in the working tree.
+- No implementation step in progress. Chapter 5 Exercises 1 and 2 are complete in the working tree.
 
 ## Open decisions
 
@@ -52,6 +56,6 @@ Owner learning preference (2026-09-22): practical sessions are learner-led—sta
 
 ## Next up
 
-- Retrieve why a deterministic code evaluator fits ingredient presence, and name a possible false positive or false negative from substring matching.
-- Continue Chapter 5 with more reviewed cases, including real Fail and borderline examples; keep the synthetic fixture separate from real performance evidence.
+- Continue Chapter 5 by finding and manually reviewing real Fail and borderline examples; keep synthetic fixtures separate from real performance evidence.
+- Move to Chapter 6, “Evaluating Multi-Turn Conversations,” after the Chapter 5 evaluator has reviewed real cases.
 - Chapter 4's open practice need remains: a second reviewer and a balanced clear-Pass/clear-Fail/borderline set before reporting agreement.

@@ -1,3 +1,5 @@
 {"id":"SYN025","requested_ingredients":["eggs","cheese"],"expected":"Pass"}
 {"id":"SYN031","requested_ingredients":["quinoa","black beans","avocado"],"expected":"Pass"}
 {"id":"fixture-001","source":"synthetic","query":"Make a recipe using salmon and lemon.","response":"Make a lemon rice bowl with herbs.","requested_ingredients":["salmon","lemon"],"expected":"Fail"}
+{"id":"fixture-002","source":"synthetic","query":"Make a recipe using scallions.","response":"Stir-fry the vegetables with sliced green onions.","requested_ingredients":["scallions"],"expected":"Pass"}
+{"id":"fixture-003","source":"synthetic","query":"Make a recipe using ham.","response":"Serve the shamrock salad with spinach.","requested_ingredients":["ham"],"expected":"Fail"}
