@@ -20,7 +20,11 @@ Owner learning preference (2026-09-22): practical sessions are learner-led—sta
 
 Chapter 5 update (2026-10-07): Exercise 2 extended `projects/recipe-bot-automated-evaluator/` with an explicit `scallions`/`green onions` alias and regex whole-word matching. Two synthetic fixtures revealed and then checked an alias false negative and a substring false positive (`ham` inside `shamrock`). The owner's run matched all five labels across two real Pass traces and three synthetic fixtures. Details are in `notes/2026-10-07-ch5-ingredient-matching-edge-cases.md` and `reports/generated/ch05-ex02-ingredient-matching-edge-cases-2026-10-07.html`. This does not validate production performance; next is manual review of real Fail and borderline traces.
 
+Chapter 5 time-claim evaluator (2026-10-08): the owner created `projects/recipe-bot-time-evaluator/` with a time rubric and structured deterministic checker. Six homework-dataset examples and three synthetic fixtures are labeled; the HW2 IDs are generated course examples, not production data. The owner reviewed SYN017, SYN023, and SYN031 as Review due to missing required durations, then labeled SYN069 Fail: its known minimum is 90 minutes (60-minute soak + 15-minute pressure cook + 15-minute simmer, with masala prep overlapping) against the request's 60-minute upper bound. Updated the rubric and checker so a known minimum above the cap proves Fail even if other details are missing. The last observed checker run before SYN069 was added matched 8/8; the updated checker still needs a run. The note and report record this limitation and next action.
+
 ## Last actions (append-only, newest first)
+
+- 2026-10-08 — Owner completed the Chapter 5 time-claim exercise. Added course examples SYN023, SYN017, SYN031, and SYN069 to `projects/recipe-bot-time-evaluator/cases.jsonl`; the owner classified the first three Review and SYN069 Fail. SYN069's known minimum (90 minutes) exceeds the 60-minute upper limit even with overlapping masala preparation. Updated the rubric to distinguish uncertain missing durations from a known lower bound that already proves failure; updated `check.py` to apply that rule and per-case time tolerance. Added the project README, `notes/2026-10-08-ch5-recipe-time-claims.md`, and `reports/generated/ch05-ex03-recipe-time-claims-2026-10-08.html`. The observed run before adding SYN069 was 8/8; the updated checker has not yet been run. These are generated course homework examples, not production evidence. By: Codex (owner conversation).
 
 - 2026-10-07 — Owner extended Chapter 5 with alias and whole-word matching. Two synthetic edge cases exposed an alias false negative (`scallions`/`green onions`) and a substring false positive (`ham` inside `shamrock`). Added an explicit alias map and regex word-boundary check. The owner ran `uv run python projects/recipe-bot-automated-evaluator/check.py`; all five labels matched (two real Pass traces, three synthetic fixtures). Updated the project README and added `notes/2026-10-07-ch5-ingredient-matching-edge-cases.md` and `reports/generated/ch05-ex02-ingredient-matching-edge-cases-2026-10-07.html`. This does not validate production behavior; next is manual review of real Fail and borderline cases. By: Codex and owner (conversation).
 
@@ -48,7 +52,7 @@ Chapter 5 update (2026-10-07): Exercise 2 extended `projects/recipe-bot-automate
 
 ## In progress
 
-- No implementation step in progress. Chapter 5 Exercises 1 and 2 are complete in the working tree.
+- Chapter 5 Exercises 1–3 are recorded in the working tree. The updated time evaluator still needs a run after adding SYN069.
 
 ## Open decisions
 
@@ -56,6 +60,6 @@ Chapter 5 update (2026-10-07): Exercise 2 extended `projects/recipe-bot-automate
 
 ## Next up
 
-- Continue Chapter 5 by finding and manually reviewing real Fail and borderline examples; keep synthetic fixtures separate from real performance evidence.
-- Move to Chapter 6, “Evaluating Multi-Turn Conversations,” after the Chapter 5 evaluator has reviewed real cases.
+- Rerun the updated Chapter 5 time evaluator and review another timed course trace with enough evidence to test Pass or Fail; keep generated course examples distinct from production traces.
+- Move to Chapter 6, “Evaluating Multi-Turn Conversations,” after the Chapter 5 evaluator's updated run and review are complete.
 - Chapter 4's open practice need remains: a second reviewer and a balanced clear-Pass/clear-Fail/borderline set before reporting agreement.
