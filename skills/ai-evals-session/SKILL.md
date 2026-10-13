@@ -1,54 +1,60 @@
 ---
 name: ai-evals-session
-description: Use when producing any deliverable for the AI Evals workspace owner — study notes, source cards, or self-contained HTML reports. Defines the study workflow (Trace→Test→Teach), file conventions, commit discipline, and the exact LivingStory HTML template in the owner's website colors so every agent harness produces identical output.
+description: Use for study sessions and deliverables in the AI Evals workspace. Defines Trace→Test→Teach, file conventions, source grounding, and the owner's required newspaper-homepage HTML style.
 ---
 
-# AI Evals session & HTML deliverable skill
+# AI Evals study session and newspaper report skill
 
-Shared by every agent working in this repository (Hermes, Claude Code, Codex CLI, OpenClaw, or any other harness that can read this repo). The owner views deliverables as **self-contained HTML** in his website theme. Follow this skill exactly so all harnesses produce the same output.
+This skill is shared by every agent working in this repository. Read it with `AGENTS.md` and `MEMORY.md` before starting. The owner's standing preference is for HTML reports in the newspaper-homepage version described below.
 
-## 1. Read first (always)
+## 1. Read first
 
-- `AGENTS.md` — the operating rules (especially the Telegram working channel).
-- `MEMORY.md` — the coordination ledger: what happened, by whom, what is next.
-- `STUDY_METHOD.md` — the study loop this workspace runs on.
+- `AGENTS.md` — workspace rules and the owner's current preferences.
+- `MEMORY.md` — coordination ledger: what happened, why, and what comes next.
+- `STUDY_METHOD.md` — the Trace → Test → Teach workflow.
+- `KNOWLEDGE_SOURCES.md` when external course material or a safe access path is needed.
 
-## 2. Study-session workflow (Trace → Test → Teach)
+## 2. Study-session workflow: Trace → Test → Teach
 
-1. **Trace** — read the source material: lesson file, source card, or reference.
-2. **Test** — apply it: produce a working artifact (eval set, evaluator, trace analysis, regression test).
-3. **Teach** — write `notes/YYYY-MM-DD-<topic>.md` with this skeleton:
-   - question, method & evidence, key ideas, takeaway, next retrieval;
-   - link the relevant source cards (`sources/<slug>.md`);
-   - then render the HTML for the owner.
+1. **Trace:** read the relevant lesson, source card, dataset, or conversation trace.
+2. **Test:** make a small observable artifact, such as a labeled example set, evaluator, trace review, or controlled comparison. Write the decision rule before interpreting the result.
+3. **Teach:** add `notes/YYYY-MM-DD-<topic>.md` with the question, method and evidence, takeaway, and next retrieval. Link source cards instead of copying their summaries.
+4. **Report:** when an HTML report is requested or needed for the session, copy the newspaper template below and replace the content while preserving its layout.
 
-Every session ends with BOTH the dated note AND a working artifact. No advancing on summaries alone.
+Every completed study session has both a dated note and a working artifact. A summary alone does not complete a session.
 
-## 3. HTML deliverables — the owner's website theme (LivingStory)
+## 3. HTML reports: Newspaper Homepage
 
-- **Output path:** `reports/generated/chNN-exNN-topic-YYYY-MM-DD.html` — tracked and committed with the related learning addition. Chapter and exercise come first for browsing; date comes last for later clarifications. Never put API keys, private source text, or other secrets in an HTML report.
-- **Template:** copy `skills/ai-evals-session/templates/study-note.html` and replace the content sections. Do not restyle it.
-- **Palette** (verified from the live sisengai.com CSS):
-  - background cream `#FDFBF7`; cards white; borders `#F2EBD8` / `#E8DCC4`;
-  - headings mahogany `#321208`; body text stone `#57534E`; muted `#78716C`;
-  - accents/links amber `#D4720A` (hover `#B05A08`); panels `#FFF8EC`; chip accents `#FFDDA0`;
-  - success sage `#2D5C3C` on `#F3F8F4`; danger `#BE3E24` on `#FDF5F2`.
-- **Fonts:** body `"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`; headings `"Playfair Display", Georgia, "Times New Roman", serif`; mono `"JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace`. Never load external fonts or CDNs — the file must work offline with graceful fallbacks.
-- **Structure:** dark mahogany gradient hero (kicker · serif title · subtitle · meta line) with an amber bottom border; content sections as white rounded cards (`h2` serif headings); two-column card grids collapsing to one column under 720px; tables with amber header rows and cream striping; callouts with colored left borders (amber / sage / ink / danger); footer with the source line.
-- **Reproduce it:** every report includes a plainly named lab-log or reproduction section. Show the actual commands run (with no keys or private text), the expected output or observed result, and the limitation. Treat the report as an original course chapter: explain the decision sequence, not only the final conclusion.
-- **Verify before delivery:** the file parses as HTML (no unclosed tags) and is meaningful in size.
-- **Mobile-first:** reports must render well on phones. Wrap every table in `<div class="tablewrap">…</div>` (horizontal scroll), rely on the template's fluid type and breakpoint styles, and make sure the layout survives a 375px viewport without horizontal page overflow.
+The canonical visual reference is [theAfricanQuant/newspaper-homepage-skill](https://github.com/theAfricanQuant/newspaper-homepage-skill). Its source describes the editorial structure and constraints; this repository's template adapts that design for AI Evals study reports.
 
-## 4. Writing style for the owner
+- **Output path:** `reports/generated/chNN-exNN-topic-YYYY-MM-DD.html`. Put chapter and exercise first, date last. Keep each report self-contained and free of secrets or private source text.
+- **Template:** start from `skills/ai-evals-session/templates/newspaper-homepage.html`. Preserve the newspaper layout and use the existing CSS rather than returning to the retired LivingStory card layout.
+- **Front-page shape:** compact three-part publication line; centered oversized serif masthead; short italic motto; double-rule edition strip; exactly three desktop columns (lead story, secondary briefs, slim right rail); warm paper, near-black serif headlines, small uppercase red story labels, thin rules, and editorial whitespace.
+- **Right rail:** include exactly two compact, square-cornered bordered boxes titled **YOUR DAY** and **THE ALMANAC**. Use **YOUR DAY** for the concrete next retrieval or implementation task. Use **THE ALMANAC** for sourced course context, a definition, or a useful fact. Do not invent appointments, weather, or daily plans.
+- **Study content:** make the page compact but complete. Explain the decision sequence in plain language: question, success rule, method, result, and what the result can and cannot show. Define jargon inline. Include a trace/case when relevant. Put source links beside the claims they support; do not add a source directory or footer.
+- **Lab log:** include a clearly labeled lab or reproduction item with the actual secret-free command, observed or expected output, and limitation. If no command or model run was done, say so clearly.
+- **Diagrams:** include at least one visually polished, topic-specific diagram that makes a key idea, process, or decision easier to understand. Use a clear reading order, useful labels, balanced spacing, and the newspaper palette. Build it from self-contained HTML or inline SVG; make it accessible and readable on a phone. Avoid decoration that competes with the explanation.
+- **Scope:** stop after the newspaper front page. Do not add a second page or a long continuation below it. On narrow screens, stack the same content in reading order.
+- **Offline and accessibility:** do not load external fonts, CDNs, images, or other remote assets. Use semantic headings, readable contrast, keyboard-visible links, and responsive text. Give diagrams accessible descriptions when useful.
+- **Verify:** check that the HTML parses with no unclosed tags, story claims and links match the sources, the right rail contains exactly the two required boxes, and the page has no horizontal overflow at a 375px viewport.
 
-- Address him as "Boss".
-- 10th-grade English: short sentences, plain words, every jargon term explained inline.
-- Anchor examples in Nigeria (NAFDAC checks, POS agents, market traders, keke vs danfo) — they land best with him.
-- Every report ends with a clear "Next" section.
+## 4. Writing style
 
-## 5. Commit discipline (per AGENTS.md)
+- Address the owner as **Boss** when writing directly to him.
+- Write in clear, mature **12th-grade English**. Use direct sentences and explain technical terms when they first appear. Keep the language accessible without making it childish or talking down to the owner.
+- Anchor examples in Nigeria when it helps explain the idea (for example, a POS transaction, a market purchase, or a keke trip).
+- End the report's reading path with a clear next task inside **YOUR DAY**.
 
-- One decision per commit; the commit message names the decision.
-- Always `git pull --rebase` immediately before every push; never force-push; other agents may have advanced the remote.
-- On every workspace-changing commit, append a dated entry to MEMORY.md "Last actions" (never edit or delete past entries) and refresh the "Current state" block.
-- Push the agreed study materials: notes/, sources/, projects/, skills/, AGENTS.md, MEMORY.md, and the self-contained reports in `reports/generated/`.
+## 5. Sources and safe research
+
+- Keep a source's claim separate from the learner's interpretation.
+- New source cards go in `sources/<slug>.md` and record title, URL or stable identifier, source type, access date, contribution, and course links.
+- Never include API keys, cookies, passwords, or private source text.
+- NotebookLM queries add a conversation turn. Use `ask` only when the owner has asked a question or approved that interaction.
+
+## 6. Commit discipline
+
+- A commit names one agreed decision.
+- Before every push, run `git pull --rebase`; never force-push.
+- When a workspace-changing commit is made, append a dated entry to `MEMORY.md` and refresh its Current state block. Never rewrite or delete earlier log entries.
+- Do not stage unrelated or unreviewed files as part of a study-session change.

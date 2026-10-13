@@ -1,0 +1,2 @@
+{"pair_id":"oatmeal-001","condition":"control","user_turns":["Suggest a healthy oatmeal breakfast. I am lactose intolerant and want a low-sugar option."],"rubric_version":"oatmeal-v1"}
+{"pair_id":"oatmeal-001","condition":"replay","user_turns":["Suggest a healthy oatmeal breakfast.","I am lactose intolerant and want a low-sugar option."],"rubric_version":"oatmeal-v1"}

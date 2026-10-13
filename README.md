@@ -20,6 +20,8 @@ Chapter 4 now has a learner-built review-agreement pilot at [`projects/recipe-bo
 
 Chapter 5 now has a small code-based ingredient-presence evaluator at [`projects/recipe-bot-automated-evaluator/`](projects/recipe-bot-automated-evaluator/). It matched two real Pass labels and one synthetic Fail fixture; this demonstrates the check's basic behavior but is not a Recipe Bot failure-rate estimate or rubric-validation result. See the [study note](notes/2026-10-06-ch5-ingredient-presence-evaluator.md) and [Chapter 5 report](reports/generated/ch05-ex01-ingredient-presence-evaluator-2026-10-06.html).
 
+Chapter 6 begins with a manual session-level review of a multi-turn Recipe Chatbot trace. The assistant acknowledges a user's later dietary constraints but never completes the breakfast request. The session is a Fail. A one-pair manual control/replay pilot has since been run in Codex with GPT-6 Luna; its scoring rubric needs clarification, so it does not establish a cause. See the [study note](notes/2026-10-13-ch6-multiturn-conversations.md), [trace analysis](projects/ch6-multiturn-conversation-review/), [paired replay lab and pilot](projects/ch6-paired-replay/), and [Chapter 6 report](reports/generated/ch06-ex01-multiturn-conversation-review-2026-10-13.html).
+
 ## Reference projects
 
 The `references/` directory contains Git submodules: clean, pinned checkouts of the course's public tools and adjacent research. They are read-only study references; personal work belongs outside them.
