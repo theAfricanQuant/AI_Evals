@@ -82,10 +82,10 @@
     <h2>1 · The question</h2>
     <p class="lead">Can a deterministic evaluator classify whether a recipe fits the user's stated time limit without hiding uncertainty?</p>
     <div class="grid">
-      <div class="card"><h3>Clear Fail</h3><p>SYN069 asks for a dish in 30–60 minutes. Required lentils soak for at least 60 minutes, then pressure cook for at least 15 minutes and simmer for at least 15 minutes.</p></div>
-      <div class="card"><h3>Count what overlaps</h3><p>The masala cooks while the lentils pressure cook. Those minutes overlap, so the known minimum is 60 + 15 + 15 = 90 minutes, not the sum of every listed step.</p></div>
+      <div class="card"><h3>Clear Fail: SYN069</h3><p>The request allows 30–60 minutes. Lentils soak for at least 60 minutes, then pressure cook for at least 15 minutes and simmer for at least 15 minutes.</p></div>
+      <div class="card"><h3>Review: SYN031</h3><p>Quinoa simmers for about 15 minutes and rests for 5. Beans cook in parallel, but prep, heating, and assembly times are missing.</p></div>
     </div>
-    <div class="callout amber"><strong>In plain terms:</strong> Even before counting the unstated natural pressure release, the recipe needs at least 90 minutes. That already exceeds the 60-minute cap.</div>
+    <div class="callout amber"><strong>In plain terms:</strong> SYN069 already needs at least 90 minutes, so it fails the 60-minute cap. SYN031 has missing times that could change the result, so it stays in Review.</div>
   </div>
 
   <!-- SECTION 2: table section (comparisons, levels, cases) — ALWAYS wrap tables in .tablewrap so they scroll on phones -->
@@ -106,16 +106,16 @@
   <div class="section">
     <h2>3 · Reproduce the lab</h2>
     <p class="lead">From the repository root, this command applies the rules to structured case annotations. It does not read the recipe text or estimate durations.</p>
-    <div class="card"><h3>Command and observed result</h3><p><code>uv run --no-project python projects/recipe-bot-time-evaluator/check.py</code></p><p class="ex">Before SYN069 was added, the owner observed 8/8 label matches. After adding SYN069, the checker was updated to handle known minimum times; the updated version still needs a run.</p></div>
-    <div class="callout amber"><strong>Limitation:</strong> The human supplies the time limit and timing annotations. A matching label count checks that code follows those annotations; it does not prove the annotations are correct. The homework traces are synthetic course examples, not production data.</div>
+    <div class="card"><h3>Command and observed result</h3><p><code>uv run python projects/recipe-bot-time-evaluator/check.py</code></p><p class="ex">Observed: Case label matches: 9/9. SYN069 predicted Fail; SYN031 predicted Review.</p></div>
+    <div class="callout amber"><strong>Limitation:</strong> The human supplies the time limit and timing annotations. A 9/9 match checks that code follows those annotations; it does not prove the annotations are correct. These are course examples, not production data.</div>
   </div>
 
   <!-- SECTION 4: takeaway + next -->
   <div class="section">
     <h2>4 · Next steps</h2>
     <ul>
-      <li>Run the updated checker and confirm SYN069 is Fail while uncertain cases stay Review.</li>
-      <li>Review another timed trace with overlapping steps and decide whether its timing supports Pass, Fail, or Review.</li>
+      <li>Before reading Chapter 6, retrieve from memory why SYN069 is Fail and SYN031 is Review.</li>
+      <li>Begin Chapter 6, “Evaluating Multi-Turn Conversations,” and choose one conversation behavior to evaluate.</li>
     </ul>
     <div class="callout ink"><strong>Takeaway:</strong> A known lower bound can prove a time claim fails even when the full recipe duration is unknown.</div>
   </div>
