@@ -25,13 +25,21 @@ For each run, save the exact messages, model and settings, assistant response, P
 
 ## Current status
 
-One manual control/replay pair has been run in Codex with GPT-6 Luna and Medium reasoning. The exact conversation is saved in [results/oatmeal-001-v1-pilot.md](results/oatmeal-001-v1-pilot.md). Treat it as an exploratory pilot: rubric v1 has an unclear boundary around optional non-calorie sweeteners, so the replay label is Review. This single pair cannot establish that multi-turn format caused a failure.
+The first manual pair (`oatmeal-001`) used GPT-6 Luna with Medium reasoning and rubric v1. Its original replay label was Review because the rubric did not define non-calorie sweeteners; it has since been re-scored under rubric v2 in the result file. Fresh pair `oatmeal-002` used Gemini 3.8 in both conditions and rubric v2; both responses are Pass. Pair `oatmeal-003` used Gemini 3.8 in both conditions and added peanut-free and tree-nut-free constraints under rubric v3; both responses are Pass. Pair `oatmeal-004` used Gemini 3.8 to test correction of an initially requested tree-nut ingredient under a later dietary constraint; both responses are Fail because each offers stevia or monk-fruit, which the rubric counts as added sweeteners. The small keyword checker matched all seven fixtures, including excerpts from both oatmeal-004 failures. This demonstrates behavior on the hand-built fixtures only; it does not establish a general effect of multi-turn format or validate the checker on a broader response set.
+
+## Run the rubric checker
+
+```sh
+uv run --no-project python projects/ch6-paired-replay/check.py
+```
+
+Fixtures live in [`checker-fixtures.jsonl`](checker-fixtures.jsonl). The checker reads ingredient-list bullets and looks for specific oatmeal, dairy, sweetener, and peanut/tree-nut terms. It does not judge nutrition claims, and it can miss violations phrased in instructions, prose, or unrecognized ingredient names. A 7/7 fixture match is not an accuracy estimate.
 
 ## Background
 
 - [Chapter 6 study note](../../notes/2026-10-13-ch6-multiturn-conversations.md)
 - [Earlier trace review](../ch6-multiturn-conversation-review/README.md)
 
-## Next step
+## Chapter 6 closeout and next step
 
-Clarify the rubric with text-only checks before running a fresh pair. Do not make nutrition or medical judgments.
+Chapter 6's planned paired replay and one controlled constraint perturbation are complete. Before Chapter 7, retrieve from memory why we compare a single-turn control with a multi-turn replay and why these one-response-per-condition pairs do not establish a general effect. For the next lesson, switch to a domain the learner knows well; recipes were only the source of visible practice constraints.

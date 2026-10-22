@@ -24,9 +24,11 @@ Chapter 5 time-claim evaluator (updated 2026-10-13): the owner ran `uv run pytho
 
 Chapter 6 (2026-10-13): the owner started with a manual session-level review of one Recipe Chatbot Homework 5 conversation. The user asks for a healthy oatmeal breakfast, then adds lactose intolerance and low sugar; the assistant acknowledges the constraints but gives no breakfast idea. The session is Fail under a predeclared goal-completion rule. The data's `GenRecipeArgs` label is a pipeline diagnostic, not the session verdict. A single-turn control and multi-turn replay are still needed to establish root cause. The study note, trace-analysis artifact, source card for Laban et al., and newspaper-inspired self-contained HTML report record the evidence and next test. No model run was performed.
 
-Chapter 6 paired replay update (2026-10-13): the owner created the ch6-paired-replay lab and manually ran one control and one multi-turn replay in Codex with GPT-6 Luna at Medium reasoning. Exact prompts and outputs are saved in results/oatmeal-001-v1-pilot.md. The control was labeled Pass against visible ingredient checks; the replay is held at Review because rubric v1 says “no added sweetener” in its scope but lists only sugar, honey, and syrup in its labels. Nutrition and blood-sugar claims are outside the owner's evaluation scope. This is one exploratory pair, not evidence that multi-turn format causes a failure. Next: clarify a text-only rubric and run a fresh pair.
+Chapter 6 closeout (2026-10-22): the owner completed paired replay comparisons in `projects/ch6-paired-replay/`. Three Gemini 3.8 pairs received matching labels within each pair: oatmeal-002 Pass/Pass under v2, oatmeal-003 Pass/Pass after adding peanut/tree-nut-free requirements under v3, and oatmeal-004 Fail/Fail because both responses offered stevia or monk-fruit under the low-sugar rule. The distinct GPT-6 Luna pilot is retained as historical. A small code checker matched all seven hand-built fixtures. The evidence is exploratory, one response per condition; it does not establish a general effect or explain the original Recipe Chatbot failure. Study notes now capture the conclusion and limitation. Chapter 6 is complete for this pass; Chapter 7 is next, with a practice domain familiar to the learner.
 
 ## Last actions (append-only, newest first)
+
+- 2026-10-22 — Owner chose to complete Chapter 6 before moving on. Recorded oatmeal-004 as Fail/Fail under oatmeal-v3, built a rule-based checker and seven fixtures (7/7 matched), and added the dated checker study note. Closed the paired-replay README, updated the earlier Chapter 6 note with the exploratory findings and their limits, and refreshed the root README. Within each same-model Gemini pair, control and replay labels matched; one run per condition does not establish a general multi-turn effect or resolve the original Recipe Chatbot failure. Chapter 7 is next, using a familiar domain. By: Codex and owner (conversation).
 
 - 2026-10-13 — Owner asked to stop for the night and commit the saved Chapter 6 work. Preserved the manual GPT-6 Luna control/replay conversation in projects/ch6-paired-replay/results/oatmeal-001-v1-pilot.md, updated the lab/root README and memory with the rubric ambiguity, and prepared a focused Chapter 6 commit. The pair is exploratory; the text-only rubric clarification remains next. Unrelated recipe-evaluator edits and data folders remain outside this commit. By: Codex and owner (conversation).
 
@@ -68,7 +70,7 @@ Chapter 6 paired replay update (2026-10-13): the owner created the ch6-paired-re
 
 ## In progress
 
-- Chapter 5 Exercises 1–3 are complete. Chapter 6's original course trace is manually labeled Fail at the session level. One manual GPT-6 Luna control/replay pair has been saved as an exploratory pilot; its rubric boundary needs clarification before a fresh comparison.
+- Chapter 5 Exercises 1–3 are complete. Chapter 6 is complete for this study pass; its original course trace remains a session-level Fail with unresolved cause. Paired replay practice and a seven-fixture rule checker are documented. Chapter 7 is next.
 
 ## Open decisions
 
@@ -76,5 +78,5 @@ Chapter 6 paired replay update (2026-10-13): the owner created the ch6-paired-re
 
 ## Next up
 
-- Clarify the Chapter 6 rubric using text-only checks, then run a fresh paired control/replay and record the results before attributing the original trace failure. After that, add a passing session and one controlled perturbation.
+- Chapter 6 is complete for this study pass. Before Chapter 7, retrieve from memory why a paired single-turn control helps investigate a multi-turn failure and why one pair does not support a general conclusion. Start Chapter 7 with a familiar practice domain.
 - Chapter 4's open practice need remains: a second reviewer and a balanced clear-Pass/clear-Fail/borderline set before reporting agreement.

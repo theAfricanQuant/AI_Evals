@@ -126,3 +126,8 @@ A quick tip for sweetening: If you find you absolutely need a touch of sweetness
 ## What this pilot shows
 
 The second-turn response changed the recipe after receiving the later constraint. The final label is unresolved because the rubric needs a clearer, text-only scope. One manual pair is not enough to establish a general difference between single-turn and multi-turn behavior.
+
+## Re-score under oatmeal-v2 — 2026-10-22
+
+- **Control: Pass.** The final response gives an oatmeal recipe and lists no dairy ingredients or added sweeteners.
+- **Replay: Fail.** The final response suggests stevia or monk-fruit extract, which oatmeal-v2 explicitly counts as an added sweetener. The earlier optional yogurt does not affect this label because oatmeal-v2 scores the final response after all constraints are given.

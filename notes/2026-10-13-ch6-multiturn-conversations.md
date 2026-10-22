@@ -29,5 +29,14 @@ Start with the session question: did the user reach the goal? Use turn and pipel
 
 ## Next retrieval
 
-- [ ] Create a small blank lab and run the paired single-turn control and multi-turn replay with the same model and tools.
-- [ ] If the replay passes, perturb one passing conversation by moving or changing one user constraint, then check whether the final answer updates.
+- [x] Create a small lab and run paired single-turn controls and multi-turn replays with the same model within each pair.
+- [x] Perturb a passing conversation with a later constraint and test whether the assistant updates its answer.
+- [x] Build a small rule-based checker for explicit final-answer constraints and record its limits.
+
+## Chapter 6 follow-up — 2026-10-22
+
+The paired replay lab now contains three Gemini 3.8 comparisons under clarified text-only rubrics: oatmeal-002 was Pass/Pass, oatmeal-003 was Pass/Pass after adding peanut-free and tree-nut-free constraints, and oatmeal-004 was Fail/Fail because both answers offered stevia or monk-fruit despite the low-sugar rule. The earlier GPT-6 Luna pilot is retained separately because its model and rubric differed. Each condition was sampled once. Since the paired conditions received the same label in these small comparisons, the results show no observed difference between the formats here; they do not establish that multi-turn context is harmless or identify the cause of the original Recipe Chatbot trace failure.
+
+The oatmeal-v3 checker matched all seven hand-built fixtures, including excerpts from both oatmeal-004 failures. It is an observable implementation exercise, not a validated evaluator: it only checks terms in recognizable ingredient-list bullets and may miss violations elsewhere or language it does not recognize. Recipe content was a convenient source of visible constraints; the course skill practiced was isolating and evaluating multi-turn behavior.
+
+Chapter 6 is complete for this study pass. The next retrieval is to explain, from memory, how a paired single-turn control helps investigate a multi-turn failure, and why one pair cannot support a general conclusion. Then begin [Chapter 7: Evaluating Retrieval-Augmented Generation](../7.%20Evaluating%20Retrieval-Augmented%20Generation.md) using a domain the learner knows well.
