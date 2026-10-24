@@ -1,0 +1,222 @@
+<section class="chapter" id="c7">
+  <div class="chapter-head"><div class="chapter-num">7</div><div><h2>Who has actually done it</h2><p>Four implementations worth studying, and what each one proves.</p></div></div>
+  <div class="prose">
+    <p>Vendor marketing is full of “trusted by” logos. What follows is different: organisations whose architecture or outcomes have been described in enough detail to learn from. Two are first-party interviews, one is a vendor case study (label it accordingly), and one is a cautionary tale already covered in Chapter 2.</p>
+
+    <h3>JPMorgan Chase — the single front door</h3>
+    <div class="story">
+      <p class="label">Banking · United States</p>
+      <h4>Block the public tool, then build a controlled one</h4>
+      <p>JPMorgan blocked ChatGPT in 2022 because staff did not understand the data risk. It then built an internal environment inside its private cloud on Microsoft Azure, which became <strong>LLM Suite</strong>. By 2026 the bank reported more than <strong>200,000 employees</strong> with access and around <strong>1,000 business applications</strong> using the platform. The architecture routes requests to multiple third-party models while keeping data inside the bank’s environment, and a single core agent-building platform applies controls once rather than per project.</p>
+      <p class="lesson">Why it worked: the bank did not ban AI and it did not let a thousand teams sign their own contracts. It created one approved path and made the path easier than the alternative.</p>
+    </div>
+    <p>The honest caveat: JPMorgan’s own technology leaders describe real-time guardrails and evaluations as work in progress, not a finished state. Scale makes the control problem harder, not easier.</p>
+
+    <h3>A global investment bank with F5 — inspect inline, enforce gradually</h3>
+    <div class="story">
+      <p class="label">Banking · Vendor case study</p>
+      <h4>100,000 prompts a day through a self-hosted gate</h4>
+      <p>The bank’s cyber-controls team had to approve every AI application before production, while live applications were already handling about <strong>100,000 prompts a day</strong>, with hundreds of applications in scope. The team chose a <strong>self-hosted</strong> deployment rather than SaaS, running inline in the data path on GPU-backed Kubernetes. They started in <strong>audit mode</strong> — observing and measuring before blocking — layered PII protection onto sensitive use cases, and tracked detection accuracy (the F1 score) as volume grew.</p>
+      <p class="lesson">Why it worked: they treated the guardrail as a model to be measured, not a rule to be trusted, and they earned the right to block by first proving what blocking would do.</p>
+    </div>
+    <p>This account comes from the vendor’s case study, so the framing is favourable. The mechanics are still instructive: self-hosting for data residency, inline placement, staged enforcement, and accuracy tracking.</p>
+
+    <h3>Deutsche Telekom — governance as reference architecture</h3>
+    <div class="story">
+      <p class="label">Telecommunications · Germany</p>
+      <h4>From scattered pilots to a layered blueprint</h4>
+      <p>By 2025 Telekom had agentic AI pilots across the organisation and the usual result: duplication, fragmentation, and no shared answer to “how do we control this?” It published <strong>MARA</strong> (Magenta AI-centric Reference Architecture), a layered blueprint that explicitly includes a <strong>governance, trust and control layer</strong> and an <strong>AI access and model mediation</strong> layer — in plain terms, a central gateway for models plus a control layer for agents. A shared agent platform (LMOS) and an explainability requirement sit alongside it.</p>
+      <p class="lesson">Why it worked: it did not mandate one tool for every team. It defined the layers every team must respect, then let them choose within those layers.</p>
+    </div>
+    <p>The trade-off Telekom’s own architects describe is the central political problem of governance: mandate everything and you kill experimentation; mandate nothing and you get chaos. A reference architecture is an attempt to occupy the middle.</p>
+
+    <h3>Allianz — runtime control with a human at the end</h3>
+    <div class="story">
+      <p class="label">Insurance · Germany and Australia</p>
+      <h4>Speed in the middle, accountability at the edge</h4>
+      <p>AllianzGPT, the group’s internal assistant, runs in a safe and compliant environment and lets employees choose among models; Allianz added DeepSeek within two weeks of its launch. More instructive is <strong>Project Nemo</strong> in Australia (July 2025): seven specialised agents automate food-spoilage claims with an <strong>80% reduction in processing and settlement time</strong> — but a human retains the final payout decision. The group describes an internal agent control plane with a registry, monitoring, MCP and REST connections, test cases, traces, audit logs, and timestamps.</p>
+      <p class="lesson">Why it worked: automation was allowed to go far, but the irreversible, financially consequential step stayed with a person. That is a design decision, not a model capability.</p>
+    </div>
+    <p>The 60,000-plus user figure for AllianzGPT appears in secondary coverage rather than the company’s own interview, so treat it as reported rather than audited.</p>
+
+    <h3>What the four cases have in common</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Pattern</th><th>JPMorgan</th><th>F5 bank</th><th>Telekom</th><th>Allianz</th></tr></thead>
+      <tbody>
+        <tr><td>One approved path</td><td>LLM Suite</td><td>Central inline gate</td><td>Model mediation layer</td><td>Group assistant + control plane</td></tr>
+        <tr><td>Staged enforcement</td><td>Internal first, then scale</td><td>Audit mode before blocking</td><td>Reference architecture before mandate</td><td>Human approval on payouts</td></tr>
+        <tr><td>Measured, not assumed</td><td>Guardrails and evals in progress</td><td>F1 tracked as load grew</td><td>Explainability requirement</td><td>Test cases and traces</td></tr>
+        <tr><td>Evidence designed in</td><td>Private-cloud logging</td><td>Audit logs and forensics</td><td>Control layer records</td><td>Audit logs and timestamps</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>None of them bought a single “runtime governance” product and considered the job done. Each built a <em>system</em>: an approved path, a policy, a set of controls, and an evidence trail. The product was one component.</p>
+
+    <details class="quiz"><summary>What is the most transferable lesson for a 200-person company?</summary>
+    <p><strong>Make the approved path the easiest path.</strong> JPMorgan’s advantage was not a superior filter; it was that using the internal platform was simpler than using a public chatbot. If governance adds friction, people route around it. Design the golden path first, then enforce it.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c8">
+  <div class="chapter-head"><div class="chapter-num">8</div><div><h2>Where evals fit — the load-bearing chapter</h2><p>Evals, guardrails, and monitors are three different instruments. Confusing them is the most common mistake in the field.</p></div></div>
+  <div class="prose">
+    <p>You already know what an evaluation is, so let us sharpen the definition for this context. An <strong>eval</strong> is a repeatable procedure that takes a defined input, runs the system, and assigns a score against a stated criterion. The score can come from code (an assertion), a human (a rubric), or a model (a judge). The key word is <em>repeatable</em>: if you cannot run it again next month and compare, it is an anecdote.</p>
+
+    <h3>Three instruments, three jobs</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th></th><th>Eval</th><th>Guardrail</th><th>Monitor</th></tr></thead>
+      <tbody>
+        <tr><td>Question</td><td>Is the system good enough?</td><td>May this specific request proceed?</td><td>Is live behaviour drifting?</td></tr>
+        <tr><td>When</td><td>Before release, and on samples</td><td>During the request, in-path</td><td>Continuously, off-path</td></tr>
+        <tr><td>Latency budget</td><td>Minutes to hours</td><td>Milliseconds</td><td>Minutes to days</td></tr>
+        <tr><td>Output</td><td>Score, pass rate, confidence interval</td><td>Allow, deny, redact, escalate</td><td>Trend, alert, incident</td></tr>
+        <tr><td>Typical method</td><td>Test set + judge or human rubric</td><td>Classifier or deterministic rule</td><td>Sampled scoring + statistics</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>A guardrail is not an eval, even when it uses a model. A guardrail answers a binary operational question under a hard latency constraint; an eval answers a quality question with time to think. Vendors blur the two because “evaluation” sounds more strategic than “filter.” Do not let the language blur your architecture.</p>
+
+    <h3>The four places evals touch governance</h3>
+    <h4>1. The release gate</h4>
+    <p>An eval suite decides whether a model, prompt, or policy version may go live. The governance system enforces the decision mechanically: no passing eval, no production key. This is a governance control <em>around</em> an eval — the eval produces the score; the control refuses to deploy without it.</p>
+
+    <h4>2. Guardrail calibration</h4>
+    <p>Every blocker is a classifier with false positives and false negatives. You evaluate it on a labelled set of attacks and legitimate requests, then choose a threshold. The F5 bank tracked F1 for exactly this reason. A guard that misses threats is useless; a guard that blocks legitimate work gets disabled by the business.</p>
+
+    <h4>3. Online sampling</h4>
+    <p>You cannot judge every conversation in the request path. You sample — one to five percent is common — and run a heavier evaluation off-path. The result is a quality trend on real traffic, not a one-off benchmark. This is where evals become continuous.</p>
+
+    <h4>4. Post-market monitoring</h4>
+    <p>Article 72 of the AI Act requires providers to actively and systematically collect, document, and analyse performance data throughout the system’s lifetime. That is an eval pipeline fed by runtime logs. Article 15 requires an appropriate level of accuracy and robustness, with metrics declared in the instructions for use. The law does not prescribe a particular eval method; it requires that you have one and can show the results.</p>
+
+    <h3>Why the heavy judge cannot live in the request path</h3>
+    <p>Human perception gives you roughly 100 milliseconds for an interaction to feel instant, about one second before flow is broken, and about ten seconds before attention wanders. A gateway check should add tens of milliseconds, not hundreds. A small classifier can run in 5–50 ms. A model-based judge typically takes 300–2,000 ms, and sometimes more.</p>
+    <p>That single fact determines the architecture: <strong>cheap and deterministic in-path; expensive and judgemental off-path.</strong> The two are connected by sampling, alerting, and the release gate — not by putting the judge in front of the user.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 330" role="img" aria-labelledby="eT eD">
+      <title id="eT">Three time scales for AI quality controls</title>
+      <desc id="eD">In-path controls run in milliseconds and block or redact. Nearline monitoring runs in minutes to hours on sampled traffic. Offline evaluation runs in hours to days before release and produces the evidence used at the gate.</desc>
+      <defs>
+        <marker id="eArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+        </marker>
+      </defs>
+
+      <rect x="24" y="40" width="196" height="210" rx="12" class="f-coral-soft" stroke="var(--rule)"/>
+      <text x="122" y="70" class="t-md svg-ink" text-anchor="middle">IN-PATH</text>
+      <text x="122" y="92" class="t-sm svg-muted" text-anchor="middle">milliseconds</text>
+      <text x="122" y="124" class="t-sm svg-ink" text-anchor="middle">regex and schema</text>
+      <text x="122" y="146" class="t-sm svg-ink" text-anchor="middle">small classifiers</text>
+      <text x="122" y="168" class="t-sm svg-ink" text-anchor="middle">policy engine</text>
+      <text x="122" y="190" class="t-sm svg-ink" text-anchor="middle">tool permissions</text>
+      <text x="122" y="222" class="t-sm svg-muted" text-anchor="middle">block · redact · allow</text>
+
+      <rect x="242" y="40" width="196" height="210" rx="12" class="f-gold-soft" stroke="var(--rule)"/>
+      <text x="340" y="70" class="t-md svg-ink" text-anchor="middle">NEARLINE</text>
+      <text x="340" y="92" class="t-sm svg-muted" text-anchor="middle">minutes to hours</text>
+      <text x="340" y="124" class="t-sm svg-ink" text-anchor="middle">sampled judge calls</text>
+      <text x="340" y="146" class="t-sm svg-ink" text-anchor="middle">groundedness checks</text>
+      <text x="340" y="168" class="t-sm svg-ink" text-anchor="middle">drift statistics</text>
+      <text x="340" y="190" class="t-sm svg-ink" text-anchor="middle">incident clustering</text>
+      <text x="340" y="222" class="t-sm svg-muted" text-anchor="middle">trend · alert · review</text>
+
+      <rect x="460" y="40" width="196" height="210" rx="12" class="f-teal-soft" stroke="var(--rule)"/>
+      <text x="558" y="70" class="t-md svg-ink" text-anchor="middle">OFFLINE</text>
+      <text x="558" y="92" class="t-sm svg-muted" text-anchor="middle">hours to days</text>
+      <text x="558" y="124" class="t-sm svg-ink" text-anchor="middle">release suite</text>
+      <text x="558" y="146" class="t-sm svg-ink" text-anchor="middle">human rubric review</text>
+      <text x="558" y="168" class="t-sm svg-ink" text-anchor="middle">judge calibration</text>
+      <text x="558" y="190" class="t-sm svg-ink" text-anchor="middle">regression testing</text>
+      <text x="558" y="222" class="t-sm svg-muted" text-anchor="middle">pass · fail · evidence</text>
+
+      <path d="M122 262 V286 H340" class="stroke-muted" stroke-width="2" marker-end="url(#eArr)"/>
+      <path d="M340 262 V286 H558" class="stroke-muted" stroke-width="2" marker-end="url(#eArr)"/>
+      <text x="340" y="310" class="t-sm svg-muted" text-anchor="middle">Sampling connects the layers; the release gate consumes all three.</text>
+    </svg>
+    <figcaption>The architecture follows the clock: the faster the decision, the simpler the method. Evaluation earns its authority offline and lends it to the gate.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>The arithmetic that changes the design: precision when attacks are rare</h3>
+    <p>Suppose 1,000 requests contain 50 genuine attacks. Your guardrail catches 45 of them (90% recall) and wrongly flags 95 legitimate requests. That sounds acceptable until you compute precision:</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Measure</th><th>Calculation</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>True positives</td><td>Attacks correctly blocked</td><td>45</td></tr>
+      <tr><td>False negatives</td><td>Attacks missed</td><td>5</td></tr>
+      <tr><td>False positives</td><td>Legitimate requests blocked</td><td>95</td></tr>
+      <tr><td>Precision</td><td>45 ÷ (45 + 95)</td><td><strong>32%</strong></td></tr>
+      <tr><td>Recall</td><td>45 ÷ 50</td><td><strong>90%</strong></td></tr>
+      <tr><td>Accuracy</td><td>900 ÷ 1,000</td><td>90% — and misleading</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>Two-thirds of the blocks hit innocent users. At 100,000 requests a day, that is 9,500 legitimate requests blocked daily. The business will disable the guardrail long before the security team finishes celebrating its 90% recall.</p>
+    <p>Now consider a realistic base rate. If only 0.5% of a million requests are attacks — 5,000 attacks — and the classifier still has 90% recall and a 5% false-positive rate:</p>
+    <ul class="check">
+      <li><span><strong>True positives:</strong> 4,500.</span></li>
+      <li><span><strong>False positives:</strong> 5% of 995,000 legitimate requests = 49,750.</span></li>
+      <li><span><strong>Precision:</strong> 4,500 ÷ 54,250 = <strong>8.3%</strong>.</span></li>
+    </ul>
+    <p>This is the base-rate problem, and it is why security vendors quote recall and rarely quote precision on your traffic. It is also why <strong>audit mode</strong> is not a nice-to-have: you need your own labelled sample before you can choose a threshold that your business can live with.</p>
+
+    <h3>Calibrating the judge</h3>
+    <p>If an LLM judge scores your outputs, the judge itself needs an eval. The procedure is unglamorous and effective:</p>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. Label a stratified sample by hand.</strong> Fifty to one hundred items, including clear passes, clear fails, and borderline cases. Two reviewers are better than one; measure their agreement.</span></li>
+      <li><span><strong>2. Run the judge on the same items.</strong> Compare its verdict with the human labels, per class — not just overall accuracy.</span></li>
+      <li><span><strong>3. Measure agreement.</strong> A simple agreement rate is a start; Cohen’s kappa corrects for chance. Report the number; do not describe the judge as “accurate” without it.</span></li>
+      <li><span><strong>4. Inspect the disagreements.</strong> They usually reveal a vague rubric, not a stupid judge. Rewrite the rubric, then re-run.</span></li>
+      <li><span><strong>5. Freeze a regression set.</strong> Keep the labelled items; re-run them whenever the judge or the rubric changes.</span></li>
+    </ol>
+    <p>Watch for known judge biases: preference for the first option (position bias), for longer answers (verbosity bias), for answers that agree with it (sycophancy), and for text from its own model family (self-preference). Randomise order, control for length, and use a different model family for judging where possible.</p>
+
+    <h3>Building the eval set from traces, not imagination</h3>
+    <p>The most common failure in eval design is a test set written by the team that built the system. It tests what they thought of. Real traffic contains the intents, languages, formats, and edge cases they did not.</p>
+    <ul class="check">
+      <li><span><strong>Sample from traces</strong> across intents, customer segments, languages, and difficulty.</span></li>
+      <li><span><strong>Oversample failures.</strong> A random sample is mostly easy cases; the information is in the tail.</span></li>
+      <li><span><strong>Stratify, then report by slice.</strong> An average that hides a 60% failure rate for German-language requests is worse than no average.</span></li>
+      <li><span><strong>Size for the decision.</strong> Thirty to fifty cases for iteration; one to three hundred for a release gate; thousands only when you are measuring rare events.</span></li>
+      <li><span><strong>Keep a holdout.</strong> Do not tune on the release set. Refresh it when the product changes materially; watch for contamination when prompts or data leak into training.</span></li>
+    </ul>
+
+    <h3>A worked eval plan for a customer-support bot</h3>
+    <p>This example is illustrative — the numbers are design targets, not benchmark results. The structure is what matters.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>What is measured</th><th>Method</th><th>Threshold</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td>Policy accuracy</td><td>150-case suite, human-labelled expected answers</td><td>≥ 95% exact or equivalent</td><td>Every release</td></tr>
+      <tr><td>Faithfulness to retrieved policy</td><td>LLM judge, calibrated against 80 human labels</td><td>≥ 98%, zero unsupported claims in sample</td><td>Every release + nightly sample</td></tr>
+      <tr><td>Personal-data leakage</td><td>Deterministic regex + NER + red-team set</td><td>Zero in release suite</td><td>Every release + in-path</td></tr>
+      <tr><td>Out-of-scope refusal</td><td>50 adversarial prompts</td><td>≥ 90% correct refusal</td><td>Every release</td></tr>
+      <tr><td>Prompt-injection resistance</td><td>Labelled attack set, refreshed quarterly</td><td>Recall ≥ 90% at precision ≥ 70%</td><td>Every release + monthly</td></tr>
+      <tr><td>Tone and clarity</td><td>Human rubric on 30 samples</td><td>≥ 4/5 mean, no item below 3</td><td>Monthly</td></tr>
+      <tr><td>Latency</td><td>Production telemetry</td><td>p95 ≤ 2.5 s end to end</td><td>Continuous</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>The plan does three things a vague promise cannot: it names the method, it sets a threshold before seeing the result, and it says when the measurement repeats. That is what turns an eval into governance evidence.</p>
+
+    <h3>How evals fail</h3>
+    <div class="grid3">
+      <div class="card coral"><p class="k">🎭 Vanity metrics</p><p>“90% helpful” with no definition, no sample size, and no failing examples.</p></div>
+      <div class="card teal"><p class="k">🧪 Synthetic-only sets</p><p>Tests written by the builders, for the builders. Real users break them immediately.</p></div>
+      <div class="card gold"><p class="k">⚖️ Uncalibrated judges</p><p>A judge with unknown agreement is a random number generator with good grammar.</p></div>
+      <div class="card plum"><p class="k">📉 Goodhart’s law</p><p>Once a metric becomes a target, teams optimise the metric, not the outcome.</p></div>
+    </div>
+
+    <p class="pull">An eval is not evidence because it produced a number. It is evidence because someone can reproduce the number and knows what decision it supports.</p>
+
+    <details class="quiz"><summary>Your guardrail has 95% recall and 40% precision on a test set with 10% attacks. Production has 0.5% attacks. What do you expect in production, and what do you do first?</summary>
+    <p><strong>Expect precision to collapse.</strong> At a lower base rate, the same false-positive rate produces far more false alarms relative to true catches — potentially below 10% precision. First, run in audit mode on real traffic and label a sample to estimate the actual base rate and the false-positive rate. Then choose a threshold against a business cost model: what does a missed attack cost versus a blocked legitimate request? Do not deploy hard blocking on the test-set numbers.</p></details>
+  </div>
+</section>

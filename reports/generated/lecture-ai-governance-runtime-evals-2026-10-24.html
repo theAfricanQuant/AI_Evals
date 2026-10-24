@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Gate, the Ledger, and the Machine — AI Governance from Law to Runtime</title>
+<meta name="description" content="A lecture on AI governance: the four layers, the EU AI Act, runtime controls, case studies, and where evaluation fits.">
+<style>
+:root{
+  --paper:#F3F5FA; --sheet:#FFFFFF; --ink:#1A1E3A; --muted:#5B6180; --rule:#D7DBE8;
+  --coral:#1F6FEB; --coral-soft:#DBE7FA; --teal:#11807F; --teal-soft:#D8F0EE;
+  --gold:#C98F12; --gold-soft:#FBEFD2; --plum:#6B4FA0; --plum-soft:#ECE5F7;
+  --display:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12152A; --sheet:#1B1F38; --ink:#E8EAF4; --muted:#A3A8C3; --rule:#2E3352;
+    --coral:#619DFA; --coral-soft:#18273F; --teal:#3CC2BF; --teal-soft:#16302F;
+    --gold:#F0B83A; --gold-soft:#352C16; --plum:#A88BE0; --plum-soft:#2A2340;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12152A; --sheet:#1B1F38; --ink:#E8EAF4; --muted:#A3A8C3; --rule:#2E3352;
+  --coral:#619DFA; --coral-soft:#18273F; --teal:#3CC2BF; --teal-soft:#16302F;
+  --gold:#F0B83A; --gold-soft:#352C16; --plum:#A88BE0; --plum-soft:#2A2340;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4rem); scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.7;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,nav,summary,.part .lbl,.chip,.watch{ text-align:left }
+pre,table.cmp th,table.cmp td{ text-align:left; hyphens:none }
+a{color:inherit;text-decoration-color:var(--coral);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:4px}
+img,svg{max-width:100%}
+
+/* progress bar */
+#progress{position:fixed;top:0;left:0;height:4px;width:100%;transform:scaleX(0);transform-origin:0 0;background:var(--coral);z-index:30;will-change:transform}
+
+/* chapter nav */
+nav.toc{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
+nav.toc ol{list-style:none;margin:0 auto;padding:.6rem 1rem;display:flex;gap:.4rem;overflow-x:auto;max-width:72rem;scrollbar-width:none}
+nav.toc ol::-webkit-scrollbar{display:none}
+nav.toc a{display:block;white-space:nowrap;text-decoration:none;font-size:.85rem;font-weight:600;color:var(--muted);padding:.3rem .7rem;border-radius:999px;border:1px solid transparent}
+nav.toc a:hover{color:var(--ink);border-color:var(--rule)}
+nav.toc a.active{background:var(--ink);color:var(--paper)}
+
+/* hero */
+.hero{max-width:64rem;margin:0 auto;padding:clamp(2.5rem,7vw,5.5rem) clamp(1.25rem,4vw,3rem) 2rem;display:grid;grid-template-columns:1fr;gap:1.25rem;align-items:start}
+.hero .who{font-weight:600;color:var(--muted);margin:0 0 1rem}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(3rem,8.5vw,6.2rem);line-height:.95;letter-spacing:-.015em;margin:0 0 1.25rem}
+.hero .dek{font-size:1.2rem;color:var(--muted);max-width:34rem;margin:0 0 1.5rem}
+.hero .meta{display:flex;flex-wrap:wrap;gap:.6rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:600;padding:.35rem .75rem;border-radius:999px;background:var(--sheet);border:1px solid var(--rule)}
+.hero-art{max-width:43rem;width:100%;margin:0 auto;background:var(--sheet);border:1px solid var(--rule);border-radius:28px;padding:1.25rem}
+.hero-art svg{display:block;width:100%;height:auto}
+
+/* layout: centered reading column with visible, balanced page gutters */
+main{max-width:70rem;margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem) 5rem}
+.chapter{padding:4.5rem 0 1rem;border-top:1px solid var(--rule)}
+.chapter-head{display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;margin:0 auto 1.75rem;max-width:50rem}
+.chapter-num{font-family:var(--display);font-size:clamp(3.5rem,8vw,5.5rem);line-height:.8;color:var(--coral)}
+.chapter h2{font-family:var(--display);font-weight:400;font-size:clamp(2.1rem,5vw,3.3rem);line-height:1.02;margin:0 0 .5rem;letter-spacing:-.01em}
+.chapter-head p{margin:0;color:var(--muted);font-size:1.1rem}
+.prose{max-width:46rem;margin-inline:auto;text-align:justify;text-justify:inter-word}
+.prose p{margin:0 0 1.15rem}
+h3{font-size:1.3rem;font-weight:800;line-height:1.25;margin:2.4rem 0 .6rem;letter-spacing:-.01em}
+h4{font-size:1.05rem;font-weight:700;margin:1.4rem 0 .4rem}
+strong{font-weight:700}
+
+/* single-column writeup: figures follow prose in the same centered reading column */
+.split{display:block;max-width:54rem;margin:0 auto}
+.split figure.diagram{margin:2.25rem auto}
+
+/* figures: large, centered, and visually integrated with the explanation */
+figure.diagram{display:block;width:100%;max-width:54rem;margin:2.25rem auto;padding:.25rem 0;background:transparent;border:0;border-radius:0}
+figure.diagram svg{display:block;width:100%;height:auto;margin-inline:auto}
+figure.diagram figcaption{max-width:46rem;font-size:.95rem;color:var(--muted);margin:.8rem auto 0;line-height:1.6;text-align:justify;text-justify:inter-word}
+.svg-ink{fill:var(--ink)} .svg-muted{fill:var(--muted)} .svg-sheet{fill:var(--sheet)} .svg-paper{fill:var(--paper)}
+.stroke-ink{stroke:var(--ink)} .stroke-rule{stroke:var(--rule)} .stroke-muted{stroke:var(--muted)}
+.f-coral{fill:var(--coral)} .f-coral-soft{fill:var(--coral-soft)} .f-teal{fill:var(--teal)} .f-teal-soft{fill:var(--teal-soft)}
+.f-gold{fill:var(--gold)} .f-gold-soft{fill:var(--gold-soft)} .f-plum{fill:var(--plum)} .f-plum-soft{fill:var(--plum-soft)}
+.s-coral{stroke:var(--coral)} .s-teal{stroke:var(--teal)} .s-gold{stroke:var(--gold)} .s-plum{stroke:var(--plum)}
+svg text{font-family:var(--body)}
+.t-sm{font-size:20px} .t-md{font-size:22px;font-weight:600} .t-lg{font-size:26px;font-weight:800} .t-xl{font-size:32px;font-weight:800} .t-disp{font-family:var(--display)!important;font-size:36px}
+
+/* analogy box */
+.analogy{display:block;background:var(--teal-soft);border-radius:18px;padding:1.1rem 1.25rem;margin:1.6rem auto;max-width:46rem}
+.analogy .icon{font-size:1.9rem;line-height:1;margin:0 0 .55rem;text-align:left}
+.analogy b{display:block;color:var(--teal);font-size:.9rem;margin-bottom:.15rem}
+.analogy p{margin:0}
+
+/* story */
+.story{background:var(--sheet);border:1px solid var(--rule);border-radius:22px;padding:1.5rem 1.6rem .4rem;margin:1.8rem auto;max-width:48rem;position:relative}
+.story::before{content:"";position:absolute;left:0;top:1.6rem;bottom:1.6rem;width:5px;border-radius:0 5px 5px 0;background:var(--coral)}
+.story .label{font-size:.82rem;font-weight:700;color:var(--coral);margin:0 0 .2rem}
+.story h4{font-family:var(--display);font-weight:400;font-size:1.75rem;line-height:1.1;margin:0 0 .8rem}
+.story p{margin:0 0 1rem}
+.story .lesson{background:var(--coral-soft);border-radius:12px;padding:.7rem 1rem;font-weight:600;margin-bottom:1.1rem}
+
+/* plain-english term */
+.term{border-bottom:2px dotted var(--plum);cursor:help;position:relative}
+.term:focus{outline:none}
+.term .tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);width:min(18rem,80vw);background:var(--ink);color:var(--paper);font-size:.85rem;font-weight:500;line-height:1.45;padding:.6rem .75rem;border-radius:10px;display:none;pointer-events:none;z-index:40}
+.term:hover .tip,.term:focus .tip{display:block}
+@media (max-width:640px){.term .tip{position:fixed;left:1rem;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));top:auto;width:auto;transform:none}}
+
+/* cards grid */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.5rem auto;max-width:56rem}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:18px;padding:1.1rem 1.2rem}
+.card .k{font-family:var(--display);font-size:1.6rem;line-height:1.1;margin:0 0 .4rem}
+.card p{margin:0;font-size:.97rem}
+.card.teal{border-top:5px solid var(--teal)} .card.coral{border-top:5px solid var(--coral)} .card.gold{border-top:5px solid var(--gold)} .card.plum{border-top:5px solid var(--plum)}
+
+/* pull quote */
+.pull{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.15;max-width:46rem;margin:2.5rem auto;padding-left:1.25rem;border-left:5px solid var(--gold)}
+
+/* checklist */
+.check{list-style:none;padding:0;margin:1rem auto;max-width:46rem}
+.check li{display:grid;grid-template-columns:1.6rem 1fr;gap:.6rem;padding:.65rem 0;border-bottom:1px dashed var(--rule)}
+.check li::before{content:"";width:1.1rem;height:1.1rem;margin-top:.3rem;border:2px solid var(--teal);border-radius:5px}
+
+/* quiz */
+details.quiz{background:var(--plum-soft);border-radius:16px;padding:.9rem 1.2rem;margin:1.5rem auto;max-width:46rem}
+details.quiz summary{cursor:pointer;font-weight:700;list-style:none}
+details.quiz summary::-webkit-details-marker{display:none}
+details.quiz summary::before{content:"Quick check  ";color:var(--plum)}
+details.quiz[open] summary{margin-bottom:.5rem}
+details.quiz p{margin:0}
+
+/* glossary */
+dl.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:.9rem;max-width:56rem;margin-inline:auto}
+dl.gloss div{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:.9rem 1rem}
+dl.gloss dt{font-weight:800}
+dl.gloss dd{margin:.2rem 0 0;color:var(--muted);font-size:.97rem}
+
+.note{font-size:.92rem;color:var(--muted);max-width:46rem;margin-inline:auto}
+footer{max-width:70rem;margin:0 auto;padding:2rem clamp(1.1rem,4vw,3rem) 4rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.9rem}
+
+/* playbook steps */
+.watch{display:inline-flex;align-items:center;gap:.6rem;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:700;padding:.7rem 1.1rem;border-radius:999px;margin-top:.4rem}
+.watch:hover{opacity:.9}
+ol.playbook{list-style:none;counter-reset:pb;padding:0;margin:1.5rem auto;max-width:50rem}
+ol.playbook>li{counter-increment:pb;display:grid;grid-template-columns:3.2rem 1fr;gap:1rem;padding:0 0 1.6rem;position:relative}
+ol.playbook>li::before{content:counter(pb);display:grid;place-items:center;width:3.2rem;height:3.2rem;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;font-size:1.2rem;position:relative;z-index:1}
+ol.playbook>li:not(:last-child)::after{content:"";position:absolute;left:1.55rem;top:3.2rem;bottom:0;width:3px;background:var(--rule)}
+ol.playbook h4{margin:.55rem 0 .35rem;font-size:1.15rem}
+ol.playbook p{margin:0 0 .5rem}
+ol.playbook .when{display:inline-block;font-size:.8rem;font-weight:700;color:var(--teal);background:var(--teal-soft);padding:.15rem .6rem;border-radius:999px;margin-bottom:.3rem}
+ol.playbook ul{margin:.3rem 0 0;padding-left:1.1rem}
+ol.playbook ul li{margin:.2rem 0}
+/* ---- lesson components (code, outputs, tables, warnings, parts, photos) ---- */
+
+pre.code{background:#151922;color:#E6E9F2;border-radius:14px;padding:1rem 1.1rem;overflow-x:auto;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:1.1rem auto;max-width:50rem;position:relative}
+pre.code .k{color:#FFB454}pre.code .c{color:#7F8AA3;font-style:italic}pre.code .s{color:#9BD67E}pre.code .n{color:#F78C6C}
+pre.code[data-lang]::before{content:attr(data-lang);position:absolute;top:.45rem;right:.7rem;font:600 11px/1 var(--body);color:#7F8AA3;text-transform:uppercase;letter-spacing:.06em}
+pre.out{background:var(--sheet);color:var(--ink);border:1px dashed var(--rule);border-radius:12px;padding:.8rem 1rem;overflow-x:auto;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-width:50rem;margin:.4rem auto 1.2rem}
+pre.out::before{content:"real output";display:block;font:700 10.5px/1 var(--body);color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--gold-soft);padding:.05rem .3rem;border-radius:5px}
+pre code{background:none;padding:0;font-size:inherit}
+.tablewrap{overflow-x:auto;max-width:56rem;margin:1.3rem auto}
+table.cmp{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--sheet);border-radius:14px;overflow:hidden}
+table.cmp th,table.cmp td{padding:.65rem .8rem;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+table.cmp th{background:var(--paper);font-weight:800}
+table.cmp td:first-child{font-weight:700}
+.warn{background:var(--coral-soft);border-left:5px solid var(--coral);border-radius:12px;padding:.8rem 1rem;margin:1.2rem auto;max-width:46rem}
+.warn b{color:var(--coral)}
+.verify{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:12px;padding:.8rem 1rem;margin:1.2rem auto;max-width:46rem}
+.verify b{color:var(--teal)}
+.part{max-width:54rem;margin:4rem auto 0;padding:1.2rem 1.4rem;border-radius:18px;background:var(--ink);color:var(--paper)}
+.part p{margin:0;color:var(--paper);opacity:.8}
+.part h2{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,4vw,2.6rem);margin:.1rem 0 .2rem}
+.part .lbl{font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.analogy.de{background:var(--plum-soft)}.analogy.de b{color:var(--plum)}
+.analogy.ng{background:var(--gold-soft)}.analogy.ng b{color:var(--gold)}
+.split>*,.prose,.story,figure.diagram,.grid3>*{min-width:0}
+pre.code,pre.out{max-width:min(46rem,100%)}
+:not(pre)>code{overflow-wrap:anywhere}
+.story{max-width:min(46rem,100%)}
+.analogy>div{min-width:0}
+.aph{margin:1.5rem auto;max-width:46rem}
+.aph img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:var(--rule);margin:0 auto}
+.aph figcaption{overflow-wrap:anywhere;font-size:.82rem;line-height:1.5;color:var(--muted);margin-top:.5rem;text-align:justify;text-justify:inter-word}
+.aph a{color:inherit}
+@media (max-width:640px){
+  main{padding-inline:1.1rem}
+  figure.diagram{margin-block:1.75rem}
+  figure.diagram figcaption{padding-inline:.25rem}
+}
+svg .mono text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+</style>
+<style id="phone-diagrams">
+@media (max-width:640px){
+  figure.diagram{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.5rem}
+  figure.diagram svg{min-width:600px}
+  figure.diagram figcaption{min-width:300px}
+  figure.diagram::after{content:"Swipe the diagram sideways to see it at full size →";display:block;font-size:.8rem;color:var(--muted);margin-top:.35rem}
+}
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+<header>
+  <section class="hero">
+    <div>
+      <p class="who">A lecture for a practitioner learning AI evals · October 2026</p>
+      <h1>The gate, the ledger, and the machine</h1>
+      <p class="dek">AI governance from law to runtime — what it is, why it appeared, who has actually built it, and where evaluation fits. Written for someone who already understands evals and wants the full picture.</p>
+      <div class="meta">
+        <span class="chip">📚 12 chapters + a study plan</span>
+        <span class="chip">🧭 Beginner to practitioner</span>
+        <span class="chip">⏱ About 90 minutes</span>
+        <span class="chip">🔗 Primary sources linked</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 360" role="img" aria-labelledby="hT hD">
+        <title id="hT">Four layers of governance feeding a runtime checkpoint</title>
+        <desc id="hD">A stack of four labelled layers — law, standard, organisational policy, runtime control — narrows into a single gate. A request passes through the gate to a model, and every interaction is written into a ledger.</desc>
+        <defs>
+          <marker id="hArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+          </marker>
+        </defs>
+        <rect x="22" y="22" width="376" height="316" rx="18" class="svg-sheet" stroke="var(--rule)"/>
+        <text x="44" y="54" class="t-sm svg-muted">Four layers become one gate</text>
+
+        <rect x="44" y="72" width="150" height="34" rx="6" class="f-plum-soft" stroke="var(--rule)"/>
+        <text x="56" y="94" class="t-sm svg-ink">1 · Law</text>
+        <rect x="44" y="114" width="150" height="34" rx="6" class="f-teal-soft" stroke="var(--rule)"/>
+        <text x="56" y="136" class="t-sm svg-ink">2 · Standard</text>
+        <rect x="44" y="156" width="150" height="34" rx="6" class="f-gold-soft" stroke="var(--rule)"/>
+        <text x="56" y="178" class="t-sm svg-ink">3 · Policy</text>
+        <rect x="44" y="198" width="150" height="34" rx="6" class="f-coral-soft" stroke="var(--rule)"/>
+        <text x="56" y="220" class="t-sm svg-ink">4 · Runtime</text>
+
+        <path d="M194 215 H232" class="stroke-muted" stroke-width="2.5" marker-end="url(#hArr)"/>
+
+        <rect x="240" y="176" width="18" height="78" rx="4" class="f-coral"/>
+        <text x="249" y="270" class="t-sm svg-muted" text-anchor="middle">gate</text>
+
+        <path d="M258 215 H286" class="stroke-muted" stroke-width="2.5" marker-end="url(#hArr)"/>
+        <rect x="292" y="186" width="84" height="58" rx="10" class="svg-paper" stroke="var(--rule)"/>
+        <text x="334" y="212" class="t-sm svg-ink" text-anchor="middle">Model</text>
+        <text x="334" y="230" class="t-sm svg-muted" text-anchor="middle">+ tools</text>
+
+        <path d="M334 244 V278" class="stroke-muted" stroke-width="2.5" marker-end="url(#hArr)"/>
+        <rect x="262" y="284" width="144" height="40" rx="8" class="f-gold-soft" stroke="var(--rule)"/>
+        <text x="334" y="309" class="t-sm svg-ink" text-anchor="middle">Ledger of what happened</text>
+      </svg>
+    </div>
+  </section>
+  <nav class="toc" aria-label="Chapters">
+    <ol>
+      <li><a href="#c1">1 · What it is</a></li>
+      <li><a href="#c2">2 · Why it exists</a></li>
+      <li><a href="#c3">3 · The law</a></li>
+      <li><a href="#c4">4 · Standards</a></li>
+      <li><a href="#c5">5 · Runtime</a></li>
+      <li><a href="#c6">6 · Anatomy</a></li>
+      <li><a href="#c7">7 · Case studies</a></li>
+      <li><a href="#c8">8 · Evals</a></li>
+      <li><a href="#c9">9 · The file</a></li>
+      <li><a href="#c10">10 · Germany</a></li>
+      <li><a href="#c11">11 · Market</a></li>
+      <li><a href="#c12">12 · Learn</a></li>
+      <li><a href="#plan">Your plan</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#references">References</a></li>
+    </ol>
+  </nav>
+</header>
+<main>
+
+<section class="prose" style="padding:2.5rem 0 1rem">
+  <p><strong>Why this lecture exists.</strong> A pitch arrived describing “a SaaS platform for runtime governance for AI systems and infrastructures.” The phrase sounds impressive and explains almost nothing. This lecture takes it apart: what each word means, where the idea came from, who has implemented it and why, how they did it, and how much of it depends on the evaluation work you are already learning.</p>
+  <p><strong>The one-sentence version.</strong> Governance is the system that decides who may use an AI system, what it is allowed to do, and how anyone can prove afterwards what it actually did — and <em>runtime</em> governance is the part that operates while the system is running, not in a policy document on a shelf.</p>
+  <p class="note">This is a teaching document, not legal advice. Law and enforcement practice change; the references at the end point to the primary texts so you can check every claim. Where a number comes from a vendor case study, I say so.</p>
+
+  <div class="verify"><b>How to read this.</b> Chapters 1–5 build the vocabulary. Chapters 6–8 are the technical core. Chapters 9–11 turn it into practice, Germany-specific obligations, and the vendor landscape. Chapter 12 is the study path. Each chapter ends with a quick check; answer it before moving on. The glossary defines every term in plain English.</div>
+
+  <h3>What you should be able to do by the end</h3>
+  <ul class="check">
+    <li><span><strong>Explain the four layers.</strong> Distinguish law, standards, organisational policy, and runtime controls, and say which layer a given product actually sits in.</span></li>
+    <li><span><strong>Read the AI Act structurally.</strong> Decide whether a system is prohibited, high-risk, limited-risk, or minimal, and identify who is the provider and who is the deployer.</span></li>
+    <li><span><strong>Draw a runtime control plane.</strong> Show where a gateway, a policy engine, a classifier, a human approval step, and an audit log sit in the request path.</span></li>
+    <li><span><strong>Place evals correctly.</strong> Explain the difference between an eval, a guardrail, and a monitor, and why a heavy judge cannot run in the request path.</span></li>
+    <li><span><strong>Build a governance file.</strong> Produce a risk register, a control matrix, an eval plan, and an evidence log for one real system.</span></li>
+    <li><span><strong>Ask a vendor the right questions.</strong> Separate a real deployment from a slide deck in twenty minutes.</span></li>
+  </ul>
+
+  <details class="quiz"><summary>Diagnostic: a bank wants to use an LLM to draft replies to customer complaints. It buys a tool that scans every prompt for personal data and blocks unsafe answers, and it keeps a log of every interaction. Which layer is the tool, and what is still missing?</summary>
+  <p><strong>The tool is layer 4 — a runtime control.</strong> It sits in the request path and enforces policy at execution time. Still missing: the law and standards analysis (is this high-risk? what does Article 50 require?), the organisational decisions (who approves the prompt, who owns the risk, what happens when the tool blocks a legitimate reply), and the evaluation evidence (is the answer accurate, and how do you know the blocker's false-positive rate is acceptable?). A runtime tool without the other three layers is a gate with no rulebook and no inspector.</p></details>
+</section>
+
+<section class="chapter" id="c1">
+  <div class="chapter-head"><div class="chapter-num">1</div><div><h2>What governance actually is</h2><p>Not government. A system of decision rights, controls, and proof.</p></div></div>
+  <div class="prose">
+    <p>The word “governance” misleads people because it sounds like something a government does <em>to</em> a company. In an organisation, governance is internal and practical. It answers three questions, over and over, for every system that matters:</p>
+    <ul class="check">
+      <li><span><strong>Who decided?</strong> Which person or committee approved this use, this model, this prompt, this data source?</span></li>
+      <li><span><strong>What is allowed?</strong> What may the system do, for whom, with what data, and under what limits?</span></li>
+      <li><span><strong>Can you prove it?</strong> Where is the record that shows what actually happened, in a form an auditor or regulator can read?</span></li>
+    </ul>
+
+    <p>Everything else — the frameworks, the certifications, the dashboards, the vendor products — exists to make those three questions answerable at scale. When a governance programme fails, it is usually because it answered them on paper but not in the running system: the policy said “no personal data leaves the network,” while the application was sending customer messages to a public API.</p>
+
+    <div class="analogy"><div class="icon">🚌</div><div><b>The danfo park analogy: the union office and the gate</b>
+      <p>A motor park has a union office with a rulebook: who may drive, which routes are allowed, what the fare is, how disputes are settled. That is <em>policy</em>. But the rulebook does not stop an unlicensed driver from loading passengers. What stops him is the gate: a conductor checks the vehicle, the route, and the passenger manifest before the bus leaves. At the end of the day, the park secretary has a ledger with plate numbers, times, and takings.</p>
+      <p>Law and standards are the union office. Runtime governance is the gate plus the ledger. A park with only an office is a place where everyone agrees on paper and nothing is enforced.</p>
+    </div></div>
+
+    <h3>The four layers</h3>
+    <p>Most confusion in this field comes from mixing layers. A course on “AI governance” may teach only the first, while a vendor sells only the fourth, and both use the same words.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Layer</th><th>What it contains</th><th>Typical artefact</th><th>Who owns it</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Law and policy</td><td>Binding rules: the EU AI Act, GDPR, sector regulation, international principles.</td><td>Legal analysis, register of obligations, DPIA.</td><td>Legal, compliance, board.</td></tr>
+      <tr><td>2 · Standards</td><td>Agreed ways of proving you meet the rules: NIST AI RMF, ISO/IEC 42001, ISO/IEC 23894.</td><td>Management-system manual, risk assessment, control catalogue.</td><td>Risk, quality, CISO.</td></tr>
+      <tr><td>3 · Organisation</td><td>Roles, committees, inventories, approval workflows, training, vendor due diligence.</td><td>AI inventory, model cards, approval tickets, training records.</td><td>AI governance lead, product owners.</td></tr>
+      <tr><td>4 · Runtime</td><td>Technical controls that act while the system runs: gateways, filters, permissions, human approval, logs.</td><td>Policy-as-code, guardrail configuration, traces, audit log.</td><td>Engineering, platform, security.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>The layers are not alternatives. A runtime filter with no legal analysis is a guess about what to block. A legal analysis with no runtime control is a promise nobody checks. The mature pattern is a chain: <strong>law → standard → policy → control → evidence</strong>. Each link narrows the previous one until it becomes something a computer can enforce and an auditor can read.</p>
+
+    <h3>Design time versus runtime</h3>
+    <p>This is the distinction the pitch was trading on. <strong>Design-time governance</strong> happens before deployment: classifying the system, assessing risk, reviewing the data, approving the vendor, documenting the model. <strong>Runtime governance</strong> happens during execution: authenticating the caller, inspecting the prompt, enforcing a rule, limiting an action, recording the result.</p>
+    <p>Design-time governance produces documents. Runtime governance produces <em>events</em>. You need both because they fail differently: a document can be beautifully written and completely disconnected from the system; an event stream can be perfectly captured and completely pointless if nobody defined what should have been blocked.</p>
+
+    <p class="pull">Policy tools say what should happen. Runtime tools prove what did happen.</p>
+
+    <h3>What governance is not</h3>
+    <ul class="check">
+      <li><span><strong>Not a PDF.</strong> A policy nobody enforces is a preference.</span></li>
+      <li><span><strong>Not a dashboard.</strong> A chart of model calls is observability. It becomes governance only when someone has defined acceptable behaviour and can act on the difference.</span></li>
+      <li><span><strong>Not the same as security.</strong> Security asks “can an attacker break this?” Governance also asks “is this use permitted, fair, documented, and accountable?” They overlap heavily, but neither contains the other.</span></li>
+      <li><span><strong>Not the same as evaluation.</strong> Evaluation asks “is it good?” Governance asks “is it allowed, and can we prove it?” Chapter 8 is about the bridge between them.</span></li>
+    </ul>
+
+    <details class="quiz"><summary>A team ships a chatbot with a content filter and a log. Their manager says “we have governance.” What is the strongest objection?</summary>
+    <p><strong>They have two controls, not a governance system.</strong> There is no statement of what the system is allowed to do, no owner for the risk, no process for reviewing failures, and no evidence that the filter works. The controls may be useful; the claim is unsupported. Governance is the arrangement that makes the controls meaningful, not the controls alone.</p></details>
+  </div>
+</section>
+<section class="chapter" id="c2">
+  <div class="chapter-head"><div class="chapter-num">2</div><div><h2>Why the idea appeared</h2><p>Three older traditions, four pressures, and one tribunal ruling.</p></div></div>
+  <div class="prose">
+    <p>Runtime governance was not invented by a startup in 2024. It is the collision of three disciplines that already existed, pushed together by a new kind of software that behaved unpredictably in public.</p>
+
+    <h3>Tradition one: bank model-risk management</h3>
+    <p>After the 2008 financial crisis, supervisors made it explicit that a bank must understand and control every model that affects its decisions. In the United States, the Federal Reserve and the Office of the Comptroller of the Currency issued <strong>SR 11-7</strong> in 2011: models must be validated before use, monitored continuously, and documented well enough for an independent reviewer to reconstruct the reasoning. Nothing in that guidance says “machine learning.” It applies to any quantitative model. When large language models arrived, risk officers asked the obvious question: why would these be exempt?</p>
+
+    <h3>Tradition two: observability</h3>
+    <p>Software teams learned that you cannot operate what you cannot see. Logs, metrics, and distributed traces became standard, eventually standardised as OpenTelemetry. Applying the same idea to an AI system means recording the prompt, the retrieved context, the model version, the response, the latency, the cost, and the tool calls. Observability gives you the raw material of evidence; it does not tell you whether the behaviour was acceptable.</p>
+
+    <h3>Tradition three: the API gateway and the firewall</h3>
+    <p>Networks already had a chokepoint: one front door where you authenticate callers, apply rate limits, inspect traffic, and block known attacks. An <strong>AI gateway</strong> is the same pattern moved up the stack. Instead of routing HTTP to servers, it routes prompts to models — and, crucially, it can inspect the request and the response on the way through.</p>
+
+    <div class="analogy"><div class="icon">🛂</div><div><b>The border-post analogy</b>
+      <p>A country does not govern migration by publishing a law and hoping. It builds a border post: identity check, visa check, customs inspection, and an entry register. The law defines who may enter; the post enforces it; the register proves who did. Runtime governance is the border post for model traffic. The mistake vendors sell is the post without the law, or the register without the inspection.</p>
+    </div></div>
+
+    <h3>Four pressures that created the market</h3>
+    <div class="grid3">
+      <div class="card coral"><p class="k">⚖️ Liability</p><p>A company is responsible for what its AI says, even when the AI says something the company’s own policy forbids.</p></div>
+      <div class="card teal"><p class="k">🔒 Data leakage</p><p>Employees paste confidential material into public tools; every team wires up a different model with no central control.</p></div>
+      <div class="card gold"><p class="k">📜 Regulation</p><p>New law demands logging, human oversight, accuracy, and post-market monitoring — with fines tied to global turnover.</p></div>
+      <div class="card plum"><p class="k">💸 Sprawl and cost</p><p>Dozens of applications call dozens of models with no inventory, no quotas, and no idea what is being spent.</p></div>
+    </div>
+
+    <h3>The ruling that made the risk concrete</h3>
+    <div class="story">
+      <p class="label">Case</p>
+      <h4>Air Canada, February 2024</h4>
+      <p>A customer asked the airline’s website chatbot about bereavement fares. The chatbot told him he could buy a full-price ticket and apply for a refund within 90 days. The airline’s actual policy did not allow retroactive claims. When he complained, Air Canada argued before a British Columbia tribunal that the chatbot was “a separate legal entity responsible for its own actions.” The tribunal called the argument remarkable and rejected it. Air Canada was ordered to pay <strong>CA$812.02</strong> in damages (Moffatt v. Air Canada, 2024 BCCRT 149).</p>
+      <p class="lesson">Lesson: the company owns everything its AI says. A runtime check that compared the answer with the actual policy would have cost far less than the ruling.</p>
+    </div>
+
+    <h3>The timeline</h3>
+    <p>Read this as a shift in what the market was asking for: first documentation, then monitoring, then enforcement, then evidence.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 430" role="img" aria-labelledby="tT tD">
+      <title id="tT">Timeline from model risk guidance to runtime AI governance</title>
+      <desc id="tD">A vertical timeline with seven points: 2011 SR 11-7 model risk guidance; 2016 to 2019 machine-learning observability; late 2022 ChatGPT; 2023 NIST AI RMF, ISO 42001 and the Samsung data leak; 2024 the EU AI Act enters into force and the Air Canada ruling; 2025 agentic systems and security acquisitions; 2026 transparency duties and delayed high-risk deadlines.</desc>
+      <line x1="120" y1="30" x2="120" y2="400" class="stroke-rule" stroke-width="4"/>
+      <g>
+        <circle cx="120" cy="45" r="9" class="f-teal"/>
+        <text x="40" y="50" class="t-md svg-ink">2011</text>
+        <text x="150" y="42" class="t-sm svg-ink">SR 11-7: validate, monitor, document every model</text>
+        <text x="150" y="64" class="t-sm svg-muted">The banking lineage begins</text>
+
+        <circle cx="120" cy="105" r="9" class="f-teal"/>
+        <text x="40" y="110" class="t-md svg-ink">2016–19</text>
+        <text x="150" y="102" class="t-sm svg-ink">ML observability and algorithmic accountability</text>
+        <text x="150" y="124" class="t-sm svg-muted">Drift, bias, and the first monitoring vendors</text>
+
+        <circle cx="120" cy="165" r="9" class="f-coral"/>
+        <text x="40" y="170" class="t-md svg-ink">Nov 2022</text>
+        <text x="150" y="162" class="t-sm svg-ink">ChatGPT: AI becomes a public product</text>
+        <text x="150" y="184" class="t-sm svg-muted">Every board asks what staff are pasting into it</text>
+
+        <circle cx="120" cy="225" r="9" class="f-coral"/>
+        <text x="40" y="230" class="t-md svg-ink">2023</text>
+        <text x="150" y="222" class="t-sm svg-ink">NIST AI RMF · ISO/IEC 42001 · Samsung leak</text>
+        <text x="150" y="244" class="t-sm svg-muted">Frameworks arrive; the first data-loss bans follow</text>
+
+        <circle cx="120" cy="285" r="9" class="f-gold"/>
+        <text x="40" y="290" class="t-md svg-ink">2024</text>
+        <text x="150" y="282" class="t-sm svg-ink">EU AI Act in force · Air Canada ruling</text>
+        <text x="150" y="304" class="t-sm svg-muted">Liability becomes concrete; logging becomes legal</text>
+
+        <circle cx="120" cy="345" r="9" class="f-gold"/>
+        <text x="40" y="350" class="t-md svg-ink">2025</text>
+        <text x="150" y="342" class="t-sm svg-ink">Agents, tool calls, and security consolidation</text>
+        <text x="150" y="364" class="t-sm svg-muted">Governance moves from text to actions</text>
+
+        <circle cx="120" cy="405" r="9" class="f-plum"/>
+        <text x="40" y="410" class="t-md svg-ink">2026–28</text>
+        <text x="150" y="402" class="t-sm svg-ink">Transparency duties apply; high-risk deadlines move</text>
+        <text x="150" y="424" class="t-sm svg-muted">Runtime evidence becomes the operating layer</text>
+      </g>
+    </svg>
+    <figcaption>The market moved from “write it down” to “prove it happened” — which is why runtime controls became a product category.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Why the phrase “runtime governance” appeared only recently</h3>
+    <p>Three things changed at once. Models became cheap enough to embed in ordinary workflows, so the number of call sites exploded. Agents gained the ability to <em>act</em> — send an email, issue a refund, call an internal API — so a bad output stopped being merely embarrassing and became consequential. And regulators began asking for records that a company could not produce from a policy document. The combination turned governance from a review board into an operating layer.</p>
+
+    <details class="quiz"><summary>Why did banks adopt this earlier than most other industries?</summary>
+    <p><strong>They already had the discipline and the regulator.</strong> Model risk management required validation, monitoring, and documentation long before LLMs. The bank did not have to invent the concept of a model inventory or an independent review; it had to extend an existing process to a new kind of model. That is also why the most mature case studies come from banking.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c3">
+  <div class="chapter-head"><div class="chapter-num">3</div><div><h2>The law: reading the EU AI Act without panicking</h2><p>Risk tiers, roles, and the articles that actually create work.</p></div></div>
+  <div class="prose">
+    <p>The <strong>EU AI Act</strong> is Regulation (EU) 2024/1689. It entered into force on 1 August 2024 and applies directly in every member state — there is no national law to wait for. It is long, but its structure is simple enough to hold in one page.</p>
+
+    <h3>Four risk tiers</h3>
+    <ul class="check">
+      <li><span><strong>Prohibited.</strong> A short list in Article 5: manipulative techniques, social scoring, untargeted facial scraping, emotion recognition in workplaces and schools, and some biometric categorisation. Banned outright since 2 February 2025.</span></li>
+      <li><span><strong>High-risk.</strong> Systems used in specified areas — for example recruitment and worker management, creditworthiness, education, essential services, migration, law enforcement, and safety components of regulated products. These carry the full set of obligations in Articles 9–15.</span></li>
+      <li><span><strong>Limited-risk (transparency).</strong> Chatbots, deepfakes, synthetic media, emotion recognition outside the banned cases. The main duty is to tell people they are interacting with AI and to mark generated content.</span></li>
+      <li><span><strong>Minimal-risk.</strong> Everything else — spam filters, recommendation engines in games, most internal tools. No specific obligations, though GDPR and consumer law still apply.</span></li>
+    </ul>
+
+    <p>A separate chapter governs <strong>general-purpose AI models</strong> (GPAI) — the foundation models that others build on. Providers must publish technical documentation, a copyright policy, and a training-data summary. Models judged to carry systemic risk (a threshold based on compute, currently 10<sup>25</sup> floating-point operations) face additional evaluation, adversarial testing, and incident reporting duties.</p>
+
+    <h3>Who is who</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Role</th><th>Definition</th><th>Typical example</th></tr></thead>
+      <tbody>
+        <tr><td>Provider</td><td>Develops the system, or has it developed, and places it on the market under its own name.</td><td>A vendor selling an AI recruitment tool.</td></tr>
+        <tr><td>Deployer</td><td>Uses the system in the course of its professional activity.</td><td>A company using that tool to screen applicants.</td></tr>
+        <tr><td>Importer / distributor</td><td>Brings a non-EU system into the EU, or makes it available in the supply chain.</td><td>A German reseller of a US product.</td></tr>
+        <tr><td>Authorised representative</td><td>An EU-established entity acting for a non-EU provider.</td><td>Required before market access.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>One company can wear several hats. If you take a vendor’s model, fine-tune it on your own data, and put your brand on it, you may become a provider for that modified system. This is the single most common misclassification in small AI projects.</p>
+
+    <h3>The articles that create actual work</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Article</th><th>What it requires</th><th>What it looks like in practice</th></tr></thead>
+      <tbody>
+        <tr><td>9</td><td>Risk management system across the lifecycle</td><td>A living risk register, reviewed at each release.</td></tr>
+        <tr><td>10</td><td>Data governance</td><td>Documented sources, bias checks, representativeness.</td></tr>
+        <tr><td>11–13</td><td>Technical documentation and instructions</td><td>A system card a competent third party can understand.</td></tr>
+        <tr><td>12</td><td>Automatic record-keeping</td><td>Logs of events, retained and readable.</td></tr>
+        <tr><td>14</td><td>Human oversight</td><td>A named person who can intervene and stop the system.</td></tr>
+        <tr><td>15</td><td>Accuracy, robustness, cybersecurity</td><td>Declared metrics, testing, and attack resistance.</td></tr>
+        <tr><td>26</td><td>Deployer duties</td><td>Use as instructed, assign oversight, monitor, keep logs (at least six months), inform workers.</td></tr>
+        <tr><td>27</td><td>Fundamental rights impact assessment</td><td>For certain public bodies and credit or insurance deployers.</td></tr>
+        <tr><td>43–49</td><td>Conformity assessment, CE marking, registration</td><td>The route to placing a high-risk system on the market.</td></tr>
+        <tr><td>50</td><td>Transparency</td><td>Tell users they are talking to AI; label synthetic content.</td></tr>
+        <tr><td>72</td><td>Post-market monitoring</td><td>Collect and analyse performance data for the system’s life.</td></tr>
+        <tr><td>73</td><td>Serious incident reporting</td><td>A defined process with deadlines.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>The dates that matter</h3>
+    <ul class="check">
+      <li><span><strong>2 February 2025.</strong> Prohibitions and the AI-literacy duty (Article 4) applied.</span></li>
+      <li><span><strong>2 August 2025.</strong> GPAI model obligations applied.</span></li>
+      <li><span><strong>2 August 2026.</strong> Transparency duties under Article 50 applied, alongside several governance and penalty provisions.</span></li>
+      <li><span><strong>2 December 2027.</strong> High-risk obligations for Annex III systems, as moved by the 2026 Digital Omnibus (Regulation (EU) 2026/1744).</span></li>
+      <li><span><strong>2 August 2028.</strong> High-risk obligations for Annex I products, under the same omnibus.</span></li>
+    </ul>
+    <div class="warn"><b>Check the moving parts.</b> The Commission continues to issue implementing acts and guidance, and the omnibus changed several deadlines. Before advising anyone, confirm the current date on the official AI Act Service Desk rather than trusting a blog post — including this one.</div>
+
+    <h3>The decision tree</h3>
+    <p>Use this as a first pass, not as a legal opinion. The point is to stop treating every AI feature as either “fine” or “high-risk” without thinking.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 720" role="img" aria-labelledby="rT rD">
+      <title id="rT">Decision path for classifying an AI system under the EU AI Act</title>
+      <desc id="rD">Five stacked cards. First, is the practice prohibited under Article 5. Second, is it high-risk under Annex I or Annex III. Third, is it a general-purpose model. Fourth, does it interact with people or generate synthetic media. Fifth, none of the above, minimal risk. Each card states the consequence of answering yes.</desc>
+      <defs>
+        <marker id="rArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+        </marker>
+      </defs>
+
+      <rect x="40" y="20" width="600" height="112" rx="12" class="f-coral-soft" stroke="var(--rule)"/>
+      <text x="64" y="50" style="font-size:20px;font-weight:600" class="svg-ink">1 · Is the practice prohibited? (Article 5)</text>
+      <text x="64" y="76" style="font-size:17px" class="svg-muted">Manipulation, social scoring, predictive policing,</text>
+      <text x="64" y="96" style="font-size:17px" class="svg-muted">some biometrics and emotion recognition at work.</text>
+      <text x="64" y="122" style="font-size:17px;fill:var(--coral)">If yes: stop. Do not deploy.</text>
+      <path d="M340 132 V144" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="152" width="600" height="112" rx="12" class="f-coral-soft" stroke="var(--rule)"/>
+      <text x="64" y="182" style="font-size:20px;font-weight:600" class="svg-ink">2 · Is it high-risk? (Annex I or Annex III)</text>
+      <text x="64" y="208" style="font-size:17px" class="svg-muted">Product safety components, or an area such as hiring,</text>
+      <text x="64" y="228" style="font-size:17px" class="svg-muted">credit, education, or migration.</text>
+      <text x="64" y="254" style="font-size:17px;fill:var(--coral)">If yes: Articles 9–15, 43–49, registration, monitoring.</text>
+      <path d="M340 264 V276" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="284" width="600" height="112" rx="12" class="f-gold-soft" stroke="var(--rule)"/>
+      <text x="64" y="314" style="font-size:20px;font-weight:600" class="svg-ink">3 · Is it a general-purpose model?</text>
+      <text x="64" y="340" style="font-size:17px" class="svg-muted">A foundation model offered to others as an API</text>
+      <text x="64" y="360" style="font-size:17px" class="svg-muted">or as downloadable weights.</text>
+      <text x="64" y="386" style="font-size:17px;fill:var(--coral)">If yes: documentation, copyright policy, data summary.</text>
+      <path d="M340 396 V408" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="416" width="600" height="112" rx="12" class="f-plum-soft" stroke="var(--rule)"/>
+      <text x="64" y="446" style="font-size:20px;font-weight:600" class="svg-ink">4 · Does it talk to people or make media?</text>
+      <text x="64" y="472" style="font-size:17px" class="svg-muted">Chatbots, voice assistants, deepfakes, generated</text>
+      <text x="64" y="492" style="font-size:17px" class="svg-muted">images, audio, and text.</text>
+      <text x="64" y="518" style="font-size:17px;fill:var(--coral)">If yes: disclose the AI and label synthetic content.</text>
+      <path d="M340 528 V540" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="548" width="600" height="112" rx="12" class="f-teal-soft" stroke="var(--rule)"/>
+      <text x="64" y="578" style="font-size:20px;font-weight:600" class="svg-ink">None of the above?</text>
+      <text x="64" y="604" style="font-size:17px" class="svg-muted">Minimal risk — but GDPR, employment law, and</text>
+      <text x="64" y="624" style="font-size:17px" class="svg-muted">contracts still apply.</text>
+      <text x="64" y="648" style="font-size:16px;fill:var(--teal)">Document the reasoning and move on.</text>
+
+      <text x="340" y="700" style="font-size:16px" class="svg-muted" text-anchor="middle">A system can sit in more than one box at once.</text>
+    </svg>
+    <figcaption>Classify first; then read only the articles that apply. Most systems are not high-risk, but most customer-facing chatbots still owe transparency.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>What this means for a small company or consultancy</h3>
+    <ul class="check">
+      <li><span><strong>Most internal tools are minimal-risk.</strong> That does not make them obligation-free: GDPR, employment law, and ordinary contract law still apply.</span></li>
+      <li><span><strong>Hiring and credit are the trap.</strong> Recruitment screening and creditworthiness assessment are Annex III high-risk. A “small” tool used to rank CVs carries the full machinery.</span></li>
+      <li><span><strong>Deployers have real duties.</strong> Article 26 is not a formality: use the system as instructed, assign human oversight, monitor, keep logs for at least six months, and inform workers and their representatives.</span></li>
+      <li><span><strong>Article 50 is already live.</strong> If a chatbot talks to customers, they must know it is AI. If you generate images or audio, they must be marked as synthetic in a machine-readable way.</span></li>
+      <li><span><strong>Penalties are turnover-based.</strong> Up to €35 million or 7% of worldwide annual turnover for prohibited practices; lower tiers for other breaches. For a small firm, the reputational and contractual cost usually bites before the statutory fine.</span></li>
+    </ul>
+
+    <div class="analogy ng"><div class="icon">🧾</div><div><b>The tax-office analogy: the law, the form, and the receipt</b>
+      <p>The tax law tells you what is owed. The form tells you how to declare it. The receipt proves what you actually paid. Companies often buy a tool that prints receipts and call it tax compliance — without ever reading the law or filling the form. The AI Act works the same way: Article 12 logs are the receipt, but Articles 9–15 are the law and the form.</p>
+    </div></div>
+
+    <details class="quiz"><summary>A German mid-sized company buys a US recruitment-ranking tool and uses it to shortlist applicants. Who is the provider, who is the deployer, and what is the minimum obligation set?</summary>
+    <p><strong>The US vendor is the provider; the German company is the deployer.</strong> Recruitment is an Annex III high-risk area, so the provider must meet Articles 9–15 and go through conformity assessment. The deployer must use it as instructed, assign human oversight, monitor, keep logs for at least six months, inform workers and the works council, and — depending on its nature — consider a fundamental-rights impact assessment. It cannot contract its way out of Article 26.</p></details>
+  </div>
+</section>
+<section class="chapter" id="c4">
+  <div class="chapter-head"><div class="chapter-num">4</div><div><h2>The standards: how you prove you did it</h2><p>NIST tells you what to think about. ISO tells you how to run the organisation that thinks about it.</p></div></div>
+  <div class="prose">
+    <p>Law says what is required. A standard says how to demonstrate that you met the requirement in a way another professional would accept. Two standards dominate the field, and they are complementary rather than competing.</p>
+
+    <h3>NIST AI RMF: the thinking tool</h3>
+    <p>The <strong>NIST AI Risk Management Framework</strong> (AI 100-1, January 2023) is voluntary, free, and unusually practical. It organises work into four functions:</p>
+  </div>
+
+  <div class="grid3">
+    <div class="card teal"><p class="k">GOVERN</p><p>Set culture, roles, accountability, and policies. This function wraps the other three; it is not a stage you finish.</p></div>
+    <div class="card coral"><p class="k">MAP</p><p>Understand the context: who uses the system, for what, with what data, and what could go wrong.</p></div>
+    <div class="card gold"><p class="k">MEASURE</p><p>Test and monitor the risks you identified. This is where evaluation lives.</p></div>
+    <div class="card plum"><p class="k">MANAGE</p><p>Prioritise, respond, accept, or stop. Assign owners and review.</p></div>
+  </div>
+
+  <div class="prose">
+    <p>Underneath the functions sits a list of trustworthiness characteristics: valid and reliable, safe, secure and resilient, accountable and transparent, explainable and interpretable, privacy-enhanced, and fair with harmful bias managed. The framework does not prescribe a control catalogue. It gives you a vocabulary and a loop, which is why consultants like it and auditors sometimes find it too soft.</p>
+
+    <h3>The Generative AI Profile</h3>
+    <p>In July 2024, NIST published <strong>AI 600-1</strong>, a profile that applies the framework to generative AI. It names twelve risks and suggests more than 200 actions. The twelve are worth memorising because they are a ready-made risk register:</p>
+    <ul class="check">
+      <li><span><strong>CBRN information or capabilities.</strong> Chemical, biological, radiological, or nuclear uplift.</span></li>
+      <li><span><strong>Confabulation.</strong> Confident fabrication.</span></li>
+      <li><span><strong>Dangerous, violent, or hateful content.</strong></span></li>
+      <li><span><strong>Data privacy.</strong> Leakage, inference, and misuse of personal data.</span></li>
+      <li><span><strong>Environmental impacts.</strong> Energy, water, and hardware footprint.</span></li>
+      <li><span><strong>Harmful bias and homogenisation.</strong> Including the loss of diverse viewpoints.</span></li>
+      <li><span><strong>Human-AI configuration.</strong> Automation bias, over-trust, and poor handoffs.</span></li>
+      <li><span><strong>Information integrity.</strong> Misinformation and disinformation at scale.</span></li>
+      <li><span><strong>Information security.</strong> Prompt injection, data poisoning, model theft.</span></li>
+      <li><span><strong>Intellectual property.</strong> Infringement and unclear provenance.</span></li>
+      <li><span><strong>Obscene, degrading, or abusive content.</strong></span></li>
+      <li><span><strong>Value chain and component integration.</strong> Risks inherited from models, data, and vendors you did not build.</span></li>
+    </ul>
+
+    <h3>ISO/IEC 42001: the management system</h3>
+    <p><strong>ISO/IEC 42001:2023</strong> is the first certifiable AI management system standard. It follows the same structure as ISO 27001 for information security: plan, do, check, act. An organisation defines the scope, writes an AI policy, identifies roles, assesses risks, selects controls from Annex A, produces a statement of applicability, runs internal audits and management reviews, and then invites an accredited certification body to check the whole thing.</p>
+    <p>Annex A groups controls around AI policy, internal organisation, resources, impact assessment, system lifecycle, data, tools and third parties, transparency to users, and incident management. Certification takes months and real evidence. A certificate is a statement that a management system exists and is followed — not a guarantee that any particular model is accurate.</p>
+
+    <div class="analogy"><div class="icon">🏥</div><div><b>The hospital accreditation analogy</b>
+      <p>Hospital accreditation checks whether the hospital has infection-control procedures, trained staff, incident logs, and a functioning review board. It does not prove that every surgeon is skilful. ISO 42001 is accreditation for AI: it proves the organisation has a system, not that the system’s outputs are good. That is why Chapter 8 matters.</p>
+    </div></div>
+
+    <h3>How the pieces map</h3>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Legal obligation</th><th>Standard home</th><th>Runtime evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Risk management (Art. 9)</td><td>NIST MAP + MANAGE; ISO 42001 clause 6</td><td>Risk register linked to live controls; change log.</td></tr>
+      <tr><td>Record-keeping (Art. 12)</td><td>ISO 42001 Annex A logging controls</td><td>Immutable event log with trace IDs and retention.</td></tr>
+      <tr><td>Human oversight (Art. 14)</td><td>NIST GOVERN; ISO 42001 roles</td><td>Approval step, named reviewer, override record.</td></tr>
+      <tr><td>Accuracy and robustness (Art. 15)</td><td>NIST MEASURE</td><td>Eval results by version; production sampling; drift alerts.</td></tr>
+      <tr><td>Post-market monitoring (Art. 72)</td><td>NIST MANAGE; ISO 42001 clause 9</td><td>Continuous metrics, incident tickets, periodic review.</td></tr>
+      <tr><td>Transparency (Art. 50)</td><td>ISO 42001 transparency controls</td><td>Disclosure flag in the UI; content provenance metadata.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>Read the table from right to left when you are engineering. The runtime evidence column is what an auditor will actually ask to see. A policy that cannot produce that column is a claim, not a control.</p>
+
+    <details class="quiz"><summary>Your company is ISO 27001 certified and wants to reuse that system for AI. What can it reuse, and what is genuinely new?</summary>
+    <p><strong>Reusable:</strong> the management-system machinery — document control, internal audit, management review, incident process, supplier management, access control, asset inventory. <strong>New:</strong> AI-specific risk assessment (model behaviour, bias, hallucination, prompt injection), data provenance and training-data governance, model lifecycle and evaluation, transparency to users, and the human-oversight design. ISO 42001 is deliberately built to bolt onto ISO 27001, but it is not the same certificate.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c5">
+  <div class="chapter-head"><div class="chapter-num">5</div><div><h2>What runtime governance is</h2><p>The control plane that sits between your application and the model.</p></div></div>
+  <div class="prose">
+    <p>Here is the definition I would defend in a client meeting: <strong>runtime governance is the set of controls that act on an AI interaction while it is happening, together with the records that prove what happened.</strong> Everything else is either preparation for it or analysis after the fact.</p>
+
+    <p>The phrase borrows from networking. A <strong>data plane</strong> carries the traffic; a <strong>control plane</strong> decides how the traffic is handled. In an AI system, the data plane is the prompt, the retrieved documents, the model call, and the response. The control plane is the set of rules, identities, and checks that decide whether that traffic may proceed — and what gets written down afterwards.</p>
+
+    <h3>The five jobs</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Job</th><th>Question</th><th>Concrete control</th></tr></thead>
+      <tbody>
+        <tr><td>See</td><td>Who is calling, with what, on whose behalf?</td><td>Authentication, agent identity, request tracing.</td></tr>
+        <tr><td>Decide</td><td>Is this request permitted by policy?</td><td>Policy engine, allow/deny rules, data classification.</td></tr>
+        <tr><td>Limit</td><td>What is the worst this action can do?</td><td>Tool allowlists, spending caps, human approval, sandboxing.</td></tr>
+        <tr><td>Record</td><td>What exactly happened?</td><td>Immutable event log, traces, model and policy versions.</td></tr>
+        <tr><td>Prove</td><td>Can an auditor reconstruct and verify it?</td><td>Evidence export, retention, integrity controls.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>Most products are strong on “record” and weak on “decide” and “limit.” A log that shows a bad action after it happened is an autopsy, not a control. The hard engineering is in the middle three jobs, because they run in the request path and must be fast, accurate, and hard to bypass.</p>
+
+    <h3>The request path</h3>
+    <p>Follow one interaction from left to right. Every box is a place where a control can live — and a place where a control can fail.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 760" role="img" aria-labelledby="pD pDD">
+      <title id="pD">Request path through a runtime governance control plane</title>
+      <desc id="pDD">Eight stages stacked vertically: user or app, AI gateway, policy engine, input inspection, model, output inspection, tool or action, and audit log. A dashed rail links the stages, and every stage writes to the audit log.</desc>
+      <defs>
+        <marker id="pArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+        </marker>
+      </defs>
+
+      <path d="M46 46 V566" stroke="var(--rule)" stroke-width="2" stroke-dasharray="5 6"/>
+      <circle cx="46" cy="46" r="7" class="f-teal"/>
+      <text x="78" y="42" style="font-size:20px;font-weight:600" class="svg-ink">User or app</text>
+      <text x="78" y="66" style="font-size:17px" class="svg-muted">The request arrives with an identity and a declared purpose.</text>
+      <circle cx="46" cy="120" r="7" class="f-teal"/>
+      <text x="78" y="116" style="font-size:20px;font-weight:600" class="svg-ink">AI gateway</text>
+      <text x="78" y="140" style="font-size:17px" class="svg-muted">Authenticates, applies quotas, chooses the model and key.</text>
+      <circle cx="46" cy="194" r="7" class="f-gold"/>
+      <text x="78" y="190" style="font-size:20px;font-weight:600" class="svg-ink">Policy engine</text>
+      <text x="78" y="214" style="font-size:17px" class="svg-muted">Versioned rules decide: allow, deny, or redact.</text>
+      <circle cx="46" cy="268" r="7" class="f-coral"/>
+      <text x="78" y="264" style="font-size:20px;font-weight:600" class="svg-ink">Input inspection</text>
+      <text x="78" y="288" style="font-size:17px" class="svg-muted">PII, prompt injection, prohibited content. Deterministic first.</text>
+      <circle cx="46" cy="342" r="7" class="f-teal"/>
+      <text x="78" y="338" style="font-size:20px;font-weight:600" class="svg-ink">Model</text>
+      <text x="78" y="362" style="font-size:17px" class="svg-muted">The approved model, with the approved context, does the work.</text>
+      <circle cx="46" cy="416" r="7" class="f-coral"/>
+      <text x="78" y="412" style="font-size:20px;font-weight:600" class="svg-ink">Output inspection</text>
+      <text x="78" y="436" style="font-size:17px" class="svg-muted">Groundedness, PII, toxicity, schema. Block or redact.</text>
+      <circle cx="46" cy="490" r="7" class="f-plum"/>
+      <text x="78" y="486" style="font-size:20px;font-weight:600" class="svg-ink">Tool or action</text>
+      <text x="78" y="510" style="font-size:17px" class="svg-muted">Scoped credentials, amount caps, human approval for big steps.</text>
+      <circle cx="46" cy="564" r="7" class="f-gold"/>
+      <text x="78" y="560" style="font-size:20px;font-weight:600" class="svg-ink">Audit log</text>
+      <text x="78" y="584" style="font-size:17px" class="svg-muted">Every stage above writes an event; the export is the evidence.</text>
+
+      <rect x="40" y="608" width="600" height="84" rx="12" class="f-gold-soft" stroke="var(--rule)"/>
+      <text x="64" y="636" class="t-md svg-ink">The record is the deliverable</text>
+      <text x="64" y="660" style="font-size:16px" class="svg-muted">trace id · actor · model version · policy version · decision</text>
+      <text x="64" y="680" style="font-size:16px" class="svg-muted">latency · cost · retention · access control · auditor export</text>
+
+      <text x="340" y="726" style="font-size:16px" class="svg-muted" text-anchor="middle">A blocked request is still an event, and it still gets logged.</text>
+    </svg>
+    <figcaption>The control plane is a chain, not a single product. The gateway, policy engine, inspectors, approval step, and log can come from different vendors — or from one platform that bundles them.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>What counts as runtime governance — and what does not</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Counts</th><th>Does not count</th></tr></thead>
+      <tbody>
+        <tr><td>A gateway that authenticates the caller and selects the model.</td><td>A PDF policy that says callers must be authenticated.</td></tr>
+        <tr><td>A classifier that blocks or redacts a prompt before the model sees it.</td><td>A dashboard that shows how many prompts contained personal data last month.</td></tr>
+        <tr><td>A tool permission that prevents an agent from refunding more than €200.</td><td>A code review comment asking developers to be careful with refunds.</td></tr>
+        <tr><td>A human approval step with a named reviewer and a recorded reason.</td><td>An email thread where someone once approved something similar.</td></tr>
+        <tr><td>An immutable event log with model and policy versions.</td><td>A screenshot of a dashboard in a slide deck.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p class="pull">Runtime is where policy meets physics. Either the request is blocked in milliseconds, or the policy was only a suggestion.</p>
+
+    <h3>The honest limitations</h3>
+    <ul class="check">
+      <li><span><strong>It cannot fix a bad model.</strong> A guardrail around an inaccurate system produces inaccurate answers with a clean audit trail.</span></li>
+      <li><span><strong>It adds latency and failure modes.</strong> Every inline check is another service that can time out. Design a fail-open or fail-closed decision explicitly; do not let an outage decide for you.</span></li>
+      <li><span><strong>It can be bypassed.</strong> If teams can call the model API directly with their own key, the gateway is decoration. Network policy and key management matter as much as the product.</span></li>
+      <li><span><strong>It generates sensitive logs.</strong> The record of what users asked may itself be personal data. Logging is a governance obligation and a privacy risk at the same time.</span></li>
+    </ul>
+
+    <details class="quiz"><summary>Your gateway blocks a legitimate customer request because a PII classifier misfired. The customer complains. What should the system have recorded, and what should the team review?</summary>
+    <p><strong>Recorded:</strong> the trace ID, the classifier and policy version, the confidence score, the action taken, and the fact that no model call occurred. <strong>Reviewed:</strong> the false-positive rate of that classifier on real traffic, the threshold, and whether a “redact and continue” path would have served the customer better than a hard block. A block is a decision; it needs an owner and a feedback loop, not just a log line.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c6">
+  <div class="chapter-head"><div class="chapter-num">6</div><div><h2>The anatomy: how it is actually built</h2><p>Deployment patterns, policy as code, action limits, identity, and the log schema.</p></div></div>
+  <div class="prose">
+    <p>A runtime governance product is assembled from a small number of building blocks. Once you can name them, vendor demonstrations become much easier to read: you can see which blocks they actually have and which they are renting from someone else.</p>
+
+    <h3>1. Where the interception happens</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Pattern</th><th>How it works</th><th>Strength</th><th>Weakness</th></tr></thead>
+      <tbody>
+        <tr><td>Reverse proxy</td><td>Applications send model calls to a central endpoint instead of the provider.</td><td>Language-agnostic; one place to enforce; easy to audit.</td><td>Requires teams to change their endpoint; a direct call bypasses it.</td></tr>
+        <tr><td>Sidecar</td><td>A local process intercepts traffic from each service.</td><td>Works well in Kubernetes; close to the workload.</td><td>Operational overhead; still bypassable if the pod can egress directly.</td></tr>
+        <tr><td>SDK</td><td>A library wraps the model client inside the application.</td><td>Rich context; low latency; easy access to application state.</td><td>Per-language; developers can skip it; upgrading many services is slow.</td></tr>
+        <tr><td>Native platform</td><td>The model provider or cloud offers built-in guardrails and logging.</td><td>Fast to adopt; no new infrastructure.</td><td>Lock-in; limited custom policy; evidence trapped in the vendor.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>Most mature deployments combine a central gateway with network controls that prevent direct egress. The product is the easy part; the hard part is making the path mandatory.</p>
+
+    <h3>2. Policy as code</h3>
+    <p>A policy that lives in a document cannot be tested. Policy as code turns it into a versioned artefact that can be unit-tested, reviewed, and deployed like software. Open Policy Agent (OPA) is the common open-source engine; cloud providers offer equivalents.</p>
+  </div>
+
+  <pre class="code" data-lang="rego"><span class="c"># A refund may be issued by the support agent only under €200.</span>
+<span class="k">package</span> ai.authz
+
+<span class="k">default</span> allow := <span class="k">false</span>
+
+allow <span class="k">if</span> {
+  input.agent == <span class="s">"support-bot"</span>
+  input.tool  == <span class="s">"refund"</span>
+  input.amount_eur &lt;= <span class="n">200</span>
+  input.customer_verified == <span class="k">true</span>
+}</pre>
+
+  <div class="prose">
+    <p>Three properties make this governance rather than configuration. The policy has a <strong>version</strong> (so the log can say which rule applied). It has <strong>tests</strong> (so a change can be checked before deployment). And it is <strong>evaluated at request time</strong> with the actual inputs, not reconstructed afterwards from memory.</p>
+
+    <p>A practical rule: every policy change ships with at least one test that must fail before the change and pass after it. Otherwise you are editing production behaviour blind.</p>
+
+    <h3>3. Detection controls</h3>
+    <ul class="check">
+      <li><span><strong>Personal data.</strong> Regular expressions catch structured identifiers (IBAN, phone, email); named-entity recognition catches names and addresses. Neither is perfect. Measure both false positives and false negatives on your own traffic.</span></li>
+      <li><span><strong>Prompt injection.</strong> A classifier or a rule set looks for instructions that try to override the system prompt or exfiltrate context. Treat it as a probabilistic filter, not a wall.</span></li>
+      <li><span><strong>Jailbreak and policy evasion.</strong> Often the same classifier family; adversaries adapt, so the evaluation set must be refreshed.</span></li>
+      <li><span><strong>Toxicity and abuse.</strong> Useful for consumer-facing systems; prone to cultural and language bias, especially outside English.</span></li>
+      <li><span><strong>Groundedness.</strong> Checks whether an answer is supported by the retrieved context. Expensive; usually off-path or sampled.</span></li>
+      <li><span><strong>Schema and format.</strong> The cheapest and most reliable control: if the output must be valid JSON with three fields, validate it. Deterministic checks should be exhausted before probabilistic ones.</span></li>
+    </ul>
+
+    <h3>4. Action controls — the part that matters for agents</h3>
+    <p>Text generation is embarrassing when it fails. An agent that can move money, delete records, or send email is dangerous when it fails. The controls that matter are not content filters but <strong>permissions</strong>:</p>
+    <ul class="check">
+      <li><span><strong>Tool allowlists.</strong> The agent can call only the tools registered for its role.</span></li>
+      <li><span><strong>Scoped credentials.</strong> The agent gets a short-lived token for one customer and one operation, not a master key.</span></li>
+      <li><span><strong>Transaction limits.</strong> A hard cap on amount, volume, or recipients, enforced outside the model.</span></li>
+      <li><span><strong>Human approval.</strong> Required for irreversible or high-value actions, with a named reviewer and a recorded reason.</span></li>
+      <li><span><strong>Sandboxing.</strong> Irreversible actions run against a staging system first, or are queued for review.</span></li>
+    </ul>
+
+    <div class="analogy ng"><div class="icon">🪪</div><div><b>The driver’s licence analogy</b>
+      <p>A licence is not a promise that the driver is good. It states which categories of vehicle the driver may operate, and it can be checked at the gate. Agent identity works the same way: the question is not “is this model smart?” but “is this agent licensed for this tool, for this customer, up to this amount?” A single shared API key for every agent is an unlicensed driver with the keys to the whole fleet.</p>
+    </div></div>
+
+    <h3>5. Identity for agents</h3>
+    <p>Traditional systems authenticate a human or a service. Agentic systems add a third actor: a process that acts on behalf of a user, calls tools, and may spawn sub-agents. The governance questions multiply: which human authorised this action, which agent performed it, and what chain of delegation connects them?</p>
+    <p>The emerging answer is to give each agent its own identity, short-lived credentials, and an explicit delegation record. The <strong>Model Context Protocol</strong> (MCP) standardises how agents discover and call tools; it makes integration easier and makes permission design more important, because a badly scoped MCP server exposes every tool it offers to every connected agent.</p>
+
+    <h3>6. The log schema</h3>
+    <p>If you design only one artefact from this lecture, design the event schema. It is the difference between an audit trail and a pile of text files.</p>
+  </div>
+
+  <pre class="code" data-lang="json">{
+  <span class="s">"trace_id"</span>: <span class="s">"7f3c…"</span>,
+  <span class="s">"timestamp"</span>: <span class="s">"2026-10-24T09:14:02Z"</span>,
+  <span class="s">"actor"</span>: <span class="s">"user:4412"</span>,
+  <span class="s">"agent"</span>: <span class="s">"support-bot"</span>,
+  <span class="s">"model"</span>: <span class="s">"provider/model@2026-09"</span>,
+  <span class="s">"policy_version"</span>: <span class="s">"refund-v3"</span>,
+  <span class="s">"action"</span>: <span class="s">"refund"</span>,
+  <span class="s">"amount_eur"</span>: <span class="n">180</span>,
+  <span class="s">"decision"</span>: <span class="s">"allow"</span>,
+  <span class="s">"reason"</span>: <span class="s">"within_limit"</span>,
+  <span class="s">"latency_ms"</span>: <span class="n">412</span>,
+  <span class="s">"cost_usd"</span>: <span class="n">0.0031</span>
+}</pre>
+
+  <div class="prose">
+    <p>Notice what is <em>not</em> in the schema: the full prompt and the full response. Those may be needed for debugging, but they are also the most sensitive data in the system. A common design is to store a hash and a redacted excerpt in the main log, and keep full content in a separate, access-controlled store with a short retention period.</p>
+
+    <h3>Failure modes to design for</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Failure</th><th>What it looks like</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>False positive</td><td>A legitimate request is blocked; users route around the system.</td><td>Audit mode first; tune thresholds; offer a redact-and-continue path.</td></tr>
+        <tr><td>False negative</td><td>A prohibited request passes.</td><td>Layer deterministic checks; red-team regularly; monitor near-misses.</td></tr>
+        <tr><td>Latency</td><td>The check adds seconds; the product becomes unusable.</td><td>Budget per control; cache; move expensive checks off-path.</td></tr>
+        <tr><td>Bypass</td><td>A team calls the provider directly with its own key.</td><td>Egress controls, key management, and a single approved endpoint.</td></tr>
+        <tr><td>Log leakage</td><td>Personal data is copied into an observability tool.</td><td>Redaction at write time; retention limits; access review.</td></tr>
+        <tr><td>Rule rot</td><td>Policies drift from reality; nobody knows which version is live.</td><td>Version control, tests, deployment records, periodic review.</td></tr>
+      </tbody>
+    </table></div>
+
+    <details class="quiz"><summary>Why is “we log everything” a weak governance answer?</summary>
+    <p><strong>Because logging is the fourth job, not the first three.</strong> A complete log of ungoverned behaviour proves that you allowed whatever happened. It does not show that anyone decided it was permitted, that limits were enforced, or that a human reviewed the consequential cases. Logging is necessary evidence; it is not a control by itself — and it creates its own privacy obligation.</p></details>
+  </div>
+</section>
+<section class="chapter" id="c7">
+  <div class="chapter-head"><div class="chapter-num">7</div><div><h2>Who has actually done it</h2><p>Four implementations worth studying, and what each one proves.</p></div></div>
+  <div class="prose">
+    <p>Vendor marketing is full of “trusted by” logos. What follows is different: organisations whose architecture or outcomes have been described in enough detail to learn from. Two are first-party interviews, one is a vendor case study (label it accordingly), and one is a cautionary tale already covered in Chapter 2.</p>
+
+    <h3>JPMorgan Chase — the single front door</h3>
+    <div class="story">
+      <p class="label">Banking · United States</p>
+      <h4>Block the public tool, then build a controlled one</h4>
+      <p>JPMorgan blocked ChatGPT in 2022 because staff did not understand the data risk. It then built an internal environment inside its private cloud on Microsoft Azure, which became <strong>LLM Suite</strong>. By 2026 the bank reported more than <strong>200,000 employees</strong> with access and around <strong>1,000 business applications</strong> using the platform. The architecture routes requests to multiple third-party models while keeping data inside the bank’s environment, and a single core agent-building platform applies controls once rather than per project.</p>
+      <p class="lesson">Why it worked: the bank did not ban AI and it did not let a thousand teams sign their own contracts. It created one approved path and made the path easier than the alternative.</p>
+    </div>
+    <p>The honest caveat: JPMorgan’s own technology leaders describe real-time guardrails and evaluations as work in progress, not a finished state. Scale makes the control problem harder, not easier.</p>
+
+    <h3>A global investment bank with F5 — inspect inline, enforce gradually</h3>
+    <div class="story">
+      <p class="label">Banking · Vendor case study</p>
+      <h4>100,000 prompts a day through a self-hosted gate</h4>
+      <p>The bank’s cyber-controls team had to approve every AI application before production, while live applications were already handling about <strong>100,000 prompts a day</strong>, with hundreds of applications in scope. The team chose a <strong>self-hosted</strong> deployment rather than SaaS, running inline in the data path on GPU-backed Kubernetes. They started in <strong>audit mode</strong> — observing and measuring before blocking — layered PII protection onto sensitive use cases, and tracked detection accuracy (the F1 score) as volume grew.</p>
+      <p class="lesson">Why it worked: they treated the guardrail as a model to be measured, not a rule to be trusted, and they earned the right to block by first proving what blocking would do.</p>
+    </div>
+    <p>This account comes from the vendor’s case study, so the framing is favourable. The mechanics are still instructive: self-hosting for data residency, inline placement, staged enforcement, and accuracy tracking.</p>
+
+    <h3>Deutsche Telekom — governance as reference architecture</h3>
+    <div class="story">
+      <p class="label">Telecommunications · Germany</p>
+      <h4>From scattered pilots to a layered blueprint</h4>
+      <p>By 2025 Telekom had agentic AI pilots across the organisation and the usual result: duplication, fragmentation, and no shared answer to “how do we control this?” It published <strong>MARA</strong> (Magenta AI-centric Reference Architecture), a layered blueprint that explicitly includes a <strong>governance, trust and control layer</strong> and an <strong>AI access and model mediation</strong> layer — in plain terms, a central gateway for models plus a control layer for agents. A shared agent platform (LMOS) and an explainability requirement sit alongside it.</p>
+      <p class="lesson">Why it worked: it did not mandate one tool for every team. It defined the layers every team must respect, then let them choose within those layers.</p>
+    </div>
+    <p>The trade-off Telekom’s own architects describe is the central political problem of governance: mandate everything and you kill experimentation; mandate nothing and you get chaos. A reference architecture is an attempt to occupy the middle.</p>
+
+    <h3>Allianz — runtime control with a human at the end</h3>
+    <div class="story">
+      <p class="label">Insurance · Germany and Australia</p>
+      <h4>Speed in the middle, accountability at the edge</h4>
+      <p>AllianzGPT, the group’s internal assistant, runs in a safe and compliant environment and lets employees choose among models; Allianz added DeepSeek within two weeks of its launch. More instructive is <strong>Project Nemo</strong> in Australia (July 2025): seven specialised agents automate food-spoilage claims with an <strong>80% reduction in processing and settlement time</strong> — but a human retains the final payout decision. The group describes an internal agent control plane with a registry, monitoring, MCP and REST connections, test cases, traces, audit logs, and timestamps.</p>
+      <p class="lesson">Why it worked: automation was allowed to go far, but the irreversible, financially consequential step stayed with a person. That is a design decision, not a model capability.</p>
+    </div>
+    <p>The 60,000-plus user figure for AllianzGPT appears in secondary coverage rather than the company’s own interview, so treat it as reported rather than audited.</p>
+
+    <h3>What the four cases have in common</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Pattern</th><th>JPMorgan</th><th>F5 bank</th><th>Telekom</th><th>Allianz</th></tr></thead>
+      <tbody>
+        <tr><td>One approved path</td><td>LLM Suite</td><td>Central inline gate</td><td>Model mediation layer</td><td>Group assistant + control plane</td></tr>
+        <tr><td>Staged enforcement</td><td>Internal first, then scale</td><td>Audit mode before blocking</td><td>Reference architecture before mandate</td><td>Human approval on payouts</td></tr>
+        <tr><td>Measured, not assumed</td><td>Guardrails and evals in progress</td><td>F1 tracked as load grew</td><td>Explainability requirement</td><td>Test cases and traces</td></tr>
+        <tr><td>Evidence designed in</td><td>Private-cloud logging</td><td>Audit logs and forensics</td><td>Control layer records</td><td>Audit logs and timestamps</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>None of them bought a single “runtime governance” product and considered the job done. Each built a <em>system</em>: an approved path, a policy, a set of controls, and an evidence trail. The product was one component.</p>
+
+    <details class="quiz"><summary>What is the most transferable lesson for a 200-person company?</summary>
+    <p><strong>Make the approved path the easiest path.</strong> JPMorgan’s advantage was not a superior filter; it was that using the internal platform was simpler than using a public chatbot. If governance adds friction, people route around it. Design the golden path first, then enforce it.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c8">
+  <div class="chapter-head"><div class="chapter-num">8</div><div><h2>Where evals fit — the load-bearing chapter</h2><p>Evals, guardrails, and monitors are three different instruments. Confusing them is the most common mistake in the field.</p></div></div>
+  <div class="prose">
+    <p>You already know what an evaluation is, so let us sharpen the definition for this context. An <strong>eval</strong> is a repeatable procedure that takes a defined input, runs the system, and assigns a score against a stated criterion. The score can come from code (an assertion), a human (a rubric), or a model (a judge). The key word is <em>repeatable</em>: if you cannot run it again next month and compare, it is an anecdote.</p>
+
+    <h3>Three instruments, three jobs</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th></th><th>Eval</th><th>Guardrail</th><th>Monitor</th></tr></thead>
+      <tbody>
+        <tr><td>Question</td><td>Is the system good enough?</td><td>May this specific request proceed?</td><td>Is live behaviour drifting?</td></tr>
+        <tr><td>When</td><td>Before release, and on samples</td><td>During the request, in-path</td><td>Continuously, off-path</td></tr>
+        <tr><td>Latency budget</td><td>Minutes to hours</td><td>Milliseconds</td><td>Minutes to days</td></tr>
+        <tr><td>Output</td><td>Score, pass rate, confidence interval</td><td>Allow, deny, redact, escalate</td><td>Trend, alert, incident</td></tr>
+        <tr><td>Typical method</td><td>Test set + judge or human rubric</td><td>Classifier or deterministic rule</td><td>Sampled scoring + statistics</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>A guardrail is not an eval, even when it uses a model. A guardrail answers a binary operational question under a hard latency constraint; an eval answers a quality question with time to think. Vendors blur the two because “evaluation” sounds more strategic than “filter.” Do not let the language blur your architecture.</p>
+
+    <h3>The four places evals touch governance</h3>
+    <h4>1. The release gate</h4>
+    <p>An eval suite decides whether a model, prompt, or policy version may go live. The governance system enforces the decision mechanically: no passing eval, no production key. This is a governance control <em>around</em> an eval — the eval produces the score; the control refuses to deploy without it.</p>
+
+    <h4>2. Guardrail calibration</h4>
+    <p>Every blocker is a classifier with false positives and false negatives. You evaluate it on a labelled set of attacks and legitimate requests, then choose a threshold. The F5 bank tracked F1 for exactly this reason. A guard that misses threats is useless; a guard that blocks legitimate work gets disabled by the business.</p>
+
+    <h4>3. Online sampling</h4>
+    <p>You cannot judge every conversation in the request path. You sample — one to five percent is common — and run a heavier evaluation off-path. The result is a quality trend on real traffic, not a one-off benchmark. This is where evals become continuous.</p>
+
+    <h4>4. Post-market monitoring</h4>
+    <p>Article 72 of the AI Act requires providers to actively and systematically collect, document, and analyse performance data throughout the system’s lifetime. That is an eval pipeline fed by runtime logs. Article 15 requires an appropriate level of accuracy and robustness, with metrics declared in the instructions for use. The law does not prescribe a particular eval method; it requires that you have one and can show the results.</p>
+
+    <h3>Why the heavy judge cannot live in the request path</h3>
+    <p>Human perception gives you roughly 100 milliseconds for an interaction to feel instant, about one second before flow is broken, and about ten seconds before attention wanders. A gateway check should add tens of milliseconds, not hundreds. A small classifier can run in 5–50 ms. A model-based judge typically takes 300–2,000 ms, and sometimes more.</p>
+    <p>That single fact determines the architecture: <strong>cheap and deterministic in-path; expensive and judgemental off-path.</strong> The two are connected by sampling, alerting, and the release gate — not by putting the judge in front of the user.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 330" role="img" aria-labelledby="eT eD">
+      <title id="eT">Three time scales for AI quality controls</title>
+      <desc id="eD">In-path controls run in milliseconds and block or redact. Nearline monitoring runs in minutes to hours on sampled traffic. Offline evaluation runs in hours to days before release and produces the evidence used at the gate.</desc>
+      <defs>
+        <marker id="eArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+        </marker>
+      </defs>
+
+      <rect x="24" y="40" width="196" height="210" rx="12" class="f-coral-soft" stroke="var(--rule)"/>
+      <text x="122" y="70" class="t-md svg-ink" text-anchor="middle">IN-PATH</text>
+      <text x="122" y="92" class="t-sm svg-muted" text-anchor="middle">milliseconds</text>
+      <text x="122" y="124" class="t-sm svg-ink" text-anchor="middle">regex and schema</text>
+      <text x="122" y="146" class="t-sm svg-ink" text-anchor="middle">small classifiers</text>
+      <text x="122" y="168" class="t-sm svg-ink" text-anchor="middle">policy engine</text>
+      <text x="122" y="190" class="t-sm svg-ink" text-anchor="middle">tool permissions</text>
+      <text x="122" y="222" class="t-sm svg-muted" text-anchor="middle">block · redact · allow</text>
+
+      <rect x="242" y="40" width="196" height="210" rx="12" class="f-gold-soft" stroke="var(--rule)"/>
+      <text x="340" y="70" class="t-md svg-ink" text-anchor="middle">NEARLINE</text>
+      <text x="340" y="92" class="t-sm svg-muted" text-anchor="middle">minutes to hours</text>
+      <text x="340" y="124" class="t-sm svg-ink" text-anchor="middle">sampled judge calls</text>
+      <text x="340" y="146" class="t-sm svg-ink" text-anchor="middle">groundedness checks</text>
+      <text x="340" y="168" class="t-sm svg-ink" text-anchor="middle">drift statistics</text>
+      <text x="340" y="190" class="t-sm svg-ink" text-anchor="middle">incident clustering</text>
+      <text x="340" y="222" class="t-sm svg-muted" text-anchor="middle">trend · alert · review</text>
+
+      <rect x="460" y="40" width="196" height="210" rx="12" class="f-teal-soft" stroke="var(--rule)"/>
+      <text x="558" y="70" class="t-md svg-ink" text-anchor="middle">OFFLINE</text>
+      <text x="558" y="92" class="t-sm svg-muted" text-anchor="middle">hours to days</text>
+      <text x="558" y="124" class="t-sm svg-ink" text-anchor="middle">release suite</text>
+      <text x="558" y="146" class="t-sm svg-ink" text-anchor="middle">human rubric review</text>
+      <text x="558" y="168" class="t-sm svg-ink" text-anchor="middle">judge calibration</text>
+      <text x="558" y="190" class="t-sm svg-ink" text-anchor="middle">regression testing</text>
+      <text x="558" y="222" class="t-sm svg-muted" text-anchor="middle">pass · fail · evidence</text>
+
+      <path d="M122 262 V286 H340" class="stroke-muted" stroke-width="2" marker-end="url(#eArr)"/>
+      <path d="M340 262 V286 H558" class="stroke-muted" stroke-width="2" marker-end="url(#eArr)"/>
+      <text x="340" y="310" class="t-sm svg-muted" text-anchor="middle">Sampling connects the layers; the release gate consumes all three.</text>
+    </svg>
+    <figcaption>The architecture follows the clock: the faster the decision, the simpler the method. Evaluation earns its authority offline and lends it to the gate.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>The arithmetic that changes the design: precision when attacks are rare</h3>
+    <p>Suppose 1,000 requests contain 50 genuine attacks. Your guardrail catches 45 of them (90% recall) and wrongly flags 95 legitimate requests. That sounds acceptable until you compute precision:</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Measure</th><th>Calculation</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>True positives</td><td>Attacks correctly blocked</td><td>45</td></tr>
+      <tr><td>False negatives</td><td>Attacks missed</td><td>5</td></tr>
+      <tr><td>False positives</td><td>Legitimate requests blocked</td><td>95</td></tr>
+      <tr><td>Precision</td><td>45 ÷ (45 + 95)</td><td><strong>32%</strong></td></tr>
+      <tr><td>Recall</td><td>45 ÷ 50</td><td><strong>90%</strong></td></tr>
+      <tr><td>Accuracy</td><td>900 ÷ 1,000</td><td>90% — and misleading</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>Two-thirds of the blocks hit innocent users. At 100,000 requests a day, that is 9,500 legitimate requests blocked daily. The business will disable the guardrail long before the security team finishes celebrating its 90% recall.</p>
+    <p>Now consider a realistic base rate. If only 0.5% of a million requests are attacks — 5,000 attacks — and the classifier still has 90% recall and a 5% false-positive rate:</p>
+    <ul class="check">
+      <li><span><strong>True positives:</strong> 4,500.</span></li>
+      <li><span><strong>False positives:</strong> 5% of 995,000 legitimate requests = 49,750.</span></li>
+      <li><span><strong>Precision:</strong> 4,500 ÷ 54,250 = <strong>8.3%</strong>.</span></li>
+    </ul>
+    <p>This is the base-rate problem, and it is why security vendors quote recall and rarely quote precision on your traffic. It is also why <strong>audit mode</strong> is not a nice-to-have: you need your own labelled sample before you can choose a threshold that your business can live with.</p>
+
+    <h3>Calibrating the judge</h3>
+    <p>If an LLM judge scores your outputs, the judge itself needs an eval. The procedure is unglamorous and effective:</p>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. Label a stratified sample by hand.</strong> Fifty to one hundred items, including clear passes, clear fails, and borderline cases. Two reviewers are better than one; measure their agreement.</span></li>
+      <li><span><strong>2. Run the judge on the same items.</strong> Compare its verdict with the human labels, per class — not just overall accuracy.</span></li>
+      <li><span><strong>3. Measure agreement.</strong> A simple agreement rate is a start; Cohen’s kappa corrects for chance. Report the number; do not describe the judge as “accurate” without it.</span></li>
+      <li><span><strong>4. Inspect the disagreements.</strong> They usually reveal a vague rubric, not a stupid judge. Rewrite the rubric, then re-run.</span></li>
+      <li><span><strong>5. Freeze a regression set.</strong> Keep the labelled items; re-run them whenever the judge or the rubric changes.</span></li>
+    </ol>
+    <p>Watch for known judge biases: preference for the first option (position bias), for longer answers (verbosity bias), for answers that agree with it (sycophancy), and for text from its own model family (self-preference). Randomise order, control for length, and use a different model family for judging where possible.</p>
+
+    <h3>Building the eval set from traces, not imagination</h3>
+    <p>The most common failure in eval design is a test set written by the team that built the system. It tests what they thought of. Real traffic contains the intents, languages, formats, and edge cases they did not.</p>
+    <ul class="check">
+      <li><span><strong>Sample from traces</strong> across intents, customer segments, languages, and difficulty.</span></li>
+      <li><span><strong>Oversample failures.</strong> A random sample is mostly easy cases; the information is in the tail.</span></li>
+      <li><span><strong>Stratify, then report by slice.</strong> An average that hides a 60% failure rate for German-language requests is worse than no average.</span></li>
+      <li><span><strong>Size for the decision.</strong> Thirty to fifty cases for iteration; one to three hundred for a release gate; thousands only when you are measuring rare events.</span></li>
+      <li><span><strong>Keep a holdout.</strong> Do not tune on the release set. Refresh it when the product changes materially; watch for contamination when prompts or data leak into training.</span></li>
+    </ul>
+
+    <h3>A worked eval plan for a customer-support bot</h3>
+    <p>This example is illustrative — the numbers are design targets, not benchmark results. The structure is what matters.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>What is measured</th><th>Method</th><th>Threshold</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td>Policy accuracy</td><td>150-case suite, human-labelled expected answers</td><td>≥ 95% exact or equivalent</td><td>Every release</td></tr>
+      <tr><td>Faithfulness to retrieved policy</td><td>LLM judge, calibrated against 80 human labels</td><td>≥ 98%, zero unsupported claims in sample</td><td>Every release + nightly sample</td></tr>
+      <tr><td>Personal-data leakage</td><td>Deterministic regex + NER + red-team set</td><td>Zero in release suite</td><td>Every release + in-path</td></tr>
+      <tr><td>Out-of-scope refusal</td><td>50 adversarial prompts</td><td>≥ 90% correct refusal</td><td>Every release</td></tr>
+      <tr><td>Prompt-injection resistance</td><td>Labelled attack set, refreshed quarterly</td><td>Recall ≥ 90% at precision ≥ 70%</td><td>Every release + monthly</td></tr>
+      <tr><td>Tone and clarity</td><td>Human rubric on 30 samples</td><td>≥ 4/5 mean, no item below 3</td><td>Monthly</td></tr>
+      <tr><td>Latency</td><td>Production telemetry</td><td>p95 ≤ 2.5 s end to end</td><td>Continuous</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>The plan does three things a vague promise cannot: it names the method, it sets a threshold before seeing the result, and it says when the measurement repeats. That is what turns an eval into governance evidence.</p>
+
+    <h3>How evals fail</h3>
+    <div class="grid3">
+      <div class="card coral"><p class="k">🎭 Vanity metrics</p><p>“90% helpful” with no definition, no sample size, and no failing examples.</p></div>
+      <div class="card teal"><p class="k">🧪 Synthetic-only sets</p><p>Tests written by the builders, for the builders. Real users break them immediately.</p></div>
+      <div class="card gold"><p class="k">⚖️ Uncalibrated judges</p><p>A judge with unknown agreement is a random number generator with good grammar.</p></div>
+      <div class="card plum"><p class="k">📉 Goodhart’s law</p><p>Once a metric becomes a target, teams optimise the metric, not the outcome.</p></div>
+    </div>
+
+    <p class="pull">An eval is not evidence because it produced a number. It is evidence because someone can reproduce the number and knows what decision it supports.</p>
+
+    <details class="quiz"><summary>Your guardrail has 95% recall and 40% precision on a test set with 10% attacks. Production has 0.5% attacks. What do you expect in production, and what do you do first?</summary>
+    <p><strong>Expect precision to collapse.</strong> At a lower base rate, the same false-positive rate produces far more false alarms relative to true catches — potentially below 10% precision. First, run in audit mode on real traffic and label a sample to estimate the actual base rate and the false-positive rate. Then choose a threshold against a business cost model: what does a missed attack cost versus a blocked legitimate request? Do not deploy hard blocking on the test-set numbers.</p></details>
+  </div>
+</section>
+<section class="chapter" id="c9">
+  <div class="chapter-head"><div class="chapter-num">9</div><div><h2>Building the governance file</h2><p>Eight artefacts that turn a claim into evidence — and a six-week route to the first version.</p></div></div>
+  <div class="prose">
+    <p>Clients rarely ask “do you know the NIST framework?” They ask “can I see the file?” The file is the unit of work in this profession. It is not a binder for its own sake; it is the set of documents and records that let a third party reconstruct what you decided, why, and what happened.</p>
+
+    <h3>The eight artefacts</h3>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. System card.</strong> What the system does, who it serves, what data it uses, which model and version, who owns it, and what it must never do.</span></li>
+      <li><span><strong>2. Risk register.</strong> The named risks, their likelihood and impact, who is exposed, and which control addresses each one.</span></li>
+      <li><span><strong>3. Control matrix.</strong> Each obligation mapped to a control, a test, an owner, and the evidence the control produces.</span></li>
+      <li><span><strong>4. Eval plan and results.</strong> The metrics, thresholds, test sets, dates, and outcomes from Chapter 8.</span></li>
+      <li><span><strong>5. Data protection assessment.</strong> A DPIA where GDPR requires one; a record of lawful basis, retention, and transfers.</span></li>
+      <li><span><strong>6. Vendor register.</strong> Every model, tool, and data provider, with contract terms, subprocessors, data location, and exit plan.</span></li>
+      <li><span><strong>7. Incident runbook.</strong> Who detects, who contains, who decides, who notifies, and on what clock.</span></li>
+      <li><span><strong>8. Evidence log.</strong> The pointer to runtime records: trace IDs, dashboards, audit exports, review minutes.</span></li>
+    </ol>
+
+    <h3>The risk register, concretely</h3>
+    <p>A register with twenty generic rows is useless. Five specific rows with owners are useful. Here is the shape, using a hypothetical CV-ranking tool sold to employers — an Annex III high-risk use.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>ID</th><th>Risk</th><th>Who is exposed</th><th>Control</th><th>Evidence</th><th>Owner</th></tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Model downgrades candidates from non-German education systems</td><td>Applicants</td><td>Slice-based eval; human review of rejects; bias monitoring</td><td>Eval report by education country; review sample</td><td>ML lead</td></tr>
+      <tr><td>R2</td><td>Recruiter over-trusts the ranking and stops reading CVs</td><td>Applicants, employer</td><td>UI shows reasons; mandatory human decision; audit of override rate</td><td>Screenshots, decision log</td><td>Product</td></tr>
+      <tr><td>R3</td><td>CV data leaks through logs or a model provider</td><td>Applicants</td><td>Redaction; EU-hosted model; retention limit; DPA</td><td>Log sample, vendor contract</td><td>DPO</td></tr>
+      <tr><td>R4</td><td>Prompt injection in a CV manipulates the ranking</td><td>Applicants, employer</td><td>Treat CV text as untrusted; strip instructions; injection classifier</td><td>Red-team results</td><td>Security</td></tr>
+      <tr><td>R5</td><td>Works council not consulted before go-live</td><td>Employees, employer</td><td>Consultation gate in the release checklist</td><td>Minutes, agreement</td><td>HR / legal</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>Notice that only one row is “the model is wrong.” Governance risk is socio-technical: over-trust, data leakage, manipulation, and consultation failures are as important as accuracy.</p>
+
+    <h3>The control matrix</h3>
+    <p>The matrix is where legal language becomes engineering work. Each row should be testable by someone who did not write it.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Obligation</th><th>Control</th><th>Type</th><th>Test</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Art. 14 human oversight</td><td>Named reviewer approves every rejection</td><td>Prevent</td><td>Sample 20 decisions; check reviewer identity and timestamp</td><td>Decision log</td></tr>
+      <tr><td>Art. 12 record-keeping</td><td>Immutable event log, six-month retention</td><td>Detect</td><td>Attempt to modify an entry; verify retention job</td><td>Log export, integrity test</td></tr>
+      <tr><td>Art. 15 accuracy</td><td>Release suite with slice reporting</td><td>Detect</td><td>Re-run suite on the deployed version</td><td>Signed eval report</td></tr>
+      <tr><td>Art. 50 transparency</td><td>Disclosure that AI assists the ranking</td><td>Prevent</td><td>UI test with a new user</td><td>Screenshot, copy review</td></tr>
+      <tr><td>Art. 26 deployer monitoring</td><td>Monthly drift and incident review</td><td>Correct</td><td>Check meeting minutes and actions</td><td>Review record</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <h3>The incident runbook</h3>
+    <p>An incident is not only a data breach. It can be a systematically wrong answer, an agent that took an unauthorised action, or a model that started refusing legitimate requests. The runbook needs five roles and a clock:</p>
+    <ul class="check">
+      <li><span><strong>Detect.</strong> Who is on call, and which alert fires? A dashboard nobody watches is not detection.</span></li>
+      <li><span><strong>Contain.</strong> Can you disable the model, the tool, or the prompt without taking down the product?</span></li>
+      <li><span><strong>Assess.</strong> Who was affected, how many, and how badly? Preserve the logs before they rotate.</span></li>
+      <li><span><strong>Notify.</strong> Legal, the DPO, the customer, and — where required — the market surveillance authority. Article 73 sets short deadlines measured in days, not months; confirm the exact clock for your case.</span></li>
+      <li><span><strong>Learn.</strong> Add a regression case, update the risk register, and record the change.</span></li>
+    </ul>
+
+    <h3>Six weeks to a first file</h3>
+    <ol class="playbook">
+      <li><div><span class="when">Week 1</span><h4>Write the system card</h4><p>One system, one page. Purpose, users, data, model, owner, prohibited uses. If you cannot fill it in, you do not yet understand the system well enough to govern it.</p></div></li>
+      <li><div><span class="when">Week 2</span><h4>Build the risk register</h4><p>Five to ten specific risks, each with an exposed group and an owner. Include socio-technical risks, not only model errors.</p></div></li>
+      <li><div><span class="when">Week 3</span><h4>Map obligations to controls</h4><p>Classify the system under the AI Act, then map only the applicable articles. Mark each control as prevent, detect, or correct.</p></div></li>
+      <li><div><span class="when">Week 4</span><h4>Write the eval plan</h4><p>Choose five metrics, define thresholds before running, and build a 50-case set from real traces. Record the first baseline, even if it is bad.</p></div></li>
+      <li><div><span class="when">Week 5</span><h4>Wire the evidence</h4><p>Make sure every control produces an artefact you can retrieve. Fix the log schema now, before volume makes it expensive.</p></div></li>
+      <li><div><span class="when">Week 6</span><h4>Run a tabletop incident</h4><p>Simulate a wrong-answer incident and an agent action incident. Time the detection, the containment, and the notification decision. Write down what broke.</p></div></li>
+    </ol>
+
+    <details class="quiz"><summary>Your file has a beautiful risk register and a control matrix, but no evidence column. Is it ready for an audit?</summary>
+    <p><strong>No.</strong> It describes intent, not operation. An auditor will ask how you know the control ran, on which population, and with what result. Add the evidence column and make sure each item points to a retrievable record — a log export, a signed eval report, meeting minutes with dates. Without that, the file is a plan.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c10">
+  <div class="chapter-head"><div class="chapter-num">10</div><div><h2>Germany and the EU: the rules around the rules</h2><p>What German companies will ask you that a generic AI-governance course will not.</p></div></div>
+  <div class="prose">
+    <p>The AI Act is only one layer. A German deployment also sits inside data protection law, labour law, media law, and sector supervision. These are the questions that decide whether a project actually ships.</p>
+
+    <h3>1. Data protection (GDPR/DSGVO)</h3>
+    <p>The GDPR applies alongside the AI Act. If an AI system processes personal data — CVs, customer messages, voice recordings — you need a lawful basis, a retention rule, and often a <strong>data protection impact assessment</strong> (DPIA) under Article 35. The AI Act’s fundamental-rights impact assessment (Article 27) is a separate document; do not assume one satisfies the other. Transfers to non-EU model providers need a transfer mechanism and a vendor assessment.</p>
+
+    <h3>2. Works councils (Betriebsrat)</h3>
+    <p>This is the practical gate most English-language guides omit. Under the Works Constitution Act (BetrVG), works councils have co-determination rights over technical devices that can monitor employee behaviour or performance (§87(1) No. 6), over the design of work (§90), and over information and consultation (§80). Introducing an AI tool that observes, scores, or assists employees usually requires a <strong>works agreement</strong> (Betriebsvereinbarung) before rollout. A release checklist that does not include the works council will stall in a German company, regardless of how good the model is.</p>
+
+    <h3>3. Employment discrimination (AGG)</h3>
+    <p>The General Equal Treatment Act applies to hiring and promotion. An AI ranking that correlates with gender, ethnicity, age, or disability can create liability even without intent. This is why slice-based evaluation is not a technical nicety in Germany; it is evidence in a discrimination dispute.</p>
+
+    <h3>4. Consumer and media rules</h3>
+    <ul class="check">
+      <li><span><strong>TDDDG §25.</strong> Storing or reading information on a user’s device — cookies, local storage, some analytics SDKs — generally requires consent unless strictly necessary. A chat widget that remembers conversations is in scope.</span></li>
+      <li><span><strong>DDG §5.</strong> The imprint requirement for commercial websites. It applies to the product site, not to the model.</span></li>
+      <li><span><strong>KUG §22.</strong> Image rights. If you generate or use a person’s likeness — avatars, voice clones, marketing images — you need consent, and the AI Act adds a labelling duty for deepfakes.</span></li>
+      <li><span><strong>UWG §7.</strong> Unsolicited commercial email. Relevant to how you sell the service, not to how the model behaves — but it is the rule most often broken by technical founders.</span></li>
+    </ul>
+
+    <h3>5. Sector supervision</h3>
+    <p>Financial services, medical devices, energy, and critical infrastructure each have their own regulator and their own expectations for model risk. An AI governance file that ignores BaFin, the medical-device regime, or NIS2 will not survive a sector audit. The AI Act does not replace sector law; it layers on top.</p>
+
+    <h3>6. Who enforces the AI Act in Germany</h3>
+    <p>Germany has been organising its market-surveillance structure at federal level, with the Bundesnetzagentur playing a central role alongside the BSI and the data-protection authorities. The division of responsibilities is still settling as implementing legislation and guidance arrive. For any specific case, confirm the competent authority with the AI Act Service Desk or counsel rather than relying on a summary — including this one.</p>
+
+    <div class="analogy"><div class="icon">🏗️</div><div><b>The building-permit analogy</b>
+      <p>You can design a beautiful building, but it does not open until the structural engineer, the fire authority, and the accessibility inspector have signed off. Each has a different rulebook and a different signature. In Germany, the AI Act is the planning permission; GDPR is the data-protection sign-off; the works council is the occupants’ representative; sector supervision is the fire authority. A product that satisfies only one will not open.</p>
+    </div></div>
+
+    <details class="quiz"><summary>A client wants to deploy an AI assistant that drafts performance reviews for managers. Which German obligations are triggered before go-live?</summary>
+    <p><strong>At minimum:</strong> a GDPR lawful basis and likely a DPIA (employee performance data is high-risk processing); works-council co-determination, because the tool observes and evaluates employee behaviour; an AGG check for discriminatory patterns; and an AI Act classification — employment and worker management is an Annex III high-risk area, so Articles 9–15 and human oversight apply. The tool also needs a named human reviewer; a manager who simply sends the draft unchanged is not meaningful oversight.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c11">
+  <div class="chapter-head"><div class="chapter-num">11</div><div><h2>The market: who sells what, and what to ask</h2><p>Five product categories, a wave of consolidation, and the questions that expose a slide deck.</p></div></div>
+  <div class="prose">
+    <p>“Runtime governance” is not one market. It is a bundle of adjacent products, each with a different buyer and a different technical centre of gravity. Knowing the category tells you what a vendor is actually good at — and what they are likely to be missing.</p>
+
+    <h3>The five categories</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Category</th><th>What it does</th><th>Typical buyer</th><th>Examples (not endorsements)</th></tr></thead>
+      <tbody>
+        <tr><td>AI gateway</td><td>One endpoint for models: keys, routing, quotas, cost, basic logging.</td><td>Platform engineering</td><td>Portkey, LiteLLM, Kong AI Gateway, Cloudflare AI Gateway, Databricks Unity AI Gateway.</td></tr>
+        <tr><td>Guardrails and AI security</td><td>Inline inspection: prompt injection, PII, toxicity, jailbreaks.</td><td>CISO / security</td><td>Lakera, Protect AI, Robust Intelligence, Prompt Security, HiddenLayer.</td></tr>
+        <tr><td>Observability and evals</td><td>Traces, datasets, evaluators, experiments, production scoring.</td><td>ML / AI engineering</td><td>LangSmith, Braintrust, Arize Phoenix, Langfuse, W&amp;B Weave, Galileo.</td></tr>
+        <tr><td>Governance platforms</td><td>Inventory, risk assessment, policy workflow, evidence, reporting.</td><td>Risk / compliance</td><td>Credo AI, Holistic AI, IBM watsonx.governance, Microsoft Purview, OneTrust.</td></tr>
+        <tr><td>Cloud-native controls</td><td>Guardrails, content safety, logging built into the cloud or model platform.</td><td>Whatever cloud you already use</td><td>AWS Bedrock Guardrails, Azure AI Content Safety, Google Vertex AI.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>The landscape changes quickly, so treat the names as examples of a category, not as a recommendation. What matters is the category map: a gateway without policy is plumbing; a policy engine without a gateway is a document; an observability tool without thresholds is a dashboard.</p>
+
+    <h3>The consolidation wave</h3>
+    <p>Security platforms have been buying the specialist guardrail companies: Cisco acquired Robust Intelligence in 2024, Palo Alto Networks acquired Protect AI in 2025, and Check Point agreed to acquire Lakera in 2025. Databricks shipped its own AI gateway. The strategic signal is clear: point solutions that sit in the request path are attractive acquisition targets because the platform wants the chokepoint. A standalone startup selling only a filter has a hard road; a company selling a workflow, a vertical, or the evidence layer has more room.</p>
+
+    <h3>Build versus buy</h3>
+    <ul class="check">
+      <li><span><strong>Buy the gateway and the observability.</strong> They are commodity infrastructure; building them is a distraction.</span></li>
+      <li><span><strong>Build the policy and the evidence file.</strong> These encode your organisation’s decisions and your customers’ obligations. They are the part a vendor cannot supply off the shelf.</span></li>
+      <li><span><strong>Build the vertical workflow.</strong> A claims process, a KYC process, a hiring process — the moat is knowing where the risky decision sits.</span></li>
+      <li><span><strong>Do not build a generic “AI governance platform”</strong> unless you have a distribution advantage. The category is crowded and the buyers are conservative.</span></li>
+    </ul>
+
+    <h3>The eight questions that expose a slide deck</h3>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. Name three customers</strong> who run this in production, with a contact I can speak to.</span></li>
+      <li><span><strong>2. What is the deployment size?</strong> Requests per day, number of applications, number of agents.</span></li>
+      <li><span><strong>3. Self-hosted or SaaS?</strong> Where does the prompt data live, and who can read it?</span></li>
+      <li><span><strong>4. What is the added p95 latency</strong> in our environment, measured, not claimed?</span></li>
+      <li><span><strong>5. What is the false-positive rate</strong> on traffic like ours, and how did you measure it?</span></li>
+      <li><span><strong>6. What did you block in production last month?</strong> A real example, with the customer’s permission.</span></li>
+      <li><span><strong>7. Can I export the audit log</strong> in a format my auditor accepts, without your tool?</span></li>
+      <li><span><strong>8. What happens when your service is down?</strong> Fail open or fail closed, and who decides?</span></li>
+    </ol>
+
+    <p class="pull">A runtime governance product without reference deployments is a slide deck with a logo.</p>
+
+    <h3>Pricing, honestly</h3>
+    <p>Pricing models vary: per seat, per thousand requests, per agent, or a platform fee plus usage. The costs that surprise buyers are rarely the licence: log storage, egress, GPU capacity for self-hosted classifiers, and the engineering time to integrate and tune. Ask for a total cost of ownership over three years, including the people.</p>
+
+    <h3>The strategic read</h3>
+    <p>For a consultant in Germany, the opportunity is not to build a better filter. It is to be the person who can assemble the system — classify the use case, design the controls, calibrate the evals, produce the file — for Mittelstand companies that will face the December 2027 deadline without a dedicated AI governance team. The product market is consolidating; the integration and assurance market is fragmented and local. That is a better fit for a small practice.</p>
+
+    <details class="quiz"><summary>A vendor says “we are the only platform that provides runtime governance.” What is the first question?</summary>
+    <p><strong>“Which of the five categories are you actually in, and what do you integrate with?”</strong> No single product covers gateway, guardrails, observability, policy workflow, and evidence well. A credible vendor will name the category, the gaps, and the partners. The claim of uniqueness is usually a sign that the category boundaries have not been thought through.</p></details>
+  </div>
+</section>
+<section class="chapter" id="c12">
+  <div class="chapter-head"><div class="chapter-num">12</div><div><h2>Learning it properly: courses, books, and a path</h2><p>What to study, in what order, and what to ignore.</p></div></div>
+  <div class="prose">
+    <p>Most “AI governance” courses teach layers 1–3: law, standards, and organisational process. Very few teach layer 4 — runtime controls and the evidence they produce. That is the gap you already have an advantage in, because you come from evaluation. Choose courses to fill the legal and standards vocabulary, and learn the runtime layer by building.</p>
+
+    <h3>Courses and credentials</h3>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Programme</th><th>What it gives you</th><th>Format and cost</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td>BlueDot Impact — Frontier AI Governance</td><td>Structured introduction for technical people moving into governance; policy and safety framing.</td><td>Cohort-based, application required, low or no cost.</td><td>Orientation before spending money.</td></tr>
+      <tr><td>IAPP AIGP</td><td>The recognised governance vocabulary: law, standards, risk, accountability.</td><td>Exam: 100 questions, 2h45, pass 300/500. US$799 non-member, US$649 member.</td><td>A credential employers recognise.</td></tr>
+      <tr><td>ISO/IEC 42001 Lead Implementer or Lead Auditor</td><td>How to build or audit a certifiable AI management system.</td><td>Several days; typically a few thousand euros; PECB, TÜV and similar bodies.</td><td>Consulting in German Mittelstand.</td></tr>
+      <tr><td>Oxford Saïd executive programmes</td><td>Regulatory reasoning and board-level framing.</td><td>Paid executive education, short format.</td><td>C-suite language, not hands-on controls.</td></tr>
+      <tr><td>TÜV and BSI catalogues</td><td>German-market AI Act readiness and AI security training.</td><td>Varies; often in German.</td><td>Local credibility and language.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>A credential is a door-opener, not a competence. The AIGP proves you know the vocabulary; it does not prove you can build a control matrix or calibrate a judge. The ISO 42001 lead course is closer to practice, but it still stops at the management system. Neither replaces the file you build in Chapter 9.</p>
+
+    <h3>The free canon, in reading order</h3>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. NIST AI RMF 1.0</strong> — read the four functions and the trustworthiness characteristics. Skip the appendices on the first pass.</span></li>
+      <li><span><strong>2. NIST AI 600-1</strong> — the twelve generative-AI risks and the action table. This is the most usable risk list in the field.</span></li>
+      <li><span><strong>3. EU AI Act</strong> — read Articles 5, 6, 9–15, 26, 27, 50, 72, and 99. Use the article-by-article tracker for navigation, but check the official text for wording.</span></li>
+      <li><span><strong>4. ISO/IEC 42001</strong> — read a good summary of the clauses and Annex A; buy the standard only if you are implementing or auditing.</span></li>
+      <li><span><strong>5. OWASP Top 10 for LLM Applications</strong> — read all ten entries and map each to a control you could deploy.</span></li>
+      <li><span><strong>6. OECD AI Principles and the Council of Europe Framework Convention</strong> — read once for context; they shape how regulators talk, not what you build on Monday.</span></li>
+    </ol>
+
+    <h3>Books worth owning</h3>
+    <ul class="check">
+      <li><span><strong>The Oxford Handbook of AI Governance</strong> (2024) — the academic reference. Use it to look up a topic, not to read cover to cover.</span></li>
+      <li><span><strong>The Alignment Problem</strong>, Brian Christian (2020) — why specifying human values in machines is hard; the intellectual background to safety work.</span></li>
+      <li><span><strong>Atlas of AI</strong>, Kate Crawford (2021) — the political economy of data, labour, and compute. Useful counterweight to purely technical framings.</span></li>
+      <li><span><strong>Weapons of Math Destruction</strong>, Cathy O’Neil (2016) — algorithmic accountability before LLMs; the patterns still apply.</span></li>
+    </ul>
+
+    <h3>Keep up without drowning</h3>
+    <ul class="check">
+      <li><span><strong>Stanford HAI AI Index</strong> — annual; the best single source of numbers, with methodology.</span></li>
+      <li><span><strong>Import AI</strong> (Jack Clark) — weekly; policy and technical context in one place.</span></li>
+      <li><span><strong>IAPP</strong> — practitioner resources and the AIGP ecosystem.</span></li>
+      <li><span><strong>Ada Lovelace Institute and AI Now Institute</strong> — critical research; useful for spotting what industry framing leaves out.</span></li>
+      <li><span><strong>AI Act Service Desk</strong> — official answers and updates; check it before repeating a deadline.</span></li>
+    </ul>
+
+    <h3>How to study this subject</h3>
+    <p>Read a primary source, then write one page in your own words, then apply it to a real system. The order matters. Reading without writing produces recognition, not recall; writing without applying produces summary, not judgement. The AI_Evals repository already enforces the right habit: trace, test, teach. Keep that discipline here.</p>
+
+    <div class="analogy"><div class="icon">🧠</div><div><b>The apprenticeship analogy</b>
+      <p>You cannot learn to be a mechanic by memorising the highway code. You learn by opening a engine, making a mistake, and having someone show you what the sound means. Governance is the same: the frameworks are the highway code, but the skill is diagnosing a real system. Build the file for one real product; the frameworks will make sense afterwards.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="chapter" id="plan">
+  <div class="chapter-head"><div class="chapter-num">★</div><div><h2>Your plan: four weeks, then ninety days</h2><p>A sequence designed around your existing eval skills, not a generic curriculum.</p></div></div>
+  <div class="prose">
+    <p>This is my synthesis, not a syllabus from any single course. The timing is a suggestion. The outputs are the point: each week ends with an artefact, not a feeling of having read something.</p>
+  </div>
+
+  <ol class="playbook">
+    <li><div><span class="when">Week 1</span><h4>Build the risk vocabulary</h4><p>Read NIST AI RMF and AI 600-1. Then take one system you know — the Job Seeker Studio, or a client chatbot — and map all twelve GenAI risks to a control you could actually implement. Mark three as “not applicable” and write why. Output: a one-page risk map.</p></div></li>
+    <li><div><span class="when">Week 2</span><h4>Learn to classify</h4><p>Read the AI Act structure and Articles 5, 6, 9–15, 26, 50, and 72. Write a one-page classification memo for the same system: tier, role (provider or deployer), applicable articles, and the three obligations that create the most work. Output: a classification memo an outsider could review.</p></div></li>
+    <li><div><span class="when">Week 3</span><h4>Turn obligations into controls</h4><p>Read ISO/IEC 42001 at summary level and the OWASP LLM Top 10 in full. Build a control matrix with five rows: obligation, control, type, test, evidence. Then design the log schema — the fields you would need to prove each row. Output: a control matrix and a JSON schema.</p></div></li>
+    <li><div><span class="when">Week 4</span><h4>Write the eval plan and run a baseline</h4><p>Choose five metrics, set thresholds before running, and build a 50-case set from real traces. Run the baseline and record the result, even if it is embarrassing. Then calculate what a guardrail's precision would be at your estimated base rate. Output: an eval plan with a real baseline and a precision calculation.</p></div></li>
+    <li><div><span class="when">Days 30–60</span><h4>Build the full file</h4><p>Complete the eight artefacts from Chapter 9 for one real system. Get one person who did not build the system to review it. Fix the gaps they find. Output: a file that survives an unfriendly read.</p></div></li>
+    <li><div><span class="when">Days 60–90</span><h4>Test it under pressure</h4><p>Run two tabletop incidents: a systematically wrong answer, and an agent taking an unauthorised action. Time the detection, containment, and notification decision. Then rewrite the runbook with what you learned. Output: a tested runbook and a list of controls that failed.</p></div></li>
+  </ol>
+
+  <div class="prose">
+    <h3>What to do with it commercially</h3>
+    <p>Package the file as a service, not a course. A fixed-scope “AI governance readiness review” for a mid-sized company — classification, risk register, control matrix, eval plan, evidence design — is a concrete offer with a deliverable. The German market will need this before December 2027, and most buyers will not have an internal team. Lead with the artefact; the frameworks are supporting material.</p>
+
+    <h3>What not to do</h3>
+    <ul class="check">
+      <li><span><strong>Do not sell “compliance” as a guarantee.</strong> You are not a regulator or a law firm. Sell readiness, evidence, and implementation.</span></li>
+      <li><span><strong>Do not lead with certifications.</strong> Clients care about the file and the deadline, not your badge collection.</span></li>
+      <li><span><strong>Do not build a generic platform.</strong> Integrate the commodity pieces and own the workflow and the evidence.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="glossary">
+  <div class="chapter-head"><div class="chapter-num">Aa</div><div><h2>The words, explained</h2><p>Every term used in this lecture, in plain English.</p></div></div>
+  <dl class="gloss">
+    <div><dt>AI Act</dt><dd>The EU regulation (2024/1689) that classifies AI systems by risk and sets obligations for providers and deployers.</dd></div>
+    <div><dt>AI gateway</dt><dd>A single endpoint that routes requests to models and applies authentication, quotas, logging, and sometimes inspection.</dd></div>
+    <div><dt>AIMS</dt><dd>Artificial Intelligence Management System — the organisational system certifiable under ISO/IEC 42001.</dd></div>
+    <div><dt>Article 50</dt><dd>The AI Act’s transparency duty: tell people they are interacting with AI and label synthetic content.</dd></div>
+    <div><dt>Audit log</dt><dd>An append-only record of events, designed so that what happened can be reconstructed later.</dd></div>
+    <div><dt>Base rate</dt><dd>How common an event is in the population. Low base rates make false positives dominate even for accurate classifiers.</dd></div>
+    <div><dt>Betriebsrat</dt><dd>German works council; has co-determination rights over technical monitoring and the design of work.</dd></div>
+    <div><dt>Conformity assessment</dt><dd>The process of demonstrating that a high-risk system meets the AI Act’s requirements before it is placed on the market.</dd></div>
+    <div><dt>Control plane</dt><dd>The layer that decides how traffic is handled, as distinct from the data plane that carries it.</dd></div>
+    <div><dt>Deployer</dt><dd>An organisation that uses an AI system in its professional activity, as opposed to the provider that places it on the market.</dd></div>
+    <div><dt>DPIA</dt><dd>Data Protection Impact Assessment — a GDPR analysis required for high-risk processing of personal data.</dd></div>
+    <div><dt>Drift</dt><dd>A change in inputs or behaviour over time that makes past evaluation results unreliable.</dd></div>
+    <div><dt>Eval</dt><dd>A repeatable procedure that scores a system’s output against a stated criterion.</dd></div>
+    <div><dt>Evidence</dt><dd>A retrievable record that a control operated — not a claim that it exists.</dd></div>
+    <div><dt>False negative</dt><dd>A problem the control missed.</dd></div>
+    <div><dt>False positive</dt><dd>A legitimate case the control wrongly flagged.</dd></div>
+    <div><dt>FRIA</dt><dd>Fundamental Rights Impact Assessment — an AI Act analysis for certain deployers, separate from a DPIA.</dd></div>
+    <div><dt>GPAI</dt><dd>General-purpose AI model — a foundation model offered to others, with its own obligations under the Act.</dd></div>
+    <div><dt>Guardrail</dt><dd>An in-path control that allows, blocks, redacts, or escalates a request in milliseconds.</dd></div>
+    <div><dt>Hallucination / confabulation</dt><dd>Confident output that is not supported by facts or the supplied context.</dd></div>
+    <div><dt>Human-in-the-loop</dt><dd>A design in which a named person reviews or approves a consequential decision.</dd></div>
+    <div><dt>ISO/IEC 42001</dt><dd>The certifiable international standard for an AI management system.</dd></div>
+    <div><dt>Jailbreak</dt><dd>An input designed to make a model bypass its safety or policy instructions.</dd></div>
+    <div><dt>Judge (LLM-as-judge)</dt><dd>A model used to score another model’s output; must itself be calibrated against human labels.</dd></div>
+    <div><dt>MCP</dt><dd>Model Context Protocol — a standard way for agents to discover and call tools.</dd></div>
+    <div><dt>Model card</dt><dd>A short document describing a model’s purpose, data, performance, and limitations.</dd></div>
+    <div><dt>NIST AI RMF</dt><dd>A voluntary US framework organising AI risk work into Govern, Map, Measure, and Manage.</dd></div>
+    <div><dt>Policy as code</dt><dd>Rules written in a versioned, testable format and evaluated by an engine at request time.</dd></div>
+    <div><dt>Precision</dt><dd>Of the cases a control flagged, the share that were genuinely problematic.</dd></div>
+    <div><dt>Prompt injection</dt><dd>An attack that hides instructions in content the model reads, trying to override its actual task.</dd></div>
+    <div><dt>Provider</dt><dd>An organisation that develops an AI system or has it developed and places it on the market under its name.</dd></div>
+    <div><dt>Recall</dt><dd>Of the genuine problems, the share the control caught.</dd></div>
+    <div><dt>Red team</dt><dd>A deliberate adversarial exercise to find failures before users or attackers do.</dd></div>
+    <div><dt>Runtime governance</dt><dd>Controls that act on an AI interaction while it is happening, plus the records that prove what happened.</dd></div>
+    <div><dt>Sandbox</dt><dd>An isolated environment where an agent can act without affecting production systems.</dd></div>
+    <div><dt>Sidecar</dt><dd>A helper process that runs alongside a service and intercepts its traffic.</dd></div>
+    <div><dt>System card</dt><dd>A document stating what a system does, for whom, with what data, and what it must never do.</dd></div>
+    <div><dt>Trace</dt><dd>The linked record of one request through all its steps, tools, and model calls.</dd></div>
+    <div><dt>Works council</dt><dd>See Betriebsrat.</dd></div>
+  </dl>
+</section>
+
+<section class="chapter" id="references">
+  <div class="chapter-head"><div class="chapter-num">§</div><div><h2>References and further material</h2><p>Primary sources first. Access date for all links: 24 October 2026.</p></div></div>
+  <div class="prose">
+    <h3>Law and policy</h3>
+    <ul class="check">
+      <li><span>European Union. <em>Regulation (EU) 2024/1689 (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">EUR-Lex</a>.</span></li>
+      <li><span>European Commission. <em>AI Act Service Desk</em> — official information and enquiry service. <a href="https://ai-act-service-desk.ec.europa.eu/" target="_blank" rel="noopener">ai-act-service-desk.ec.europa.eu</a>.</span></li>
+      <li><span>Future of Life Institute. <em>AI Act Explorer</em> — article-by-article navigation. <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">artificialintelligenceact.eu</a>.</span></li>
+      <li><span>European Union. <em>Regulation (EU) 2016/679 (GDPR)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener">EUR-Lex</a>.</span></li>
+      <li><span>OECD. <em>AI Principles</em> (2019, updated 2024). <a href="https://oecd.ai/en/ai-principles" target="_blank" rel="noopener">oecd.ai</a>.</span></li>
+      <li><span>Council of Europe. <em>Framework Convention on Artificial Intelligence</em> (2024). <a href="https://www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificial-intelligence" target="_blank" rel="noopener">coe.int</a>.</span></li>
+      <li><span>UNESCO. <em>Recommendation on the Ethics of Artificial Intelligence</em> (2021). <a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener">unesco.org</a>.</span></li>
+      <li><span>Germany. <em>Betriebsverfassungsgesetz</em> (Works Constitution Act), §§80, 87, 90. Available via <a href="https://www.gesetze-im-internet.de/betrvg/" target="_blank" rel="noopener">gesetze-im-internet.de</a>.</span></li>
+    </ul>
+
+    <h3>Standards and technical guidance</h3>
+    <ul class="check">
+      <li><span>NIST. <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>, AI 100-1, January 2023. <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">nist.gov</a>.</span></li>
+      <li><span>NIST. <em>Generative Artificial Intelligence Profile</em>, AI 600-1, July 2024. <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" target="_blank" rel="noopener">PDF</a>.</span></li>
+      <li><span>ISO/IEC. <em>42001:2023 — Artificial intelligence management system</em>. <a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener">iso.org</a>.</span></li>
+      <li><span>ISO/IEC. <em>23894:2023 — Guidance on AI risk management</em>. ISO.</span></li>
+      <li><span>OWASP. <em>Top 10 for Large Language Model Applications</em> (2025). <a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener">genai.owasp.org</a>.</span></li>
+    </ul>
+
+    <h3>Case studies and reporting</h3>
+    <ul class="check">
+      <li><span>Moffatt v. Air Canada, 2024 BCCRT 149 (14 February 2024). <a href="https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html" target="_blank" rel="noopener">CanLII</a>.</span></li>
+      <li><span>F5. “Global Bank Maintains AI Security at Scale.” Vendor case study. <a href="https://f5.com/case-studies/global-bank-maintains-ai-security-at-scale-with-f5" target="_blank" rel="noopener">f5.com</a>.</span></li>
+      <li><span>McKinsey &amp; Company. “JPMorgan Chase’s Derek Waldron on building an AI-first bank culture.” <a href="https://www.mckinsey.com/industries/financial-services/our-insights/jpmorgan-chases-derek-waldron-on-building-an-ai-first-bank-culture" target="_blank" rel="noopener">mckinsey.com</a>.</span></li>
+      <li><span>Banking Dive. “JPMorgan Chase, Goldman Sachs on AI security.” <a href="https://www.bankingdive.com/news/jpmorgan-chase-goldman-sachs-AI-security-lori-beer-marco-argenti/833792/" target="_blank" rel="noopener">bankingdive.com</a>.</span></li>
+      <li><span>TM Forum. “Why governance is key to Deutsche Telekom’s new AI architecture.” <a href="https://inform.tmforum.org/features-and-opinion/why-governance-is-key-to-deutsche-telekoms-new-ai-architecture" target="_blank" rel="noopener">inform.tmforum.org</a>.</span></li>
+      <li><span>Allianz. “AI at Allianz: scaling AI to transform insurance.” <a href="https://www.allianz.com/en/mediacenter/news/interviews/250129-ai-at-allianz-scaling-ai-to-transform-insurance.html" target="_blank" rel="noopener">allianz.com</a>.</span></li>
+      <li><span>btw.media. “Allianz Technology: agent control plane, automation, evidence.” <a href="https://btw.media/en/allianz-technology-agent-control-plane-automation-evidence" target="_blank" rel="noopener">btw.media</a>.</span></li>
+    </ul>
+
+    <h3>Courses and professional bodies</h3>
+    <ul class="check">
+      <li><span>BlueDot Impact. <em>Frontier AI Governance</em> course. <a href="https://bluedot.org/" target="_blank" rel="noopener">bluedot.org</a>.</span></li>
+      <li><span>IAPP. <em>Artificial Intelligence Governance Professional (AIGP)</em> certification. <a href="https://iapp.org/certify/aigp/" target="_blank" rel="noopener">iapp.org</a>.</span></li>
+      <li><span>PECB. <em>ISO/IEC 42001 Lead Implementer and Lead Auditor</em> training. <a href="https://pecb.com/" target="_blank" rel="noopener">pecb.com</a>.</span></li>
+      <li><span>Saïd Business School, University of Oxford. Executive education programmes. <a href="https://www.sbs.ox.ac.uk/programmes/executive-education" target="_blank" rel="noopener">sbs.ox.ac.uk</a>.</span></li>
+      <li><span>TÜV SÜD Academy. AI and AI Act training catalogue. <a href="https://www.tuvsud.com/en/services/training" target="_blank" rel="noopener">tuvsud.com</a>.</span></li>
+    </ul>
+
+    <h3>Ongoing sources</h3>
+    <ul class="check">
+      <li><span>Stanford Institute for Human-Centered AI. <em>AI Index Report</em> (annual). <a href="https://aiindex.stanford.edu/" target="_blank" rel="noopener">aiindex.stanford.edu</a>.</span></li>
+      <li><span>Jack Clark. <em>Import AI</em> (weekly newsletter). <a href="https://importai.substack.com/" target="_blank" rel="noopener">importai.substack.com</a>.</span></li>
+      <li><span>IAPP. AI governance resources. <a href="https://iapp.org/" target="_blank" rel="noopener">iapp.org</a>.</span></li>
+      <li><span>Ada Lovelace Institute. <a href="https://www.adalovelaceinstitute.org/" target="_blank" rel="noopener">adalovelaceinstitute.org</a>.</span></li>
+      <li><span>AI Now Institute. <a href="https://ainowinstitute.org/" target="_blank" rel="noopener">ainowinstitute.org</a>.</span></li>
+    </ul>
+
+    <h3>Books</h3>
+    <ul class="check">
+      <li><span>Bullock, J. et al. (eds). <em>The Oxford Handbook of AI Governance</em>. Oxford University Press, 2024.</span></li>
+      <li><span>Christian, B. <em>The Alignment Problem</em>. W. W. Norton, 2020.</span></li>
+      <li><span>Crawford, K. <em>Atlas of AI</em>. Yale University Press, 2021.</span></li>
+      <li><span>O’Neil, C. <em>Weapons of Math Destruction</em>. Crown, 2016.</span></li>
+    </ul>
+
+    <h3>Notes on evidence</h3>
+    <p>Legal dates and article numbers were checked against the official texts and the AI Act Service Desk in October 2026; the 2026 omnibus changed several high-risk deadlines, so verify before advising. Company figures come from the cited interviews or case studies and are labelled where they are vendor-supplied or secondary. The precision arithmetic and the eval-plan thresholds are illustrative teaching examples, not benchmark results. Nothing here is legal advice.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p><strong>Prepared for:</strong> Ricky Macharm · AI Evals workspace · 24 October 2026.</p>
+  <p>This lecture synthesises the governance discussion, the runtime-governance research, and the evaluation material in this repository. Primary sources are linked above; vendor claims are labelled; illustrative numbers are marked. Law and enforcement practice change — check the official texts before relying on a date or an article.</p>
+</footer>
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  var navList=document.querySelector('nav.toc ol');
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var sections=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var tops=[], current=-1, ticking=false;
+  function measure(){
+    tops=sections.map(function(s){return s?s.getBoundingClientRect().top+window.scrollY:Infinity;});
+  }
+  function update(){
+    ticking=false;
+    var y=window.scrollY, max=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.transform='scaleX('+(max>0?y/max:0)+')';
+    var idx=-1;
+    for(var i=0;i<tops.length;i++){ if(tops[i]-140<=y) idx=i; }
+    if(idx!==current){
+      if(current>=0) links[current].classList.remove('active');
+      current=idx;
+      if(idx>=0){
+        var a=links[idx];
+        a.classList.add('active');
+        // scroll only the chip bar sideways, never the page
+        navList.scrollLeft=a.offsetLeft-(navList.clientWidth-a.offsetWidth)/2;
+      }
+    }
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(update);} },{passive:true});
+  window.addEventListener('resize',function(){measure();update();});
+  window.addEventListener('load',function(){measure();update();});
+  measure(); update();
+})();
+</script>
+</body>
+</html>

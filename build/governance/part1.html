@@ -1,0 +1,145 @@
+<header>
+  <section class="hero">
+    <div>
+      <p class="who">A lecture for a practitioner learning AI evals · October 2026</p>
+      <h1>The gate, the ledger, and the machine</h1>
+      <p class="dek">AI governance from law to runtime — what it is, why it appeared, who has actually built it, and where evaluation fits. Written for someone who already understands evals and wants the full picture.</p>
+      <div class="meta">
+        <span class="chip">📚 12 chapters + a study plan</span>
+        <span class="chip">🧭 Beginner to practitioner</span>
+        <span class="chip">⏱ About 90 minutes</span>
+        <span class="chip">🔗 Primary sources linked</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 360" role="img" aria-labelledby="hT hD">
+        <title id="hT">Four layers of governance feeding a runtime checkpoint</title>
+        <desc id="hD">A stack of four labelled layers — law, standard, organisational policy, runtime control — narrows into a single gate. A request passes through the gate to a model, and every interaction is written into a ledger.</desc>
+        <defs>
+          <marker id="hArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+          </marker>
+        </defs>
+        <rect x="22" y="22" width="376" height="316" rx="18" class="svg-sheet" stroke="var(--rule)"/>
+        <text x="44" y="54" class="t-sm svg-muted">Four layers become one gate</text>
+
+        <rect x="44" y="72" width="150" height="34" rx="6" class="f-plum-soft" stroke="var(--rule)"/>
+        <text x="56" y="94" class="t-sm svg-ink">1 · Law</text>
+        <rect x="44" y="114" width="150" height="34" rx="6" class="f-teal-soft" stroke="var(--rule)"/>
+        <text x="56" y="136" class="t-sm svg-ink">2 · Standard</text>
+        <rect x="44" y="156" width="150" height="34" rx="6" class="f-gold-soft" stroke="var(--rule)"/>
+        <text x="56" y="178" class="t-sm svg-ink">3 · Policy</text>
+        <rect x="44" y="198" width="150" height="34" rx="6" class="f-coral-soft" stroke="var(--rule)"/>
+        <text x="56" y="220" class="t-sm svg-ink">4 · Runtime</text>
+
+        <path d="M194 215 H232" class="stroke-muted" stroke-width="2.5" marker-end="url(#hArr)"/>
+
+        <rect x="240" y="176" width="18" height="78" rx="4" class="f-coral"/>
+        <text x="249" y="270" class="t-sm svg-muted" text-anchor="middle">gate</text>
+
+        <path d="M258 215 H286" class="stroke-muted" stroke-width="2.5" marker-end="url(#hArr)"/>
+        <rect x="292" y="186" width="84" height="58" rx="10" class="svg-paper" stroke="var(--rule)"/>
+        <text x="334" y="212" class="t-sm svg-ink" text-anchor="middle">Model</text>
+        <text x="334" y="230" class="t-sm svg-muted" text-anchor="middle">+ tools</text>
+
+        <path d="M334 244 V278" class="stroke-muted" stroke-width="2.5" marker-end="url(#hArr)"/>
+        <rect x="262" y="284" width="144" height="40" rx="8" class="f-gold-soft" stroke="var(--rule)"/>
+        <text x="334" y="309" class="t-sm svg-ink" text-anchor="middle">Ledger of what happened</text>
+      </svg>
+    </div>
+  </section>
+  <nav class="toc" aria-label="Chapters">
+    <ol>
+      <li><a href="#c1">1 · What it is</a></li>
+      <li><a href="#c2">2 · Why it exists</a></li>
+      <li><a href="#c3">3 · The law</a></li>
+      <li><a href="#c4">4 · Standards</a></li>
+      <li><a href="#c5">5 · Runtime</a></li>
+      <li><a href="#c6">6 · Anatomy</a></li>
+      <li><a href="#c7">7 · Case studies</a></li>
+      <li><a href="#c8">8 · Evals</a></li>
+      <li><a href="#c9">9 · The file</a></li>
+      <li><a href="#c10">10 · Germany</a></li>
+      <li><a href="#c11">11 · Market</a></li>
+      <li><a href="#c12">12 · Learn</a></li>
+      <li><a href="#plan">Your plan</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#references">References</a></li>
+    </ol>
+  </nav>
+</header>
+<main>
+
+<section class="prose" style="padding:2.5rem 0 1rem">
+  <p><strong>Why this lecture exists.</strong> A pitch arrived describing “a SaaS platform for runtime governance for AI systems and infrastructures.” The phrase sounds impressive and explains almost nothing. This lecture takes it apart: what each word means, where the idea came from, who has implemented it and why, how they did it, and how much of it depends on the evaluation work you are already learning.</p>
+  <p><strong>The one-sentence version.</strong> Governance is the system that decides who may use an AI system, what it is allowed to do, and how anyone can prove afterwards what it actually did — and <em>runtime</em> governance is the part that operates while the system is running, not in a policy document on a shelf.</p>
+  <p class="note">This is a teaching document, not legal advice. Law and enforcement practice change; the references at the end point to the primary texts so you can check every claim. Where a number comes from a vendor case study, I say so.</p>
+
+  <div class="verify"><b>How to read this.</b> Chapters 1–5 build the vocabulary. Chapters 6–8 are the technical core. Chapters 9–11 turn it into practice, Germany-specific obligations, and the vendor landscape. Chapter 12 is the study path. Each chapter ends with a quick check; answer it before moving on. The glossary defines every term in plain English.</div>
+
+  <h3>What you should be able to do by the end</h3>
+  <ul class="check">
+    <li><span><strong>Explain the four layers.</strong> Distinguish law, standards, organisational policy, and runtime controls, and say which layer a given product actually sits in.</span></li>
+    <li><span><strong>Read the AI Act structurally.</strong> Decide whether a system is prohibited, high-risk, limited-risk, or minimal, and identify who is the provider and who is the deployer.</span></li>
+    <li><span><strong>Draw a runtime control plane.</strong> Show where a gateway, a policy engine, a classifier, a human approval step, and an audit log sit in the request path.</span></li>
+    <li><span><strong>Place evals correctly.</strong> Explain the difference between an eval, a guardrail, and a monitor, and why a heavy judge cannot run in the request path.</span></li>
+    <li><span><strong>Build a governance file.</strong> Produce a risk register, a control matrix, an eval plan, and an evidence log for one real system.</span></li>
+    <li><span><strong>Ask a vendor the right questions.</strong> Separate a real deployment from a slide deck in twenty minutes.</span></li>
+  </ul>
+
+  <details class="quiz"><summary>Diagnostic: a bank wants to use an LLM to draft replies to customer complaints. It buys a tool that scans every prompt for personal data and blocks unsafe answers, and it keeps a log of every interaction. Which layer is the tool, and what is still missing?</summary>
+  <p><strong>The tool is layer 4 — a runtime control.</strong> It sits in the request path and enforces policy at execution time. Still missing: the law and standards analysis (is this high-risk? what does Article 50 require?), the organisational decisions (who approves the prompt, who owns the risk, what happens when the tool blocks a legitimate reply), and the evaluation evidence (is the answer accurate, and how do you know the blocker's false-positive rate is acceptable?). A runtime tool without the other three layers is a gate with no rulebook and no inspector.</p></details>
+</section>
+
+<section class="chapter" id="c1">
+  <div class="chapter-head"><div class="chapter-num">1</div><div><h2>What governance actually is</h2><p>Not government. A system of decision rights, controls, and proof.</p></div></div>
+  <div class="prose">
+    <p>The word “governance” misleads people because it sounds like something a government does <em>to</em> a company. In an organisation, governance is internal and practical. It answers three questions, over and over, for every system that matters:</p>
+    <ul class="check">
+      <li><span><strong>Who decided?</strong> Which person or committee approved this use, this model, this prompt, this data source?</span></li>
+      <li><span><strong>What is allowed?</strong> What may the system do, for whom, with what data, and under what limits?</span></li>
+      <li><span><strong>Can you prove it?</strong> Where is the record that shows what actually happened, in a form an auditor or regulator can read?</span></li>
+    </ul>
+
+    <p>Everything else — the frameworks, the certifications, the dashboards, the vendor products — exists to make those three questions answerable at scale. When a governance programme fails, it is usually because it answered them on paper but not in the running system: the policy said “no personal data leaves the network,” while the application was sending customer messages to a public API.</p>
+
+    <div class="analogy"><div class="icon">🚌</div><div><b>The danfo park analogy: the union office and the gate</b>
+      <p>A motor park has a union office with a rulebook: who may drive, which routes are allowed, what the fare is, how disputes are settled. That is <em>policy</em>. But the rulebook does not stop an unlicensed driver from loading passengers. What stops him is the gate: a conductor checks the vehicle, the route, and the passenger manifest before the bus leaves. At the end of the day, the park secretary has a ledger with plate numbers, times, and takings.</p>
+      <p>Law and standards are the union office. Runtime governance is the gate plus the ledger. A park with only an office is a place where everyone agrees on paper and nothing is enforced.</p>
+    </div></div>
+
+    <h3>The four layers</h3>
+    <p>Most confusion in this field comes from mixing layers. A course on “AI governance” may teach only the first, while a vendor sells only the fourth, and both use the same words.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Layer</th><th>What it contains</th><th>Typical artefact</th><th>Who owns it</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Law and policy</td><td>Binding rules: the EU AI Act, GDPR, sector regulation, international principles.</td><td>Legal analysis, register of obligations, DPIA.</td><td>Legal, compliance, board.</td></tr>
+      <tr><td>2 · Standards</td><td>Agreed ways of proving you meet the rules: NIST AI RMF, ISO/IEC 42001, ISO/IEC 23894.</td><td>Management-system manual, risk assessment, control catalogue.</td><td>Risk, quality, CISO.</td></tr>
+      <tr><td>3 · Organisation</td><td>Roles, committees, inventories, approval workflows, training, vendor due diligence.</td><td>AI inventory, model cards, approval tickets, training records.</td><td>AI governance lead, product owners.</td></tr>
+      <tr><td>4 · Runtime</td><td>Technical controls that act while the system runs: gateways, filters, permissions, human approval, logs.</td><td>Policy-as-code, guardrail configuration, traces, audit log.</td><td>Engineering, platform, security.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>The layers are not alternatives. A runtime filter with no legal analysis is a guess about what to block. A legal analysis with no runtime control is a promise nobody checks. The mature pattern is a chain: <strong>law → standard → policy → control → evidence</strong>. Each link narrows the previous one until it becomes something a computer can enforce and an auditor can read.</p>
+
+    <h3>Design time versus runtime</h3>
+    <p>This is the distinction the pitch was trading on. <strong>Design-time governance</strong> happens before deployment: classifying the system, assessing risk, reviewing the data, approving the vendor, documenting the model. <strong>Runtime governance</strong> happens during execution: authenticating the caller, inspecting the prompt, enforcing a rule, limiting an action, recording the result.</p>
+    <p>Design-time governance produces documents. Runtime governance produces <em>events</em>. You need both because they fail differently: a document can be beautifully written and completely disconnected from the system; an event stream can be perfectly captured and completely pointless if nobody defined what should have been blocked.</p>
+
+    <p class="pull">Policy tools say what should happen. Runtime tools prove what did happen.</p>
+
+    <h3>What governance is not</h3>
+    <ul class="check">
+      <li><span><strong>Not a PDF.</strong> A policy nobody enforces is a preference.</span></li>
+      <li><span><strong>Not a dashboard.</strong> A chart of model calls is observability. It becomes governance only when someone has defined acceptable behaviour and can act on the difference.</span></li>
+      <li><span><strong>Not the same as security.</strong> Security asks “can an attacker break this?” Governance also asks “is this use permitted, fair, documented, and accountable?” They overlap heavily, but neither contains the other.</span></li>
+      <li><span><strong>Not the same as evaluation.</strong> Evaluation asks “is it good?” Governance asks “is it allowed, and can we prove it?” Chapter 8 is about the bridge between them.</span></li>
+    </ul>
+
+    <details class="quiz"><summary>A team ships a chatbot with a content filter and a log. Their manager says “we have governance.” What is the strongest objection?</summary>
+    <p><strong>They have two controls, not a governance system.</strong> There is no statement of what the system is allowed to do, no owner for the risk, no process for reviewing failures, and no evidence that the filter works. The controls may be useful; the claim is unsupported. Governance is the arrangement that makes the controls meaningful, not the controls alone.</p></details>
+  </div>
+</section>

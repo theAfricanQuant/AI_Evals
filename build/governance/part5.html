@@ -1,0 +1,167 @@
+<section class="chapter" id="c9">
+  <div class="chapter-head"><div class="chapter-num">9</div><div><h2>Building the governance file</h2><p>Eight artefacts that turn a claim into evidence — and a six-week route to the first version.</p></div></div>
+  <div class="prose">
+    <p>Clients rarely ask “do you know the NIST framework?” They ask “can I see the file?” The file is the unit of work in this profession. It is not a binder for its own sake; it is the set of documents and records that let a third party reconstruct what you decided, why, and what happened.</p>
+
+    <h3>The eight artefacts</h3>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. System card.</strong> What the system does, who it serves, what data it uses, which model and version, who owns it, and what it must never do.</span></li>
+      <li><span><strong>2. Risk register.</strong> The named risks, their likelihood and impact, who is exposed, and which control addresses each one.</span></li>
+      <li><span><strong>3. Control matrix.</strong> Each obligation mapped to a control, a test, an owner, and the evidence the control produces.</span></li>
+      <li><span><strong>4. Eval plan and results.</strong> The metrics, thresholds, test sets, dates, and outcomes from Chapter 8.</span></li>
+      <li><span><strong>5. Data protection assessment.</strong> A DPIA where GDPR requires one; a record of lawful basis, retention, and transfers.</span></li>
+      <li><span><strong>6. Vendor register.</strong> Every model, tool, and data provider, with contract terms, subprocessors, data location, and exit plan.</span></li>
+      <li><span><strong>7. Incident runbook.</strong> Who detects, who contains, who decides, who notifies, and on what clock.</span></li>
+      <li><span><strong>8. Evidence log.</strong> The pointer to runtime records: trace IDs, dashboards, audit exports, review minutes.</span></li>
+    </ol>
+
+    <h3>The risk register, concretely</h3>
+    <p>A register with twenty generic rows is useless. Five specific rows with owners are useful. Here is the shape, using a hypothetical CV-ranking tool sold to employers — an Annex III high-risk use.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>ID</th><th>Risk</th><th>Who is exposed</th><th>Control</th><th>Evidence</th><th>Owner</th></tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Model downgrades candidates from non-German education systems</td><td>Applicants</td><td>Slice-based eval; human review of rejects; bias monitoring</td><td>Eval report by education country; review sample</td><td>ML lead</td></tr>
+      <tr><td>R2</td><td>Recruiter over-trusts the ranking and stops reading CVs</td><td>Applicants, employer</td><td>UI shows reasons; mandatory human decision; audit of override rate</td><td>Screenshots, decision log</td><td>Product</td></tr>
+      <tr><td>R3</td><td>CV data leaks through logs or a model provider</td><td>Applicants</td><td>Redaction; EU-hosted model; retention limit; DPA</td><td>Log sample, vendor contract</td><td>DPO</td></tr>
+      <tr><td>R4</td><td>Prompt injection in a CV manipulates the ranking</td><td>Applicants, employer</td><td>Treat CV text as untrusted; strip instructions; injection classifier</td><td>Red-team results</td><td>Security</td></tr>
+      <tr><td>R5</td><td>Works council not consulted before go-live</td><td>Employees, employer</td><td>Consultation gate in the release checklist</td><td>Minutes, agreement</td><td>HR / legal</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>Notice that only one row is “the model is wrong.” Governance risk is socio-technical: over-trust, data leakage, manipulation, and consultation failures are as important as accuracy.</p>
+
+    <h3>The control matrix</h3>
+    <p>The matrix is where legal language becomes engineering work. Each row should be testable by someone who did not write it.</p>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Obligation</th><th>Control</th><th>Type</th><th>Test</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Art. 14 human oversight</td><td>Named reviewer approves every rejection</td><td>Prevent</td><td>Sample 20 decisions; check reviewer identity and timestamp</td><td>Decision log</td></tr>
+      <tr><td>Art. 12 record-keeping</td><td>Immutable event log, six-month retention</td><td>Detect</td><td>Attempt to modify an entry; verify retention job</td><td>Log export, integrity test</td></tr>
+      <tr><td>Art. 15 accuracy</td><td>Release suite with slice reporting</td><td>Detect</td><td>Re-run suite on the deployed version</td><td>Signed eval report</td></tr>
+      <tr><td>Art. 50 transparency</td><td>Disclosure that AI assists the ranking</td><td>Prevent</td><td>UI test with a new user</td><td>Screenshot, copy review</td></tr>
+      <tr><td>Art. 26 deployer monitoring</td><td>Monthly drift and incident review</td><td>Correct</td><td>Check meeting minutes and actions</td><td>Review record</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <h3>The incident runbook</h3>
+    <p>An incident is not only a data breach. It can be a systematically wrong answer, an agent that took an unauthorised action, or a model that started refusing legitimate requests. The runbook needs five roles and a clock:</p>
+    <ul class="check">
+      <li><span><strong>Detect.</strong> Who is on call, and which alert fires? A dashboard nobody watches is not detection.</span></li>
+      <li><span><strong>Contain.</strong> Can you disable the model, the tool, or the prompt without taking down the product?</span></li>
+      <li><span><strong>Assess.</strong> Who was affected, how many, and how badly? Preserve the logs before they rotate.</span></li>
+      <li><span><strong>Notify.</strong> Legal, the DPO, the customer, and — where required — the market surveillance authority. Article 73 sets short deadlines measured in days, not months; confirm the exact clock for your case.</span></li>
+      <li><span><strong>Learn.</strong> Add a regression case, update the risk register, and record the change.</span></li>
+    </ul>
+
+    <h3>Six weeks to a first file</h3>
+    <ol class="playbook">
+      <li><div><span class="when">Week 1</span><h4>Write the system card</h4><p>One system, one page. Purpose, users, data, model, owner, prohibited uses. If you cannot fill it in, you do not yet understand the system well enough to govern it.</p></div></li>
+      <li><div><span class="when">Week 2</span><h4>Build the risk register</h4><p>Five to ten specific risks, each with an exposed group and an owner. Include socio-technical risks, not only model errors.</p></div></li>
+      <li><div><span class="when">Week 3</span><h4>Map obligations to controls</h4><p>Classify the system under the AI Act, then map only the applicable articles. Mark each control as prevent, detect, or correct.</p></div></li>
+      <li><div><span class="when">Week 4</span><h4>Write the eval plan</h4><p>Choose five metrics, define thresholds before running, and build a 50-case set from real traces. Record the first baseline, even if it is bad.</p></div></li>
+      <li><div><span class="when">Week 5</span><h4>Wire the evidence</h4><p>Make sure every control produces an artefact you can retrieve. Fix the log schema now, before volume makes it expensive.</p></div></li>
+      <li><div><span class="when">Week 6</span><h4>Run a tabletop incident</h4><p>Simulate a wrong-answer incident and an agent action incident. Time the detection, the containment, and the notification decision. Write down what broke.</p></div></li>
+    </ol>
+
+    <details class="quiz"><summary>Your file has a beautiful risk register and a control matrix, but no evidence column. Is it ready for an audit?</summary>
+    <p><strong>No.</strong> It describes intent, not operation. An auditor will ask how you know the control ran, on which population, and with what result. Add the evidence column and make sure each item points to a retrievable record — a log export, a signed eval report, meeting minutes with dates. Without that, the file is a plan.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c10">
+  <div class="chapter-head"><div class="chapter-num">10</div><div><h2>Germany and the EU: the rules around the rules</h2><p>What German companies will ask you that a generic AI-governance course will not.</p></div></div>
+  <div class="prose">
+    <p>The AI Act is only one layer. A German deployment also sits inside data protection law, labour law, media law, and sector supervision. These are the questions that decide whether a project actually ships.</p>
+
+    <h3>1. Data protection (GDPR/DSGVO)</h3>
+    <p>The GDPR applies alongside the AI Act. If an AI system processes personal data — CVs, customer messages, voice recordings — you need a lawful basis, a retention rule, and often a <strong>data protection impact assessment</strong> (DPIA) under Article 35. The AI Act’s fundamental-rights impact assessment (Article 27) is a separate document; do not assume one satisfies the other. Transfers to non-EU model providers need a transfer mechanism and a vendor assessment.</p>
+
+    <h3>2. Works councils (Betriebsrat)</h3>
+    <p>This is the practical gate most English-language guides omit. Under the Works Constitution Act (BetrVG), works councils have co-determination rights over technical devices that can monitor employee behaviour or performance (§87(1) No. 6), over the design of work (§90), and over information and consultation (§80). Introducing an AI tool that observes, scores, or assists employees usually requires a <strong>works agreement</strong> (Betriebsvereinbarung) before rollout. A release checklist that does not include the works council will stall in a German company, regardless of how good the model is.</p>
+
+    <h3>3. Employment discrimination (AGG)</h3>
+    <p>The General Equal Treatment Act applies to hiring and promotion. An AI ranking that correlates with gender, ethnicity, age, or disability can create liability even without intent. This is why slice-based evaluation is not a technical nicety in Germany; it is evidence in a discrimination dispute.</p>
+
+    <h3>4. Consumer and media rules</h3>
+    <ul class="check">
+      <li><span><strong>TDDDG §25.</strong> Storing or reading information on a user’s device — cookies, local storage, some analytics SDKs — generally requires consent unless strictly necessary. A chat widget that remembers conversations is in scope.</span></li>
+      <li><span><strong>DDG §5.</strong> The imprint requirement for commercial websites. It applies to the product site, not to the model.</span></li>
+      <li><span><strong>KUG §22.</strong> Image rights. If you generate or use a person’s likeness — avatars, voice clones, marketing images — you need consent, and the AI Act adds a labelling duty for deepfakes.</span></li>
+      <li><span><strong>UWG §7.</strong> Unsolicited commercial email. Relevant to how you sell the service, not to how the model behaves — but it is the rule most often broken by technical founders.</span></li>
+    </ul>
+
+    <h3>5. Sector supervision</h3>
+    <p>Financial services, medical devices, energy, and critical infrastructure each have their own regulator and their own expectations for model risk. An AI governance file that ignores BaFin, the medical-device regime, or NIS2 will not survive a sector audit. The AI Act does not replace sector law; it layers on top.</p>
+
+    <h3>6. Who enforces the AI Act in Germany</h3>
+    <p>Germany has been organising its market-surveillance structure at federal level, with the Bundesnetzagentur playing a central role alongside the BSI and the data-protection authorities. The division of responsibilities is still settling as implementing legislation and guidance arrive. For any specific case, confirm the competent authority with the AI Act Service Desk or counsel rather than relying on a summary — including this one.</p>
+
+    <div class="analogy"><div class="icon">🏗️</div><div><b>The building-permit analogy</b>
+      <p>You can design a beautiful building, but it does not open until the structural engineer, the fire authority, and the accessibility inspector have signed off. Each has a different rulebook and a different signature. In Germany, the AI Act is the planning permission; GDPR is the data-protection sign-off; the works council is the occupants’ representative; sector supervision is the fire authority. A product that satisfies only one will not open.</p>
+    </div></div>
+
+    <details class="quiz"><summary>A client wants to deploy an AI assistant that drafts performance reviews for managers. Which German obligations are triggered before go-live?</summary>
+    <p><strong>At minimum:</strong> a GDPR lawful basis and likely a DPIA (employee performance data is high-risk processing); works-council co-determination, because the tool observes and evaluates employee behaviour; an AGG check for discriminatory patterns; and an AI Act classification — employment and worker management is an Annex III high-risk area, so Articles 9–15 and human oversight apply. The tool also needs a named human reviewer; a manager who simply sends the draft unchanged is not meaningful oversight.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c11">
+  <div class="chapter-head"><div class="chapter-num">11</div><div><h2>The market: who sells what, and what to ask</h2><p>Five product categories, a wave of consolidation, and the questions that expose a slide deck.</p></div></div>
+  <div class="prose">
+    <p>“Runtime governance” is not one market. It is a bundle of adjacent products, each with a different buyer and a different technical centre of gravity. Knowing the category tells you what a vendor is actually good at — and what they are likely to be missing.</p>
+
+    <h3>The five categories</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Category</th><th>What it does</th><th>Typical buyer</th><th>Examples (not endorsements)</th></tr></thead>
+      <tbody>
+        <tr><td>AI gateway</td><td>One endpoint for models: keys, routing, quotas, cost, basic logging.</td><td>Platform engineering</td><td>Portkey, LiteLLM, Kong AI Gateway, Cloudflare AI Gateway, Databricks Unity AI Gateway.</td></tr>
+        <tr><td>Guardrails and AI security</td><td>Inline inspection: prompt injection, PII, toxicity, jailbreaks.</td><td>CISO / security</td><td>Lakera, Protect AI, Robust Intelligence, Prompt Security, HiddenLayer.</td></tr>
+        <tr><td>Observability and evals</td><td>Traces, datasets, evaluators, experiments, production scoring.</td><td>ML / AI engineering</td><td>LangSmith, Braintrust, Arize Phoenix, Langfuse, W&amp;B Weave, Galileo.</td></tr>
+        <tr><td>Governance platforms</td><td>Inventory, risk assessment, policy workflow, evidence, reporting.</td><td>Risk / compliance</td><td>Credo AI, Holistic AI, IBM watsonx.governance, Microsoft Purview, OneTrust.</td></tr>
+        <tr><td>Cloud-native controls</td><td>Guardrails, content safety, logging built into the cloud or model platform.</td><td>Whatever cloud you already use</td><td>AWS Bedrock Guardrails, Azure AI Content Safety, Google Vertex AI.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>The landscape changes quickly, so treat the names as examples of a category, not as a recommendation. What matters is the category map: a gateway without policy is plumbing; a policy engine without a gateway is a document; an observability tool without thresholds is a dashboard.</p>
+
+    <h3>The consolidation wave</h3>
+    <p>Security platforms have been buying the specialist guardrail companies: Cisco acquired Robust Intelligence in 2024, Palo Alto Networks acquired Protect AI in 2025, and Check Point agreed to acquire Lakera in 2025. Databricks shipped its own AI gateway. The strategic signal is clear: point solutions that sit in the request path are attractive acquisition targets because the platform wants the chokepoint. A standalone startup selling only a filter has a hard road; a company selling a workflow, a vertical, or the evidence layer has more room.</p>
+
+    <h3>Build versus buy</h3>
+    <ul class="check">
+      <li><span><strong>Buy the gateway and the observability.</strong> They are commodity infrastructure; building them is a distraction.</span></li>
+      <li><span><strong>Build the policy and the evidence file.</strong> These encode your organisation’s decisions and your customers’ obligations. They are the part a vendor cannot supply off the shelf.</span></li>
+      <li><span><strong>Build the vertical workflow.</strong> A claims process, a KYC process, a hiring process — the moat is knowing where the risky decision sits.</span></li>
+      <li><span><strong>Do not build a generic “AI governance platform”</strong> unless you have a distribution advantage. The category is crowded and the buyers are conservative.</span></li>
+    </ul>
+
+    <h3>The eight questions that expose a slide deck</h3>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. Name three customers</strong> who run this in production, with a contact I can speak to.</span></li>
+      <li><span><strong>2. What is the deployment size?</strong> Requests per day, number of applications, number of agents.</span></li>
+      <li><span><strong>3. Self-hosted or SaaS?</strong> Where does the prompt data live, and who can read it?</span></li>
+      <li><span><strong>4. What is the added p95 latency</strong> in our environment, measured, not claimed?</span></li>
+      <li><span><strong>5. What is the false-positive rate</strong> on traffic like ours, and how did you measure it?</span></li>
+      <li><span><strong>6. What did you block in production last month?</strong> A real example, with the customer’s permission.</span></li>
+      <li><span><strong>7. Can I export the audit log</strong> in a format my auditor accepts, without your tool?</span></li>
+      <li><span><strong>8. What happens when your service is down?</strong> Fail open or fail closed, and who decides?</span></li>
+    </ol>
+
+    <p class="pull">A runtime governance product without reference deployments is a slide deck with a logo.</p>
+
+    <h3>Pricing, honestly</h3>
+    <p>Pricing models vary: per seat, per thousand requests, per agent, or a platform fee plus usage. The costs that surprise buyers are rarely the licence: log storage, egress, GPU capacity for self-hosted classifiers, and the engineering time to integrate and tune. Ask for a total cost of ownership over three years, including the people.</p>
+
+    <h3>The strategic read</h3>
+    <p>For a consultant in Germany, the opportunity is not to build a better filter. It is to be the person who can assemble the system — classify the use case, design the controls, calibrate the evals, produce the file — for Mittelstand companies that will face the December 2027 deadline without a dedicated AI governance team. The product market is consolidating; the integration and assurance market is fragmented and local. That is a better fit for a small practice.</p>
+
+    <details class="quiz"><summary>A vendor says “we are the only platform that provides runtime governance.” What is the first question?</summary>
+    <p><strong>“Which of the five categories are you actually in, and what do you integrate with?”</strong> No single product covers gateway, guardrails, observability, policy workflow, and evidence well. A credible vendor will name the category, the gaps, and the partners. The claim of uniqueness is usually a sign that the category boundaries have not been thought through.</p></details>
+  </div>
+</section>

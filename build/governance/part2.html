@@ -1,0 +1,220 @@
+<section class="chapter" id="c2">
+  <div class="chapter-head"><div class="chapter-num">2</div><div><h2>Why the idea appeared</h2><p>Three older traditions, four pressures, and one tribunal ruling.</p></div></div>
+  <div class="prose">
+    <p>Runtime governance was not invented by a startup in 2024. It is the collision of three disciplines that already existed, pushed together by a new kind of software that behaved unpredictably in public.</p>
+
+    <h3>Tradition one: bank model-risk management</h3>
+    <p>After the 2008 financial crisis, supervisors made it explicit that a bank must understand and control every model that affects its decisions. In the United States, the Federal Reserve and the Office of the Comptroller of the Currency issued <strong>SR 11-7</strong> in 2011: models must be validated before use, monitored continuously, and documented well enough for an independent reviewer to reconstruct the reasoning. Nothing in that guidance says “machine learning.” It applies to any quantitative model. When large language models arrived, risk officers asked the obvious question: why would these be exempt?</p>
+
+    <h3>Tradition two: observability</h3>
+    <p>Software teams learned that you cannot operate what you cannot see. Logs, metrics, and distributed traces became standard, eventually standardised as OpenTelemetry. Applying the same idea to an AI system means recording the prompt, the retrieved context, the model version, the response, the latency, the cost, and the tool calls. Observability gives you the raw material of evidence; it does not tell you whether the behaviour was acceptable.</p>
+
+    <h3>Tradition three: the API gateway and the firewall</h3>
+    <p>Networks already had a chokepoint: one front door where you authenticate callers, apply rate limits, inspect traffic, and block known attacks. An <strong>AI gateway</strong> is the same pattern moved up the stack. Instead of routing HTTP to servers, it routes prompts to models — and, crucially, it can inspect the request and the response on the way through.</p>
+
+    <div class="analogy"><div class="icon">🛂</div><div><b>The border-post analogy</b>
+      <p>A country does not govern migration by publishing a law and hoping. It builds a border post: identity check, visa check, customs inspection, and an entry register. The law defines who may enter; the post enforces it; the register proves who did. Runtime governance is the border post for model traffic. The mistake vendors sell is the post without the law, or the register without the inspection.</p>
+    </div></div>
+
+    <h3>Four pressures that created the market</h3>
+    <div class="grid3">
+      <div class="card coral"><p class="k">⚖️ Liability</p><p>A company is responsible for what its AI says, even when the AI says something the company’s own policy forbids.</p></div>
+      <div class="card teal"><p class="k">🔒 Data leakage</p><p>Employees paste confidential material into public tools; every team wires up a different model with no central control.</p></div>
+      <div class="card gold"><p class="k">📜 Regulation</p><p>New law demands logging, human oversight, accuracy, and post-market monitoring — with fines tied to global turnover.</p></div>
+      <div class="card plum"><p class="k">💸 Sprawl and cost</p><p>Dozens of applications call dozens of models with no inventory, no quotas, and no idea what is being spent.</p></div>
+    </div>
+
+    <h3>The ruling that made the risk concrete</h3>
+    <div class="story">
+      <p class="label">Case</p>
+      <h4>Air Canada, February 2024</h4>
+      <p>A customer asked the airline’s website chatbot about bereavement fares. The chatbot told him he could buy a full-price ticket and apply for a refund within 90 days. The airline’s actual policy did not allow retroactive claims. When he complained, Air Canada argued before a British Columbia tribunal that the chatbot was “a separate legal entity responsible for its own actions.” The tribunal called the argument remarkable and rejected it. Air Canada was ordered to pay <strong>CA$812.02</strong> in damages (Moffatt v. Air Canada, 2024 BCCRT 149).</p>
+      <p class="lesson">Lesson: the company owns everything its AI says. A runtime check that compared the answer with the actual policy would have cost far less than the ruling.</p>
+    </div>
+
+    <h3>The timeline</h3>
+    <p>Read this as a shift in what the market was asking for: first documentation, then monitoring, then enforcement, then evidence.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 430" role="img" aria-labelledby="tT tD">
+      <title id="tT">Timeline from model risk guidance to runtime AI governance</title>
+      <desc id="tD">A vertical timeline with seven points: 2011 SR 11-7 model risk guidance; 2016 to 2019 machine-learning observability; late 2022 ChatGPT; 2023 NIST AI RMF, ISO 42001 and the Samsung data leak; 2024 the EU AI Act enters into force and the Air Canada ruling; 2025 agentic systems and security acquisitions; 2026 transparency duties and delayed high-risk deadlines.</desc>
+      <line x1="120" y1="30" x2="120" y2="400" class="stroke-rule" stroke-width="4"/>
+      <g>
+        <circle cx="120" cy="45" r="9" class="f-teal"/>
+        <text x="40" y="50" class="t-md svg-ink">2011</text>
+        <text x="150" y="42" class="t-sm svg-ink">SR 11-7: validate, monitor, document every model</text>
+        <text x="150" y="64" class="t-sm svg-muted">The banking lineage begins</text>
+
+        <circle cx="120" cy="105" r="9" class="f-teal"/>
+        <text x="40" y="110" class="t-md svg-ink">2016–19</text>
+        <text x="150" y="102" class="t-sm svg-ink">ML observability and algorithmic accountability</text>
+        <text x="150" y="124" class="t-sm svg-muted">Drift, bias, and the first monitoring vendors</text>
+
+        <circle cx="120" cy="165" r="9" class="f-coral"/>
+        <text x="40" y="170" class="t-md svg-ink">Nov 2022</text>
+        <text x="150" y="162" class="t-sm svg-ink">ChatGPT: AI becomes a public product</text>
+        <text x="150" y="184" class="t-sm svg-muted">Every board asks what staff are pasting into it</text>
+
+        <circle cx="120" cy="225" r="9" class="f-coral"/>
+        <text x="40" y="230" class="t-md svg-ink">2023</text>
+        <text x="150" y="222" class="t-sm svg-ink">NIST AI RMF · ISO/IEC 42001 · Samsung leak</text>
+        <text x="150" y="244" class="t-sm svg-muted">Frameworks arrive; the first data-loss bans follow</text>
+
+        <circle cx="120" cy="285" r="9" class="f-gold"/>
+        <text x="40" y="290" class="t-md svg-ink">2024</text>
+        <text x="150" y="282" class="t-sm svg-ink">EU AI Act in force · Air Canada ruling</text>
+        <text x="150" y="304" class="t-sm svg-muted">Liability becomes concrete; logging becomes legal</text>
+
+        <circle cx="120" cy="345" r="9" class="f-gold"/>
+        <text x="40" y="350" class="t-md svg-ink">2025</text>
+        <text x="150" y="342" class="t-sm svg-ink">Agents, tool calls, and security consolidation</text>
+        <text x="150" y="364" class="t-sm svg-muted">Governance moves from text to actions</text>
+
+        <circle cx="120" cy="405" r="9" class="f-plum"/>
+        <text x="40" y="410" class="t-md svg-ink">2026–28</text>
+        <text x="150" y="402" class="t-sm svg-ink">Transparency duties apply; high-risk deadlines move</text>
+        <text x="150" y="424" class="t-sm svg-muted">Runtime evidence becomes the operating layer</text>
+      </g>
+    </svg>
+    <figcaption>The market moved from “write it down” to “prove it happened” — which is why runtime controls became a product category.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Why the phrase “runtime governance” appeared only recently</h3>
+    <p>Three things changed at once. Models became cheap enough to embed in ordinary workflows, so the number of call sites exploded. Agents gained the ability to <em>act</em> — send an email, issue a refund, call an internal API — so a bad output stopped being merely embarrassing and became consequential. And regulators began asking for records that a company could not produce from a policy document. The combination turned governance from a review board into an operating layer.</p>
+
+    <details class="quiz"><summary>Why did banks adopt this earlier than most other industries?</summary>
+    <p><strong>They already had the discipline and the regulator.</strong> Model risk management required validation, monitoring, and documentation long before LLMs. The bank did not have to invent the concept of a model inventory or an independent review; it had to extend an existing process to a new kind of model. That is also why the most mature case studies come from banking.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c3">
+  <div class="chapter-head"><div class="chapter-num">3</div><div><h2>The law: reading the EU AI Act without panicking</h2><p>Risk tiers, roles, and the articles that actually create work.</p></div></div>
+  <div class="prose">
+    <p>The <strong>EU AI Act</strong> is Regulation (EU) 2024/1689. It entered into force on 1 August 2024 and applies directly in every member state — there is no national law to wait for. It is long, but its structure is simple enough to hold in one page.</p>
+
+    <h3>Four risk tiers</h3>
+    <ul class="check">
+      <li><span><strong>Prohibited.</strong> A short list in Article 5: manipulative techniques, social scoring, untargeted facial scraping, emotion recognition in workplaces and schools, and some biometric categorisation. Banned outright since 2 February 2025.</span></li>
+      <li><span><strong>High-risk.</strong> Systems used in specified areas — for example recruitment and worker management, creditworthiness, education, essential services, migration, law enforcement, and safety components of regulated products. These carry the full set of obligations in Articles 9–15.</span></li>
+      <li><span><strong>Limited-risk (transparency).</strong> Chatbots, deepfakes, synthetic media, emotion recognition outside the banned cases. The main duty is to tell people they are interacting with AI and to mark generated content.</span></li>
+      <li><span><strong>Minimal-risk.</strong> Everything else — spam filters, recommendation engines in games, most internal tools. No specific obligations, though GDPR and consumer law still apply.</span></li>
+    </ul>
+
+    <p>A separate chapter governs <strong>general-purpose AI models</strong> (GPAI) — the foundation models that others build on. Providers must publish technical documentation, a copyright policy, and a training-data summary. Models judged to carry systemic risk (a threshold based on compute, currently 10<sup>25</sup> floating-point operations) face additional evaluation, adversarial testing, and incident reporting duties.</p>
+
+    <h3>Who is who</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Role</th><th>Definition</th><th>Typical example</th></tr></thead>
+      <tbody>
+        <tr><td>Provider</td><td>Develops the system, or has it developed, and places it on the market under its own name.</td><td>A vendor selling an AI recruitment tool.</td></tr>
+        <tr><td>Deployer</td><td>Uses the system in the course of its professional activity.</td><td>A company using that tool to screen applicants.</td></tr>
+        <tr><td>Importer / distributor</td><td>Brings a non-EU system into the EU, or makes it available in the supply chain.</td><td>A German reseller of a US product.</td></tr>
+        <tr><td>Authorised representative</td><td>An EU-established entity acting for a non-EU provider.</td><td>Required before market access.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>One company can wear several hats. If you take a vendor’s model, fine-tune it on your own data, and put your brand on it, you may become a provider for that modified system. This is the single most common misclassification in small AI projects.</p>
+
+    <h3>The articles that create actual work</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Article</th><th>What it requires</th><th>What it looks like in practice</th></tr></thead>
+      <tbody>
+        <tr><td>9</td><td>Risk management system across the lifecycle</td><td>A living risk register, reviewed at each release.</td></tr>
+        <tr><td>10</td><td>Data governance</td><td>Documented sources, bias checks, representativeness.</td></tr>
+        <tr><td>11–13</td><td>Technical documentation and instructions</td><td>A system card a competent third party can understand.</td></tr>
+        <tr><td>12</td><td>Automatic record-keeping</td><td>Logs of events, retained and readable.</td></tr>
+        <tr><td>14</td><td>Human oversight</td><td>A named person who can intervene and stop the system.</td></tr>
+        <tr><td>15</td><td>Accuracy, robustness, cybersecurity</td><td>Declared metrics, testing, and attack resistance.</td></tr>
+        <tr><td>26</td><td>Deployer duties</td><td>Use as instructed, assign oversight, monitor, keep logs (at least six months), inform workers.</td></tr>
+        <tr><td>27</td><td>Fundamental rights impact assessment</td><td>For certain public bodies and credit or insurance deployers.</td></tr>
+        <tr><td>43–49</td><td>Conformity assessment, CE marking, registration</td><td>The route to placing a high-risk system on the market.</td></tr>
+        <tr><td>50</td><td>Transparency</td><td>Tell users they are talking to AI; label synthetic content.</td></tr>
+        <tr><td>72</td><td>Post-market monitoring</td><td>Collect and analyse performance data for the system’s life.</td></tr>
+        <tr><td>73</td><td>Serious incident reporting</td><td>A defined process with deadlines.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>The dates that matter</h3>
+    <ul class="check">
+      <li><span><strong>2 February 2025.</strong> Prohibitions and the AI-literacy duty (Article 4) applied.</span></li>
+      <li><span><strong>2 August 2025.</strong> GPAI model obligations applied.</span></li>
+      <li><span><strong>2 August 2026.</strong> Transparency duties under Article 50 applied, alongside several governance and penalty provisions.</span></li>
+      <li><span><strong>2 December 2027.</strong> High-risk obligations for Annex III systems, as moved by the 2026 Digital Omnibus (Regulation (EU) 2026/1744).</span></li>
+      <li><span><strong>2 August 2028.</strong> High-risk obligations for Annex I products, under the same omnibus.</span></li>
+    </ul>
+    <div class="warn"><b>Check the moving parts.</b> The Commission continues to issue implementing acts and guidance, and the omnibus changed several deadlines. Before advising anyone, confirm the current date on the official AI Act Service Desk rather than trusting a blog post — including this one.</div>
+
+    <h3>The decision tree</h3>
+    <p>Use this as a first pass, not as a legal opinion. The point is to stop treating every AI feature as either “fine” or “high-risk” without thinking.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 720" role="img" aria-labelledby="rT rD">
+      <title id="rT">Decision path for classifying an AI system under the EU AI Act</title>
+      <desc id="rD">Five stacked cards. First, is the practice prohibited under Article 5. Second, is it high-risk under Annex I or Annex III. Third, is it a general-purpose model. Fourth, does it interact with people or generate synthetic media. Fifth, none of the above, minimal risk. Each card states the consequence of answering yes.</desc>
+      <defs>
+        <marker id="rArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+        </marker>
+      </defs>
+
+      <rect x="40" y="20" width="600" height="112" rx="12" class="f-coral-soft" stroke="var(--rule)"/>
+      <text x="64" y="50" style="font-size:20px;font-weight:600" class="svg-ink">1 · Is the practice prohibited? (Article 5)</text>
+      <text x="64" y="76" style="font-size:17px" class="svg-muted">Manipulation, social scoring, predictive policing,</text>
+      <text x="64" y="96" style="font-size:17px" class="svg-muted">some biometrics and emotion recognition at work.</text>
+      <text x="64" y="122" style="font-size:17px;fill:var(--coral)">If yes: stop. Do not deploy.</text>
+      <path d="M340 132 V144" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="152" width="600" height="112" rx="12" class="f-coral-soft" stroke="var(--rule)"/>
+      <text x="64" y="182" style="font-size:20px;font-weight:600" class="svg-ink">2 · Is it high-risk? (Annex I or Annex III)</text>
+      <text x="64" y="208" style="font-size:17px" class="svg-muted">Product safety components, or an area such as hiring,</text>
+      <text x="64" y="228" style="font-size:17px" class="svg-muted">credit, education, or migration.</text>
+      <text x="64" y="254" style="font-size:17px;fill:var(--coral)">If yes: Articles 9–15, 43–49, registration, monitoring.</text>
+      <path d="M340 264 V276" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="284" width="600" height="112" rx="12" class="f-gold-soft" stroke="var(--rule)"/>
+      <text x="64" y="314" style="font-size:20px;font-weight:600" class="svg-ink">3 · Is it a general-purpose model?</text>
+      <text x="64" y="340" style="font-size:17px" class="svg-muted">A foundation model offered to others as an API</text>
+      <text x="64" y="360" style="font-size:17px" class="svg-muted">or as downloadable weights.</text>
+      <text x="64" y="386" style="font-size:17px;fill:var(--coral)">If yes: documentation, copyright policy, data summary.</text>
+      <path d="M340 396 V408" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="416" width="600" height="112" rx="12" class="f-plum-soft" stroke="var(--rule)"/>
+      <text x="64" y="446" style="font-size:20px;font-weight:600" class="svg-ink">4 · Does it talk to people or make media?</text>
+      <text x="64" y="472" style="font-size:17px" class="svg-muted">Chatbots, voice assistants, deepfakes, generated</text>
+      <text x="64" y="492" style="font-size:17px" class="svg-muted">images, audio, and text.</text>
+      <text x="64" y="518" style="font-size:17px;fill:var(--coral)">If yes: disclose the AI and label synthetic content.</text>
+      <path d="M340 528 V540" class="stroke-muted" stroke-width="2.5" marker-end="url(#rArr)"/>
+
+      <rect x="40" y="548" width="600" height="112" rx="12" class="f-teal-soft" stroke="var(--rule)"/>
+      <text x="64" y="578" style="font-size:20px;font-weight:600" class="svg-ink">None of the above?</text>
+      <text x="64" y="604" style="font-size:17px" class="svg-muted">Minimal risk — but GDPR, employment law, and</text>
+      <text x="64" y="624" style="font-size:17px" class="svg-muted">contracts still apply.</text>
+      <text x="64" y="648" style="font-size:16px;fill:var(--teal)">Document the reasoning and move on.</text>
+
+      <text x="340" y="700" style="font-size:16px" class="svg-muted" text-anchor="middle">A system can sit in more than one box at once.</text>
+    </svg>
+    <figcaption>Classify first; then read only the articles that apply. Most systems are not high-risk, but most customer-facing chatbots still owe transparency.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>What this means for a small company or consultancy</h3>
+    <ul class="check">
+      <li><span><strong>Most internal tools are minimal-risk.</strong> That does not make them obligation-free: GDPR, employment law, and ordinary contract law still apply.</span></li>
+      <li><span><strong>Hiring and credit are the trap.</strong> Recruitment screening and creditworthiness assessment are Annex III high-risk. A “small” tool used to rank CVs carries the full machinery.</span></li>
+      <li><span><strong>Deployers have real duties.</strong> Article 26 is not a formality: use the system as instructed, assign human oversight, monitor, keep logs for at least six months, and inform workers and their representatives.</span></li>
+      <li><span><strong>Article 50 is already live.</strong> If a chatbot talks to customers, they must know it is AI. If you generate images or audio, they must be marked as synthetic in a machine-readable way.</span></li>
+      <li><span><strong>Penalties are turnover-based.</strong> Up to €35 million or 7% of worldwide annual turnover for prohibited practices; lower tiers for other breaches. For a small firm, the reputational and contractual cost usually bites before the statutory fine.</span></li>
+    </ul>
+
+    <div class="analogy ng"><div class="icon">🧾</div><div><b>The tax-office analogy: the law, the form, and the receipt</b>
+      <p>The tax law tells you what is owed. The form tells you how to declare it. The receipt proves what you actually paid. Companies often buy a tool that prints receipts and call it tax compliance — without ever reading the law or filling the form. The AI Act works the same way: Article 12 logs are the receipt, but Articles 9–15 are the law and the form.</p>
+    </div></div>
+
+    <details class="quiz"><summary>A German mid-sized company buys a US recruitment-ranking tool and uses it to shortlist applicants. Who is the provider, who is the deployer, and what is the minimum obligation set?</summary>
+    <p><strong>The US vendor is the provider; the German company is the deployer.</strong> Recruitment is an Annex III high-risk area, so the provider must meet Articles 9–15 and go through conformity assessment. The deployer must use it as instructed, assign human oversight, monitor, keep logs for at least six months, inform workers and the works council, and — depending on its nature — consider a fundamental-rights impact assessment. It cannot contract its way out of Article 26.</p></details>
+  </div>
+</section>

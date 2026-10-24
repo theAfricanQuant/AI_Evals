@@ -1,0 +1,202 @@
+<section class="chapter" id="c12">
+  <div class="chapter-head"><div class="chapter-num">12</div><div><h2>Learning it properly: courses, books, and a path</h2><p>What to study, in what order, and what to ignore.</p></div></div>
+  <div class="prose">
+    <p>Most “AI governance” courses teach layers 1–3: law, standards, and organisational process. Very few teach layer 4 — runtime controls and the evidence they produce. That is the gap you already have an advantage in, because you come from evaluation. Choose courses to fill the legal and standards vocabulary, and learn the runtime layer by building.</p>
+
+    <h3>Courses and credentials</h3>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Programme</th><th>What it gives you</th><th>Format and cost</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td>BlueDot Impact — Frontier AI Governance</td><td>Structured introduction for technical people moving into governance; policy and safety framing.</td><td>Cohort-based, application required, low or no cost.</td><td>Orientation before spending money.</td></tr>
+      <tr><td>IAPP AIGP</td><td>The recognised governance vocabulary: law, standards, risk, accountability.</td><td>Exam: 100 questions, 2h45, pass 300/500. US$799 non-member, US$649 member.</td><td>A credential employers recognise.</td></tr>
+      <tr><td>ISO/IEC 42001 Lead Implementer or Lead Auditor</td><td>How to build or audit a certifiable AI management system.</td><td>Several days; typically a few thousand euros; PECB, TÜV and similar bodies.</td><td>Consulting in German Mittelstand.</td></tr>
+      <tr><td>Oxford Saïd executive programmes</td><td>Regulatory reasoning and board-level framing.</td><td>Paid executive education, short format.</td><td>C-suite language, not hands-on controls.</td></tr>
+      <tr><td>TÜV and BSI catalogues</td><td>German-market AI Act readiness and AI security training.</td><td>Varies; often in German.</td><td>Local credibility and language.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>A credential is a door-opener, not a competence. The AIGP proves you know the vocabulary; it does not prove you can build a control matrix or calibrate a judge. The ISO 42001 lead course is closer to practice, but it still stops at the management system. Neither replaces the file you build in Chapter 9.</p>
+
+    <h3>The free canon, in reading order</h3>
+    <ol class="check" style="list-style:none">
+      <li><span><strong>1. NIST AI RMF 1.0</strong> — read the four functions and the trustworthiness characteristics. Skip the appendices on the first pass.</span></li>
+      <li><span><strong>2. NIST AI 600-1</strong> — the twelve generative-AI risks and the action table. This is the most usable risk list in the field.</span></li>
+      <li><span><strong>3. EU AI Act</strong> — read Articles 5, 6, 9–15, 26, 27, 50, 72, and 99. Use the article-by-article tracker for navigation, but check the official text for wording.</span></li>
+      <li><span><strong>4. ISO/IEC 42001</strong> — read a good summary of the clauses and Annex A; buy the standard only if you are implementing or auditing.</span></li>
+      <li><span><strong>5. OWASP Top 10 for LLM Applications</strong> — read all ten entries and map each to a control you could deploy.</span></li>
+      <li><span><strong>6. OECD AI Principles and the Council of Europe Framework Convention</strong> — read once for context; they shape how regulators talk, not what you build on Monday.</span></li>
+    </ol>
+
+    <h3>Books worth owning</h3>
+    <ul class="check">
+      <li><span><strong>The Oxford Handbook of AI Governance</strong> (2024) — the academic reference. Use it to look up a topic, not to read cover to cover.</span></li>
+      <li><span><strong>The Alignment Problem</strong>, Brian Christian (2020) — why specifying human values in machines is hard; the intellectual background to safety work.</span></li>
+      <li><span><strong>Atlas of AI</strong>, Kate Crawford (2021) — the political economy of data, labour, and compute. Useful counterweight to purely technical framings.</span></li>
+      <li><span><strong>Weapons of Math Destruction</strong>, Cathy O’Neil (2016) — algorithmic accountability before LLMs; the patterns still apply.</span></li>
+    </ul>
+
+    <h3>Keep up without drowning</h3>
+    <ul class="check">
+      <li><span><strong>Stanford HAI AI Index</strong> — annual; the best single source of numbers, with methodology.</span></li>
+      <li><span><strong>Import AI</strong> (Jack Clark) — weekly; policy and technical context in one place.</span></li>
+      <li><span><strong>IAPP</strong> — practitioner resources and the AIGP ecosystem.</span></li>
+      <li><span><strong>Ada Lovelace Institute and AI Now Institute</strong> — critical research; useful for spotting what industry framing leaves out.</span></li>
+      <li><span><strong>AI Act Service Desk</strong> — official answers and updates; check it before repeating a deadline.</span></li>
+    </ul>
+
+    <h3>How to study this subject</h3>
+    <p>Read a primary source, then write one page in your own words, then apply it to a real system. The order matters. Reading without writing produces recognition, not recall; writing without applying produces summary, not judgement. The AI_Evals repository already enforces the right habit: trace, test, teach. Keep that discipline here.</p>
+
+    <div class="analogy"><div class="icon">🧠</div><div><b>The apprenticeship analogy</b>
+      <p>You cannot learn to be a mechanic by memorising the highway code. You learn by opening a engine, making a mistake, and having someone show you what the sound means. Governance is the same: the frameworks are the highway code, but the skill is diagnosing a real system. Build the file for one real product; the frameworks will make sense afterwards.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="chapter" id="plan">
+  <div class="chapter-head"><div class="chapter-num">★</div><div><h2>Your plan: four weeks, then ninety days</h2><p>A sequence designed around your existing eval skills, not a generic curriculum.</p></div></div>
+  <div class="prose">
+    <p>This is my synthesis, not a syllabus from any single course. The timing is a suggestion. The outputs are the point: each week ends with an artefact, not a feeling of having read something.</p>
+  </div>
+
+  <ol class="playbook">
+    <li><div><span class="when">Week 1</span><h4>Build the risk vocabulary</h4><p>Read NIST AI RMF and AI 600-1. Then take one system you know — the Job Seeker Studio, or a client chatbot — and map all twelve GenAI risks to a control you could actually implement. Mark three as “not applicable” and write why. Output: a one-page risk map.</p></div></li>
+    <li><div><span class="when">Week 2</span><h4>Learn to classify</h4><p>Read the AI Act structure and Articles 5, 6, 9–15, 26, 50, and 72. Write a one-page classification memo for the same system: tier, role (provider or deployer), applicable articles, and the three obligations that create the most work. Output: a classification memo an outsider could review.</p></div></li>
+    <li><div><span class="when">Week 3</span><h4>Turn obligations into controls</h4><p>Read ISO/IEC 42001 at summary level and the OWASP LLM Top 10 in full. Build a control matrix with five rows: obligation, control, type, test, evidence. Then design the log schema — the fields you would need to prove each row. Output: a control matrix and a JSON schema.</p></div></li>
+    <li><div><span class="when">Week 4</span><h4>Write the eval plan and run a baseline</h4><p>Choose five metrics, set thresholds before running, and build a 50-case set from real traces. Run the baseline and record the result, even if it is embarrassing. Then calculate what a guardrail's precision would be at your estimated base rate. Output: an eval plan with a real baseline and a precision calculation.</p></div></li>
+    <li><div><span class="when">Days 30–60</span><h4>Build the full file</h4><p>Complete the eight artefacts from Chapter 9 for one real system. Get one person who did not build the system to review it. Fix the gaps they find. Output: a file that survives an unfriendly read.</p></div></li>
+    <li><div><span class="when">Days 60–90</span><h4>Test it under pressure</h4><p>Run two tabletop incidents: a systematically wrong answer, and an agent taking an unauthorised action. Time the detection, containment, and notification decision. Then rewrite the runbook with what you learned. Output: a tested runbook and a list of controls that failed.</p></div></li>
+  </ol>
+
+  <div class="prose">
+    <h3>What to do with it commercially</h3>
+    <p>Package the file as a service, not a course. A fixed-scope “AI governance readiness review” for a mid-sized company — classification, risk register, control matrix, eval plan, evidence design — is a concrete offer with a deliverable. The German market will need this before December 2027, and most buyers will not have an internal team. Lead with the artefact; the frameworks are supporting material.</p>
+
+    <h3>What not to do</h3>
+    <ul class="check">
+      <li><span><strong>Do not sell “compliance” as a guarantee.</strong> You are not a regulator or a law firm. Sell readiness, evidence, and implementation.</span></li>
+      <li><span><strong>Do not lead with certifications.</strong> Clients care about the file and the deadline, not your badge collection.</span></li>
+      <li><span><strong>Do not build a generic platform.</strong> Integrate the commodity pieces and own the workflow and the evidence.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="glossary">
+  <div class="chapter-head"><div class="chapter-num">Aa</div><div><h2>The words, explained</h2><p>Every term used in this lecture, in plain English.</p></div></div>
+  <dl class="gloss">
+    <div><dt>AI Act</dt><dd>The EU regulation (2024/1689) that classifies AI systems by risk and sets obligations for providers and deployers.</dd></div>
+    <div><dt>AI gateway</dt><dd>A single endpoint that routes requests to models and applies authentication, quotas, logging, and sometimes inspection.</dd></div>
+    <div><dt>AIMS</dt><dd>Artificial Intelligence Management System — the organisational system certifiable under ISO/IEC 42001.</dd></div>
+    <div><dt>Article 50</dt><dd>The AI Act’s transparency duty: tell people they are interacting with AI and label synthetic content.</dd></div>
+    <div><dt>Audit log</dt><dd>An append-only record of events, designed so that what happened can be reconstructed later.</dd></div>
+    <div><dt>Base rate</dt><dd>How common an event is in the population. Low base rates make false positives dominate even for accurate classifiers.</dd></div>
+    <div><dt>Betriebsrat</dt><dd>German works council; has co-determination rights over technical monitoring and the design of work.</dd></div>
+    <div><dt>Conformity assessment</dt><dd>The process of demonstrating that a high-risk system meets the AI Act’s requirements before it is placed on the market.</dd></div>
+    <div><dt>Control plane</dt><dd>The layer that decides how traffic is handled, as distinct from the data plane that carries it.</dd></div>
+    <div><dt>Deployer</dt><dd>An organisation that uses an AI system in its professional activity, as opposed to the provider that places it on the market.</dd></div>
+    <div><dt>DPIA</dt><dd>Data Protection Impact Assessment — a GDPR analysis required for high-risk processing of personal data.</dd></div>
+    <div><dt>Drift</dt><dd>A change in inputs or behaviour over time that makes past evaluation results unreliable.</dd></div>
+    <div><dt>Eval</dt><dd>A repeatable procedure that scores a system’s output against a stated criterion.</dd></div>
+    <div><dt>Evidence</dt><dd>A retrievable record that a control operated — not a claim that it exists.</dd></div>
+    <div><dt>False negative</dt><dd>A problem the control missed.</dd></div>
+    <div><dt>False positive</dt><dd>A legitimate case the control wrongly flagged.</dd></div>
+    <div><dt>FRIA</dt><dd>Fundamental Rights Impact Assessment — an AI Act analysis for certain deployers, separate from a DPIA.</dd></div>
+    <div><dt>GPAI</dt><dd>General-purpose AI model — a foundation model offered to others, with its own obligations under the Act.</dd></div>
+    <div><dt>Guardrail</dt><dd>An in-path control that allows, blocks, redacts, or escalates a request in milliseconds.</dd></div>
+    <div><dt>Hallucination / confabulation</dt><dd>Confident output that is not supported by facts or the supplied context.</dd></div>
+    <div><dt>Human-in-the-loop</dt><dd>A design in which a named person reviews or approves a consequential decision.</dd></div>
+    <div><dt>ISO/IEC 42001</dt><dd>The certifiable international standard for an AI management system.</dd></div>
+    <div><dt>Jailbreak</dt><dd>An input designed to make a model bypass its safety or policy instructions.</dd></div>
+    <div><dt>Judge (LLM-as-judge)</dt><dd>A model used to score another model’s output; must itself be calibrated against human labels.</dd></div>
+    <div><dt>MCP</dt><dd>Model Context Protocol — a standard way for agents to discover and call tools.</dd></div>
+    <div><dt>Model card</dt><dd>A short document describing a model’s purpose, data, performance, and limitations.</dd></div>
+    <div><dt>NIST AI RMF</dt><dd>A voluntary US framework organising AI risk work into Govern, Map, Measure, and Manage.</dd></div>
+    <div><dt>Policy as code</dt><dd>Rules written in a versioned, testable format and evaluated by an engine at request time.</dd></div>
+    <div><dt>Precision</dt><dd>Of the cases a control flagged, the share that were genuinely problematic.</dd></div>
+    <div><dt>Prompt injection</dt><dd>An attack that hides instructions in content the model reads, trying to override its actual task.</dd></div>
+    <div><dt>Provider</dt><dd>An organisation that develops an AI system or has it developed and places it on the market under its name.</dd></div>
+    <div><dt>Recall</dt><dd>Of the genuine problems, the share the control caught.</dd></div>
+    <div><dt>Red team</dt><dd>A deliberate adversarial exercise to find failures before users or attackers do.</dd></div>
+    <div><dt>Runtime governance</dt><dd>Controls that act on an AI interaction while it is happening, plus the records that prove what happened.</dd></div>
+    <div><dt>Sandbox</dt><dd>An isolated environment where an agent can act without affecting production systems.</dd></div>
+    <div><dt>Sidecar</dt><dd>A helper process that runs alongside a service and intercepts its traffic.</dd></div>
+    <div><dt>System card</dt><dd>A document stating what a system does, for whom, with what data, and what it must never do.</dd></div>
+    <div><dt>Trace</dt><dd>The linked record of one request through all its steps, tools, and model calls.</dd></div>
+    <div><dt>Works council</dt><dd>See Betriebsrat.</dd></div>
+  </dl>
+</section>
+
+<section class="chapter" id="references">
+  <div class="chapter-head"><div class="chapter-num">§</div><div><h2>References and further material</h2><p>Primary sources first. Access date for all links: 24 October 2026.</p></div></div>
+  <div class="prose">
+    <h3>Law and policy</h3>
+    <ul class="check">
+      <li><span>European Union. <em>Regulation (EU) 2024/1689 (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">EUR-Lex</a>.</span></li>
+      <li><span>European Commission. <em>AI Act Service Desk</em> — official information and enquiry service. <a href="https://ai-act-service-desk.ec.europa.eu/" target="_blank" rel="noopener">ai-act-service-desk.ec.europa.eu</a>.</span></li>
+      <li><span>Future of Life Institute. <em>AI Act Explorer</em> — article-by-article navigation. <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">artificialintelligenceact.eu</a>.</span></li>
+      <li><span>European Union. <em>Regulation (EU) 2016/679 (GDPR)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener">EUR-Lex</a>.</span></li>
+      <li><span>OECD. <em>AI Principles</em> (2019, updated 2024). <a href="https://oecd.ai/en/ai-principles" target="_blank" rel="noopener">oecd.ai</a>.</span></li>
+      <li><span>Council of Europe. <em>Framework Convention on Artificial Intelligence</em> (2024). <a href="https://www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificial-intelligence" target="_blank" rel="noopener">coe.int</a>.</span></li>
+      <li><span>UNESCO. <em>Recommendation on the Ethics of Artificial Intelligence</em> (2021). <a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener">unesco.org</a>.</span></li>
+      <li><span>Germany. <em>Betriebsverfassungsgesetz</em> (Works Constitution Act), §§80, 87, 90. Available via <a href="https://www.gesetze-im-internet.de/betrvg/" target="_blank" rel="noopener">gesetze-im-internet.de</a>.</span></li>
+    </ul>
+
+    <h3>Standards and technical guidance</h3>
+    <ul class="check">
+      <li><span>NIST. <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>, AI 100-1, January 2023. <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">nist.gov</a>.</span></li>
+      <li><span>NIST. <em>Generative Artificial Intelligence Profile</em>, AI 600-1, July 2024. <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" target="_blank" rel="noopener">PDF</a>.</span></li>
+      <li><span>ISO/IEC. <em>42001:2023 — Artificial intelligence management system</em>. <a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener">iso.org</a>.</span></li>
+      <li><span>ISO/IEC. <em>23894:2023 — Guidance on AI risk management</em>. ISO.</span></li>
+      <li><span>OWASP. <em>Top 10 for Large Language Model Applications</em> (2025). <a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener">genai.owasp.org</a>.</span></li>
+    </ul>
+
+    <h3>Case studies and reporting</h3>
+    <ul class="check">
+      <li><span>Moffatt v. Air Canada, 2024 BCCRT 149 (14 February 2024). <a href="https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html" target="_blank" rel="noopener">CanLII</a>.</span></li>
+      <li><span>F5. “Global Bank Maintains AI Security at Scale.” Vendor case study. <a href="https://f5.com/case-studies/global-bank-maintains-ai-security-at-scale-with-f5" target="_blank" rel="noopener">f5.com</a>.</span></li>
+      <li><span>McKinsey &amp; Company. “JPMorgan Chase’s Derek Waldron on building an AI-first bank culture.” <a href="https://www.mckinsey.com/industries/financial-services/our-insights/jpmorgan-chases-derek-waldron-on-building-an-ai-first-bank-culture" target="_blank" rel="noopener">mckinsey.com</a>.</span></li>
+      <li><span>Banking Dive. “JPMorgan Chase, Goldman Sachs on AI security.” <a href="https://www.bankingdive.com/news/jpmorgan-chase-goldman-sachs-AI-security-lori-beer-marco-argenti/833792/" target="_blank" rel="noopener">bankingdive.com</a>.</span></li>
+      <li><span>TM Forum. “Why governance is key to Deutsche Telekom’s new AI architecture.” <a href="https://inform.tmforum.org/features-and-opinion/why-governance-is-key-to-deutsche-telekoms-new-ai-architecture" target="_blank" rel="noopener">inform.tmforum.org</a>.</span></li>
+      <li><span>Allianz. “AI at Allianz: scaling AI to transform insurance.” <a href="https://www.allianz.com/en/mediacenter/news/interviews/250129-ai-at-allianz-scaling-ai-to-transform-insurance.html" target="_blank" rel="noopener">allianz.com</a>.</span></li>
+      <li><span>btw.media. “Allianz Technology: agent control plane, automation, evidence.” <a href="https://btw.media/en/allianz-technology-agent-control-plane-automation-evidence" target="_blank" rel="noopener">btw.media</a>.</span></li>
+    </ul>
+
+    <h3>Courses and professional bodies</h3>
+    <ul class="check">
+      <li><span>BlueDot Impact. <em>Frontier AI Governance</em> course. <a href="https://bluedot.org/" target="_blank" rel="noopener">bluedot.org</a>.</span></li>
+      <li><span>IAPP. <em>Artificial Intelligence Governance Professional (AIGP)</em> certification. <a href="https://iapp.org/certify/aigp/" target="_blank" rel="noopener">iapp.org</a>.</span></li>
+      <li><span>PECB. <em>ISO/IEC 42001 Lead Implementer and Lead Auditor</em> training. <a href="https://pecb.com/" target="_blank" rel="noopener">pecb.com</a>.</span></li>
+      <li><span>Saïd Business School, University of Oxford. Executive education programmes. <a href="https://www.sbs.ox.ac.uk/programmes/executive-education" target="_blank" rel="noopener">sbs.ox.ac.uk</a>.</span></li>
+      <li><span>TÜV SÜD Academy. AI and AI Act training catalogue. <a href="https://www.tuvsud.com/en/services/training" target="_blank" rel="noopener">tuvsud.com</a>.</span></li>
+    </ul>
+
+    <h3>Ongoing sources</h3>
+    <ul class="check">
+      <li><span>Stanford Institute for Human-Centered AI. <em>AI Index Report</em> (annual). <a href="https://aiindex.stanford.edu/" target="_blank" rel="noopener">aiindex.stanford.edu</a>.</span></li>
+      <li><span>Jack Clark. <em>Import AI</em> (weekly newsletter). <a href="https://importai.substack.com/" target="_blank" rel="noopener">importai.substack.com</a>.</span></li>
+      <li><span>IAPP. AI governance resources. <a href="https://iapp.org/" target="_blank" rel="noopener">iapp.org</a>.</span></li>
+      <li><span>Ada Lovelace Institute. <a href="https://www.adalovelaceinstitute.org/" target="_blank" rel="noopener">adalovelaceinstitute.org</a>.</span></li>
+      <li><span>AI Now Institute. <a href="https://ainowinstitute.org/" target="_blank" rel="noopener">ainowinstitute.org</a>.</span></li>
+    </ul>
+
+    <h3>Books</h3>
+    <ul class="check">
+      <li><span>Bullock, J. et al. (eds). <em>The Oxford Handbook of AI Governance</em>. Oxford University Press, 2024.</span></li>
+      <li><span>Christian, B. <em>The Alignment Problem</em>. W. W. Norton, 2020.</span></li>
+      <li><span>Crawford, K. <em>Atlas of AI</em>. Yale University Press, 2021.</span></li>
+      <li><span>O’Neil, C. <em>Weapons of Math Destruction</em>. Crown, 2016.</span></li>
+    </ul>
+
+    <h3>Notes on evidence</h3>
+    <p>Legal dates and article numbers were checked against the official texts and the AI Act Service Desk in October 2026; the 2026 omnibus changed several high-risk deadlines, so verify before advising. Company figures come from the cited interviews or case studies and are labelled where they are vendor-supplied or secondary. The precision arithmetic and the eval-plan thresholds are illustrative teaching examples, not benchmark results. Nothing here is legal advice.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p><strong>Prepared for:</strong> Ricky Macharm · AI Evals workspace · 24 October 2026.</p>
+  <p>This lecture synthesises the governance discussion, the runtime-governance research, and the evaluation material in this repository. Primary sources are linked above; vendor claims are labelled; illustrative numbers are marked. Law and enforcement practice change — check the official texts before relying on a date or an article.</p>
+</footer>

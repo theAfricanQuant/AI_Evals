@@ -1,0 +1,272 @@
+<section class="chapter" id="c4">
+  <div class="chapter-head"><div class="chapter-num">4</div><div><h2>The standards: how you prove you did it</h2><p>NIST tells you what to think about. ISO tells you how to run the organisation that thinks about it.</p></div></div>
+  <div class="prose">
+    <p>Law says what is required. A standard says how to demonstrate that you met the requirement in a way another professional would accept. Two standards dominate the field, and they are complementary rather than competing.</p>
+
+    <h3>NIST AI RMF: the thinking tool</h3>
+    <p>The <strong>NIST AI Risk Management Framework</strong> (AI 100-1, January 2023) is voluntary, free, and unusually practical. It organises work into four functions:</p>
+  </div>
+
+  <div class="grid3">
+    <div class="card teal"><p class="k">GOVERN</p><p>Set culture, roles, accountability, and policies. This function wraps the other three; it is not a stage you finish.</p></div>
+    <div class="card coral"><p class="k">MAP</p><p>Understand the context: who uses the system, for what, with what data, and what could go wrong.</p></div>
+    <div class="card gold"><p class="k">MEASURE</p><p>Test and monitor the risks you identified. This is where evaluation lives.</p></div>
+    <div class="card plum"><p class="k">MANAGE</p><p>Prioritise, respond, accept, or stop. Assign owners and review.</p></div>
+  </div>
+
+  <div class="prose">
+    <p>Underneath the functions sits a list of trustworthiness characteristics: valid and reliable, safe, secure and resilient, accountable and transparent, explainable and interpretable, privacy-enhanced, and fair with harmful bias managed. The framework does not prescribe a control catalogue. It gives you a vocabulary and a loop, which is why consultants like it and auditors sometimes find it too soft.</p>
+
+    <h3>The Generative AI Profile</h3>
+    <p>In July 2024, NIST published <strong>AI 600-1</strong>, a profile that applies the framework to generative AI. It names twelve risks and suggests more than 200 actions. The twelve are worth memorising because they are a ready-made risk register:</p>
+    <ul class="check">
+      <li><span><strong>CBRN information or capabilities.</strong> Chemical, biological, radiological, or nuclear uplift.</span></li>
+      <li><span><strong>Confabulation.</strong> Confident fabrication.</span></li>
+      <li><span><strong>Dangerous, violent, or hateful content.</strong></span></li>
+      <li><span><strong>Data privacy.</strong> Leakage, inference, and misuse of personal data.</span></li>
+      <li><span><strong>Environmental impacts.</strong> Energy, water, and hardware footprint.</span></li>
+      <li><span><strong>Harmful bias and homogenisation.</strong> Including the loss of diverse viewpoints.</span></li>
+      <li><span><strong>Human-AI configuration.</strong> Automation bias, over-trust, and poor handoffs.</span></li>
+      <li><span><strong>Information integrity.</strong> Misinformation and disinformation at scale.</span></li>
+      <li><span><strong>Information security.</strong> Prompt injection, data poisoning, model theft.</span></li>
+      <li><span><strong>Intellectual property.</strong> Infringement and unclear provenance.</span></li>
+      <li><span><strong>Obscene, degrading, or abusive content.</strong></span></li>
+      <li><span><strong>Value chain and component integration.</strong> Risks inherited from models, data, and vendors you did not build.</span></li>
+    </ul>
+
+    <h3>ISO/IEC 42001: the management system</h3>
+    <p><strong>ISO/IEC 42001:2023</strong> is the first certifiable AI management system standard. It follows the same structure as ISO 27001 for information security: plan, do, check, act. An organisation defines the scope, writes an AI policy, identifies roles, assesses risks, selects controls from Annex A, produces a statement of applicability, runs internal audits and management reviews, and then invites an accredited certification body to check the whole thing.</p>
+    <p>Annex A groups controls around AI policy, internal organisation, resources, impact assessment, system lifecycle, data, tools and third parties, transparency to users, and incident management. Certification takes months and real evidence. A certificate is a statement that a management system exists and is followed — not a guarantee that any particular model is accurate.</p>
+
+    <div class="analogy"><div class="icon">🏥</div><div><b>The hospital accreditation analogy</b>
+      <p>Hospital accreditation checks whether the hospital has infection-control procedures, trained staff, incident logs, and a functioning review board. It does not prove that every surgeon is skilful. ISO 42001 is accreditation for AI: it proves the organisation has a system, not that the system’s outputs are good. That is why Chapter 8 matters.</p>
+    </div></div>
+
+    <h3>How the pieces map</h3>
+  </div>
+
+  <div class="tablewrap"><table class="cmp">
+    <thead><tr><th>Legal obligation</th><th>Standard home</th><th>Runtime evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Risk management (Art. 9)</td><td>NIST MAP + MANAGE; ISO 42001 clause 6</td><td>Risk register linked to live controls; change log.</td></tr>
+      <tr><td>Record-keeping (Art. 12)</td><td>ISO 42001 Annex A logging controls</td><td>Immutable event log with trace IDs and retention.</td></tr>
+      <tr><td>Human oversight (Art. 14)</td><td>NIST GOVERN; ISO 42001 roles</td><td>Approval step, named reviewer, override record.</td></tr>
+      <tr><td>Accuracy and robustness (Art. 15)</td><td>NIST MEASURE</td><td>Eval results by version; production sampling; drift alerts.</td></tr>
+      <tr><td>Post-market monitoring (Art. 72)</td><td>NIST MANAGE; ISO 42001 clause 9</td><td>Continuous metrics, incident tickets, periodic review.</td></tr>
+      <tr><td>Transparency (Art. 50)</td><td>ISO 42001 transparency controls</td><td>Disclosure flag in the UI; content provenance metadata.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="prose">
+    <p>Read the table from right to left when you are engineering. The runtime evidence column is what an auditor will actually ask to see. A policy that cannot produce that column is a claim, not a control.</p>
+
+    <details class="quiz"><summary>Your company is ISO 27001 certified and wants to reuse that system for AI. What can it reuse, and what is genuinely new?</summary>
+    <p><strong>Reusable:</strong> the management-system machinery — document control, internal audit, management review, incident process, supplier management, access control, asset inventory. <strong>New:</strong> AI-specific risk assessment (model behaviour, bias, hallucination, prompt injection), data provenance and training-data governance, model lifecycle and evaluation, transparency to users, and the human-oversight design. ISO 42001 is deliberately built to bolt onto ISO 27001, but it is not the same certificate.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c5">
+  <div class="chapter-head"><div class="chapter-num">5</div><div><h2>What runtime governance is</h2><p>The control plane that sits between your application and the model.</p></div></div>
+  <div class="prose">
+    <p>Here is the definition I would defend in a client meeting: <strong>runtime governance is the set of controls that act on an AI interaction while it is happening, together with the records that prove what happened.</strong> Everything else is either preparation for it or analysis after the fact.</p>
+
+    <p>The phrase borrows from networking. A <strong>data plane</strong> carries the traffic; a <strong>control plane</strong> decides how the traffic is handled. In an AI system, the data plane is the prompt, the retrieved documents, the model call, and the response. The control plane is the set of rules, identities, and checks that decide whether that traffic may proceed — and what gets written down afterwards.</p>
+
+    <h3>The five jobs</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Job</th><th>Question</th><th>Concrete control</th></tr></thead>
+      <tbody>
+        <tr><td>See</td><td>Who is calling, with what, on whose behalf?</td><td>Authentication, agent identity, request tracing.</td></tr>
+        <tr><td>Decide</td><td>Is this request permitted by policy?</td><td>Policy engine, allow/deny rules, data classification.</td></tr>
+        <tr><td>Limit</td><td>What is the worst this action can do?</td><td>Tool allowlists, spending caps, human approval, sandboxing.</td></tr>
+        <tr><td>Record</td><td>What exactly happened?</td><td>Immutable event log, traces, model and policy versions.</td></tr>
+        <tr><td>Prove</td><td>Can an auditor reconstruct and verify it?</td><td>Evidence export, retention, integrity controls.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>Most products are strong on “record” and weak on “decide” and “limit.” A log that shows a bad action after it happened is an autopsy, not a control. The hard engineering is in the middle three jobs, because they run in the request path and must be fast, accurate, and hard to bypass.</p>
+
+    <h3>The request path</h3>
+    <p>Follow one interaction from left to right. Every box is a place where a control can live — and a place where a control can fail.</p>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 760" role="img" aria-labelledby="pD pDD">
+      <title id="pD">Request path through a runtime governance control plane</title>
+      <desc id="pDD">Eight stages stacked vertically: user or app, AI gateway, policy engine, input inspection, model, output inspection, tool or action, and audit log. A dashed rail links the stages, and every stage writes to the audit log.</desc>
+      <defs>
+        <marker id="pArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" style="fill:var(--muted)"/>
+        </marker>
+      </defs>
+
+      <path d="M46 46 V566" stroke="var(--rule)" stroke-width="2" stroke-dasharray="5 6"/>
+      <circle cx="46" cy="46" r="7" class="f-teal"/>
+      <text x="78" y="42" style="font-size:20px;font-weight:600" class="svg-ink">User or app</text>
+      <text x="78" y="66" style="font-size:17px" class="svg-muted">The request arrives with an identity and a declared purpose.</text>
+      <circle cx="46" cy="120" r="7" class="f-teal"/>
+      <text x="78" y="116" style="font-size:20px;font-weight:600" class="svg-ink">AI gateway</text>
+      <text x="78" y="140" style="font-size:17px" class="svg-muted">Authenticates, applies quotas, chooses the model and key.</text>
+      <circle cx="46" cy="194" r="7" class="f-gold"/>
+      <text x="78" y="190" style="font-size:20px;font-weight:600" class="svg-ink">Policy engine</text>
+      <text x="78" y="214" style="font-size:17px" class="svg-muted">Versioned rules decide: allow, deny, or redact.</text>
+      <circle cx="46" cy="268" r="7" class="f-coral"/>
+      <text x="78" y="264" style="font-size:20px;font-weight:600" class="svg-ink">Input inspection</text>
+      <text x="78" y="288" style="font-size:17px" class="svg-muted">PII, prompt injection, prohibited content. Deterministic first.</text>
+      <circle cx="46" cy="342" r="7" class="f-teal"/>
+      <text x="78" y="338" style="font-size:20px;font-weight:600" class="svg-ink">Model</text>
+      <text x="78" y="362" style="font-size:17px" class="svg-muted">The approved model, with the approved context, does the work.</text>
+      <circle cx="46" cy="416" r="7" class="f-coral"/>
+      <text x="78" y="412" style="font-size:20px;font-weight:600" class="svg-ink">Output inspection</text>
+      <text x="78" y="436" style="font-size:17px" class="svg-muted">Groundedness, PII, toxicity, schema. Block or redact.</text>
+      <circle cx="46" cy="490" r="7" class="f-plum"/>
+      <text x="78" y="486" style="font-size:20px;font-weight:600" class="svg-ink">Tool or action</text>
+      <text x="78" y="510" style="font-size:17px" class="svg-muted">Scoped credentials, amount caps, human approval for big steps.</text>
+      <circle cx="46" cy="564" r="7" class="f-gold"/>
+      <text x="78" y="560" style="font-size:20px;font-weight:600" class="svg-ink">Audit log</text>
+      <text x="78" y="584" style="font-size:17px" class="svg-muted">Every stage above writes an event; the export is the evidence.</text>
+
+      <rect x="40" y="608" width="600" height="84" rx="12" class="f-gold-soft" stroke="var(--rule)"/>
+      <text x="64" y="636" class="t-md svg-ink">The record is the deliverable</text>
+      <text x="64" y="660" style="font-size:16px" class="svg-muted">trace id · actor · model version · policy version · decision</text>
+      <text x="64" y="680" style="font-size:16px" class="svg-muted">latency · cost · retention · access control · auditor export</text>
+
+      <text x="340" y="726" style="font-size:16px" class="svg-muted" text-anchor="middle">A blocked request is still an event, and it still gets logged.</text>
+    </svg>
+    <figcaption>The control plane is a chain, not a single product. The gateway, policy engine, inspectors, approval step, and log can come from different vendors — or from one platform that bundles them.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>What counts as runtime governance — and what does not</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Counts</th><th>Does not count</th></tr></thead>
+      <tbody>
+        <tr><td>A gateway that authenticates the caller and selects the model.</td><td>A PDF policy that says callers must be authenticated.</td></tr>
+        <tr><td>A classifier that blocks or redacts a prompt before the model sees it.</td><td>A dashboard that shows how many prompts contained personal data last month.</td></tr>
+        <tr><td>A tool permission that prevents an agent from refunding more than €200.</td><td>A code review comment asking developers to be careful with refunds.</td></tr>
+        <tr><td>A human approval step with a named reviewer and a recorded reason.</td><td>An email thread where someone once approved something similar.</td></tr>
+        <tr><td>An immutable event log with model and policy versions.</td><td>A screenshot of a dashboard in a slide deck.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p class="pull">Runtime is where policy meets physics. Either the request is blocked in milliseconds, or the policy was only a suggestion.</p>
+
+    <h3>The honest limitations</h3>
+    <ul class="check">
+      <li><span><strong>It cannot fix a bad model.</strong> A guardrail around an inaccurate system produces inaccurate answers with a clean audit trail.</span></li>
+      <li><span><strong>It adds latency and failure modes.</strong> Every inline check is another service that can time out. Design a fail-open or fail-closed decision explicitly; do not let an outage decide for you.</span></li>
+      <li><span><strong>It can be bypassed.</strong> If teams can call the model API directly with their own key, the gateway is decoration. Network policy and key management matter as much as the product.</span></li>
+      <li><span><strong>It generates sensitive logs.</strong> The record of what users asked may itself be personal data. Logging is a governance obligation and a privacy risk at the same time.</span></li>
+    </ul>
+
+    <details class="quiz"><summary>Your gateway blocks a legitimate customer request because a PII classifier misfired. The customer complains. What should the system have recorded, and what should the team review?</summary>
+    <p><strong>Recorded:</strong> the trace ID, the classifier and policy version, the confidence score, the action taken, and the fact that no model call occurred. <strong>Reviewed:</strong> the false-positive rate of that classifier on real traffic, the threshold, and whether a “redact and continue” path would have served the customer better than a hard block. A block is a decision; it needs an owner and a feedback loop, not just a log line.</p></details>
+  </div>
+</section>
+
+<section class="chapter" id="c6">
+  <div class="chapter-head"><div class="chapter-num">6</div><div><h2>The anatomy: how it is actually built</h2><p>Deployment patterns, policy as code, action limits, identity, and the log schema.</p></div></div>
+  <div class="prose">
+    <p>A runtime governance product is assembled from a small number of building blocks. Once you can name them, vendor demonstrations become much easier to read: you can see which blocks they actually have and which they are renting from someone else.</p>
+
+    <h3>1. Where the interception happens</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Pattern</th><th>How it works</th><th>Strength</th><th>Weakness</th></tr></thead>
+      <tbody>
+        <tr><td>Reverse proxy</td><td>Applications send model calls to a central endpoint instead of the provider.</td><td>Language-agnostic; one place to enforce; easy to audit.</td><td>Requires teams to change their endpoint; a direct call bypasses it.</td></tr>
+        <tr><td>Sidecar</td><td>A local process intercepts traffic from each service.</td><td>Works well in Kubernetes; close to the workload.</td><td>Operational overhead; still bypassable if the pod can egress directly.</td></tr>
+        <tr><td>SDK</td><td>A library wraps the model client inside the application.</td><td>Rich context; low latency; easy access to application state.</td><td>Per-language; developers can skip it; upgrading many services is slow.</td></tr>
+        <tr><td>Native platform</td><td>The model provider or cloud offers built-in guardrails and logging.</td><td>Fast to adopt; no new infrastructure.</td><td>Lock-in; limited custom policy; evidence trapped in the vendor.</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>Most mature deployments combine a central gateway with network controls that prevent direct egress. The product is the easy part; the hard part is making the path mandatory.</p>
+
+    <h3>2. Policy as code</h3>
+    <p>A policy that lives in a document cannot be tested. Policy as code turns it into a versioned artefact that can be unit-tested, reviewed, and deployed like software. Open Policy Agent (OPA) is the common open-source engine; cloud providers offer equivalents.</p>
+  </div>
+
+  <pre class="code" data-lang="rego"><span class="c"># A refund may be issued by the support agent only under €200.</span>
+<span class="k">package</span> ai.authz
+
+<span class="k">default</span> allow := <span class="k">false</span>
+
+allow <span class="k">if</span> {
+  input.agent == <span class="s">"support-bot"</span>
+  input.tool  == <span class="s">"refund"</span>
+  input.amount_eur &lt;= <span class="n">200</span>
+  input.customer_verified == <span class="k">true</span>
+}</pre>
+
+  <div class="prose">
+    <p>Three properties make this governance rather than configuration. The policy has a <strong>version</strong> (so the log can say which rule applied). It has <strong>tests</strong> (so a change can be checked before deployment). And it is <strong>evaluated at request time</strong> with the actual inputs, not reconstructed afterwards from memory.</p>
+
+    <p>A practical rule: every policy change ships with at least one test that must fail before the change and pass after it. Otherwise you are editing production behaviour blind.</p>
+
+    <h3>3. Detection controls</h3>
+    <ul class="check">
+      <li><span><strong>Personal data.</strong> Regular expressions catch structured identifiers (IBAN, phone, email); named-entity recognition catches names and addresses. Neither is perfect. Measure both false positives and false negatives on your own traffic.</span></li>
+      <li><span><strong>Prompt injection.</strong> A classifier or a rule set looks for instructions that try to override the system prompt or exfiltrate context. Treat it as a probabilistic filter, not a wall.</span></li>
+      <li><span><strong>Jailbreak and policy evasion.</strong> Often the same classifier family; adversaries adapt, so the evaluation set must be refreshed.</span></li>
+      <li><span><strong>Toxicity and abuse.</strong> Useful for consumer-facing systems; prone to cultural and language bias, especially outside English.</span></li>
+      <li><span><strong>Groundedness.</strong> Checks whether an answer is supported by the retrieved context. Expensive; usually off-path or sampled.</span></li>
+      <li><span><strong>Schema and format.</strong> The cheapest and most reliable control: if the output must be valid JSON with three fields, validate it. Deterministic checks should be exhausted before probabilistic ones.</span></li>
+    </ul>
+
+    <h3>4. Action controls — the part that matters for agents</h3>
+    <p>Text generation is embarrassing when it fails. An agent that can move money, delete records, or send email is dangerous when it fails. The controls that matter are not content filters but <strong>permissions</strong>:</p>
+    <ul class="check">
+      <li><span><strong>Tool allowlists.</strong> The agent can call only the tools registered for its role.</span></li>
+      <li><span><strong>Scoped credentials.</strong> The agent gets a short-lived token for one customer and one operation, not a master key.</span></li>
+      <li><span><strong>Transaction limits.</strong> A hard cap on amount, volume, or recipients, enforced outside the model.</span></li>
+      <li><span><strong>Human approval.</strong> Required for irreversible or high-value actions, with a named reviewer and a recorded reason.</span></li>
+      <li><span><strong>Sandboxing.</strong> Irreversible actions run against a staging system first, or are queued for review.</span></li>
+    </ul>
+
+    <div class="analogy ng"><div class="icon">🪪</div><div><b>The driver’s licence analogy</b>
+      <p>A licence is not a promise that the driver is good. It states which categories of vehicle the driver may operate, and it can be checked at the gate. Agent identity works the same way: the question is not “is this model smart?” but “is this agent licensed for this tool, for this customer, up to this amount?” A single shared API key for every agent is an unlicensed driver with the keys to the whole fleet.</p>
+    </div></div>
+
+    <h3>5. Identity for agents</h3>
+    <p>Traditional systems authenticate a human or a service. Agentic systems add a third actor: a process that acts on behalf of a user, calls tools, and may spawn sub-agents. The governance questions multiply: which human authorised this action, which agent performed it, and what chain of delegation connects them?</p>
+    <p>The emerging answer is to give each agent its own identity, short-lived credentials, and an explicit delegation record. The <strong>Model Context Protocol</strong> (MCP) standardises how agents discover and call tools; it makes integration easier and makes permission design more important, because a badly scoped MCP server exposes every tool it offers to every connected agent.</p>
+
+    <h3>6. The log schema</h3>
+    <p>If you design only one artefact from this lecture, design the event schema. It is the difference between an audit trail and a pile of text files.</p>
+  </div>
+
+  <pre class="code" data-lang="json">{
+  <span class="s">"trace_id"</span>: <span class="s">"7f3c…"</span>,
+  <span class="s">"timestamp"</span>: <span class="s">"2026-10-24T09:14:02Z"</span>,
+  <span class="s">"actor"</span>: <span class="s">"user:4412"</span>,
+  <span class="s">"agent"</span>: <span class="s">"support-bot"</span>,
+  <span class="s">"model"</span>: <span class="s">"provider/model@2026-09"</span>,
+  <span class="s">"policy_version"</span>: <span class="s">"refund-v3"</span>,
+  <span class="s">"action"</span>: <span class="s">"refund"</span>,
+  <span class="s">"amount_eur"</span>: <span class="n">180</span>,
+  <span class="s">"decision"</span>: <span class="s">"allow"</span>,
+  <span class="s">"reason"</span>: <span class="s">"within_limit"</span>,
+  <span class="s">"latency_ms"</span>: <span class="n">412</span>,
+  <span class="s">"cost_usd"</span>: <span class="n">0.0031</span>
+}</pre>
+
+  <div class="prose">
+    <p>Notice what is <em>not</em> in the schema: the full prompt and the full response. Those may be needed for debugging, but they are also the most sensitive data in the system. A common design is to store a hash and a redacted excerpt in the main log, and keep full content in a separate, access-controlled store with a short retention period.</p>
+
+    <h3>Failure modes to design for</h3>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th>Failure</th><th>What it looks like</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>False positive</td><td>A legitimate request is blocked; users route around the system.</td><td>Audit mode first; tune thresholds; offer a redact-and-continue path.</td></tr>
+        <tr><td>False negative</td><td>A prohibited request passes.</td><td>Layer deterministic checks; red-team regularly; monitor near-misses.</td></tr>
+        <tr><td>Latency</td><td>The check adds seconds; the product becomes unusable.</td><td>Budget per control; cache; move expensive checks off-path.</td></tr>
+        <tr><td>Bypass</td><td>A team calls the provider directly with its own key.</td><td>Egress controls, key management, and a single approved endpoint.</td></tr>
+        <tr><td>Log leakage</td><td>Personal data is copied into an observability tool.</td><td>Redaction at write time; retention limits; access review.</td></tr>
+        <tr><td>Rule rot</td><td>Policies drift from reality; nobody knows which version is live.</td><td>Version control, tests, deployment records, periodic review.</td></tr>
+      </tbody>
+    </table></div>
+
+    <details class="quiz"><summary>Why is “we log everything” a weak governance answer?</summary>
+    <p><strong>Because logging is the fourth job, not the first three.</strong> A complete log of ungoverned behaviour proves that you allowed whatever happened. It does not show that anyone decided it was permitted, that limits were enforced, or that a human reviewed the consequential cases. Logging is necessary evidence; it is not a control by itself — and it creates its own privacy obligation.</p></details>
+  </div>
+</section>
