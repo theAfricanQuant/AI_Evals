@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f2e8">
+  <title>Three Paired Tests, Three Matching Labels | The Evals Gazette</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f7f2e8;
+      --paper-deep: #eee5d6;
+      --ink: #211c19;
+      --muted: #5d554f;
+      --rule: #9d9387;
+      --red: #9d2921;
+      --red-dark: #762019;
+      --white: #fffdf8;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 17px/1.52 var(--serif);
+    }
+    a { color: var(--red-dark); text-underline-offset: .16em; }
+    a:hover { color: var(--red); }
+    a:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+    .page { max-width: 1440px; margin: 0 auto; padding: 18px clamp(16px, 3vw, 42px) 42px; }
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px 24px;
+      border-bottom: 1px solid var(--ink);
+      padding: 0 0 7px;
+      font: 700 11px/1.4 var(--sans);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .topline span:last-child { text-align: right; }
+    .masthead { padding: 13px 0 8px; text-align: center; }
+    .masthead h1 {
+      margin: 0;
+      color: #171310;
+      font: 700 clamp(44px, 8vw, 102px)/.98 var(--serif);
+      letter-spacing: -.055em;
+    }
+    .motto { margin: 8px 0 12px; font-size: clamp(15px, 2vw, 19px); font-style: italic; }
+    .edition {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px 20px;
+      border-top: 3px double var(--ink);
+      border-bottom: 3px double var(--ink);
+      padding: 6px 0;
+      font: 700 11px/1.45 var(--sans);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr) minmax(205px, .62fr);
+      gap: clamp(18px, 2.4vw, 36px);
+      padding-top: 20px;
+      align-items: start;
+    }
+    .lead-story, .secondary { min-width: 0; }
+    .secondary, .rail { border-left: 1px solid var(--rule); padding-left: clamp(16px, 2vw, 28px); }
+    .section-label {
+      color: var(--red);
+      font: 800 11px/1.4 var(--sans);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h2, h3, p { margin-top: 0; }
+    .lead-story h2 {
+      margin: 5px 0 7px;
+      font: 700 clamp(32px, 4.3vw, 56px)/1.02 var(--serif);
+      letter-spacing: -.035em;
+    }
+    .dek { margin: 0 0 14px; color: #443b35; font-size: 20px; line-height: 1.32; }
+    .lead-copy { font-size: 18px; }
+    .lead-copy:first-letter { float: left; padding: .04em .09em 0 0; color: var(--red); font: 700 3.7em/.78 var(--serif); }
+    .story-rule { border: 0; border-top: 1px solid var(--rule); margin: 17px 0; }
+    .lead-story h3, .secondary h3 {
+      margin: 4px 0 7px;
+      font: 700 24px/1.13 var(--serif);
+    }
+    .secondary h3 { font-size: 25px; }
+    .secondary article { border-top: 1px solid var(--rule); padding: 12px 0 11px; }
+    .secondary article:first-of-type { border-top: 0; padding-top: 4px; }
+    .brief-title { margin: 0 0 4px; font: 700 19px/1.18 var(--serif); }
+    .brief { margin: 0; color: #342e29; font-size: 15.5px; line-height: 1.44; }
+    .verdict {
+      margin: 12px 0;
+      border-left: 4px solid var(--red);
+      background: #efe6d9;
+      padding: 10px 13px;
+      font-size: 15.5px;
+    }
+    .trace-steps { margin: 8px 0 0; padding-left: 20px; font-size: 15.5px; }
+    .trace-steps li { margin: 4px 0; }
+    .lab-log { margin-top: 14px; border-top: 1px solid var(--ink); padding-top: 10px; }
+    .lab-log h3 { font-size: 20px; }
+    .explain { margin: 15px 0; border-top: 1px solid var(--rule); padding-top: 12px; }
+    .explain h3 { margin: 4px 0 7px; font-size: 23px; }
+    .test-diagram { margin: 12px 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--paper-deep); padding: 12px; }
+    .diagram-start { margin: 0 0 9px; text-align: center; font: 800 11px/1.4 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+    .test-pair, .outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .test-card, .outcome { background: var(--white); padding: 9px 10px; border-left: 3px solid var(--red); }
+    .test-card h4, .outcome h4 { margin: 0 0 4px; font: 700 16px/1.2 var(--serif); }
+    .test-card p, .outcome p { margin: 0; font-size: 13.5px; line-height: 1.4; }
+    .diagram-arrow { margin: 6px 0; text-align: center; color: var(--red-dark); font: 700 18px/1 var(--sans); }
+    .diagram-label { margin: 0 0 7px; text-align: center; font: 800 10px/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+    .diagram-caution { margin: 7px 0 0; color: var(--muted); font-size: 12.5px; font-style: italic; }
+    .command {
+      display: block;
+      overflow-wrap: anywhere;
+      margin: 8px 0;
+      background: #eee5d6;
+      padding: 10px;
+      color: #211c19;
+      font: 12px/1.5 var(--mono);
+    }
+    .result { font-size: 14px; }
+    .rail { display: grid; gap: 15px; }
+    .rail-box {
+      border: 1px solid var(--ink);
+      padding: 12px;
+      background: rgba(255, 253, 248, .38);
+    }
+    .rail-box h2 {
+      margin: 0 0 8px;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 6px;
+      font: 800 12px/1.3 var(--sans);
+      letter-spacing: .12em;
+    }
+    .rail-box p, .rail-box li { font-size: 14px; line-height: 1.42; }
+    .rail-box ul { margin: 0; padding-left: 17px; }
+    .rail-box li { margin: 6px 0; }
+    .stat {
+      display: block;
+      color: var(--red-dark);
+      font: 700 38px/.95 var(--serif);
+      letter-spacing: -.04em;
+      margin: 2px 0 7px;
+    }
+    .note { color: var(--muted); font-size: 13.5px; }
+    @media (max-width: 900px) {
+      .columns { grid-template-columns: minmax(0, 1.35fr) minmax(250px, 1fr); }
+      .rail { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; border-left: 0; border-top: 1px solid var(--rule); padding: 16px 0 0; }
+    }
+    @media (max-width: 620px) {
+      body { font-size: 16px; }
+      .page { padding: 12px 15px 28px; }
+      .topline { font-size: 9px; letter-spacing: .06em; }
+      .edition { flex-wrap: wrap; font-size: 9px; }
+      .columns { display: block; padding-top: 16px; }
+      .lead-story h2 { font-size: clamp(34px, 10vw, 48px); }
+      .secondary { margin-top: 20px; border-left: 0; border-top: 2px solid var(--ink); padding: 14px 0 0; }
+      .rail { display: grid; grid-template-columns: 1fr; margin-top: 17px; padding-top: 15px; }
+      .lead-copy { font-size: 17px; }
+      .dek { font-size: 18px; }
+      .test-pair, .outcomes { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: white; }
+      .page { max-width: none; padding: 0; }
+      .columns { grid-template-columns: 1.5fr 1fr .62fr; gap: 18px; }
+      a { color: inherit; }
+    }
+    @media (max-width: 620px) {
+      .topline { flex-wrap: wrap; justify-content: flex-start; }
+      .topline span:last-child { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline" aria-label="Publication details">
+      <span>AI Evals for Engineers &amp; PMs</span>
+      <span>Chapter 6 · Study edition</span>
+      <span>28 October 2026</span>
+    </div>
+
+    <header class="masthead">
+      <h1>The Evals Gazette</h1>
+      <p class="motto">Trace the work. Test the claim. Learn from the result.</p>
+    </header>
+
+    <div class="edition" aria-label="Edition and topic">
+      <span>Issue 06</span>
+      <span>Evaluating multi-turn conversations</span>
+      <span>Trace · Test · Teach</span>
+    </div>
+
+    <div class="columns">
+      <article class="lead-story">
+        <div class="section-label">Lead story · Paired control and replay</div>
+        <h2>Three paired tests. Three matching labels.</h2>
+        <p class="dek">In these small comparisons, changing when a requirement arrived did not change the recorded verdict within any pair.</p>
+
+        <p class="lead-copy">Chapter 6 asks whether an assistant keeps track of requirements delivered across several turns. A control gives the requirements together; a replay delivers them over a conversation. Three same-model Gemini 3.8 pairs received matching labels within each pair. <a href="../../6.%20Evaluating%20Multi-Turn%20Conversations.md">The course lesson</a> frames this as a conversation-level evaluation.</p>
+        <p>The predeclared rule judged each final answer against a fixed text-only rubric: all explicit user constraints had to be met for Pass; a visible violation meant Fail; unclear text could be marked Review. The first two pairs were Pass/Pass; the third was Fail/Fail. The <a href="../../projects/ch6-paired-replay/README.md">paired replay records</a> and <a href="../../projects/ch6-paired-replay/rubric.md">rubric</a> document the setups and labels.</p>
+
+        <section class="explain" aria-labelledby="ch6-explain-heading">
+          <div class="section-label">The idea in plain language</div>
+          <h3 id="ch6-explain-heading">Change the timing. Hold the comparison steady.</h3>
+          <p>Within each pair, the model and scoring rule stayed the same. The control put the user requirements in one request; the replay spread them across turns. Matching labels are an observation about these runs, not proof that turn structure never matters.</p>
+          <div class="test-diagram" role="group" aria-label="Diagram of paired control and replay conditions leading to three matching pair labels">
+            <svg viewBox="0 0 360 270" role="img" aria-labelledby="ch6-diagram-title ch6-diagram-desc" style="display:block;width:100%;height:auto">
+              <title id="ch6-diagram-title">Paired control and replay design</title>
+              <desc id="ch6-diagram-desc">The control receives all requirements together. The replay receives the same requirements across turns. Both use the same model and rubric within each pair. The three recorded pairs are Pass and Pass, Pass and Pass, and Fail and Fail.</desc>
+              <defs>
+                <marker id="ch6-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#9d2921"></path>
+                </marker>
+              </defs>
+              <text x="180" y="22" text-anchor="middle" fill="#762019" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1">SAME MODEL · FIXED RUBRIC</text>
+              <rect x="12" y="38" width="160" height="67" fill="#fffdf8" stroke="#211c19" stroke-width="1.5"></rect>
+              <text x="92" y="60" text-anchor="middle" fill="#9d2921" font-family="Arial, sans-serif" font-size="13" font-weight="700">CONTROL</text>
+              <text x="92" y="81" text-anchor="middle" fill="#211c19" font-family="Georgia, serif" font-size="14">Requirements arrive</text>
+              <text x="92" y="98" text-anchor="middle" fill="#211c19" font-family="Georgia, serif" font-size="14">together</text>
+              <rect x="188" y="38" width="160" height="67" fill="#fffdf8" stroke="#211c19" stroke-width="1.5"></rect>
+              <text x="268" y="60" text-anchor="middle" fill="#9d2921" font-family="Arial, sans-serif" font-size="13" font-weight="700">REPLAY</text>
+              <text x="268" y="81" text-anchor="middle" fill="#211c19" font-family="Georgia, serif" font-size="14">Requirements arrive</text>
+              <text x="268" y="98" text-anchor="middle" fill="#211c19" font-family="Georgia, serif" font-size="14">across turns</text>
+              <path d="M92 108 V133 H180 V149" fill="none" stroke="#9d2921" stroke-width="2" marker-end="url(#ch6-arrow)"></path>
+              <path d="M268 108 V133 H180 V149" fill="none" stroke="#9d2921" stroke-width="2" marker-end="url(#ch6-arrow)"></path>
+              <text x="180" y="170" text-anchor="middle" fill="#211c19" font-family="Arial, sans-serif" font-size="13" font-weight="700">RECORDED PAIR LABELS</text>
+              <rect x="8" y="184" width="108" height="42" fill="#efe6d9" stroke="#9d9387"></rect>
+              <text x="62" y="210" text-anchor="middle" fill="#211c19" font-family="Arial, sans-serif" font-size="13" font-weight="700">PASS / PASS</text>
+              <rect x="126" y="184" width="108" height="42" fill="#efe6d9" stroke="#9d9387"></rect>
+              <text x="180" y="210" text-anchor="middle" fill="#211c19" font-family="Arial, sans-serif" font-size="13" font-weight="700">PASS / PASS</text>
+              <rect x="244" y="184" width="108" height="42" fill="#efe6d9" stroke="#9d9387"></rect>
+              <text x="298" y="210" text-anchor="middle" fill="#211c19" font-family="Arial, sans-serif" font-size="13" font-weight="700">FAIL / FAIL</text>
+              <text x="180" y="251" text-anchor="middle" fill="#5d554f" font-family="Georgia, serif" font-size="13" font-style="italic">Three pairs; one response per condition</text>
+            </svg>
+          </div>
+        </section>
+
+        <hr class="story-rule">
+        <div class="section-label">Case file · Three same-model pairs</div>
+        <h3>Every control matched its replay</h3>
+        <ol class="trace-steps">
+          <li>Pair 1: Pass / Pass.</li>
+          <li>Pair 2: Pass / Pass.</li>
+          <li>Pair 3: Fail / Fail.</li>
+        </ol>
+        <div class="verdict"><strong>Observed result:</strong> the label matched within all three pairs. No difference appeared in these runs.</div>
+        <p class="note">Each condition was sampled once, and generation settings were not recorded. The paired results do not establish a general effect or explain the earlier course-trace failure. See the <a href="../../notes/2026-10-13-ch6-multiturn-conversations.md">trace review</a> for that unresolved case.</p>
+
+        <div class="lab-log">
+          <div class="section-label">Lab log · Reproduce the checker</div>
+          <h3>Seven fixtures matched</h3>
+          <p>The command checks the small hand-built rule fixtures; it does not rerun the saved model comparisons. No new model or API call was made for this report.</p>
+          <code class="command">uv run --no-project python projects/ch6-paired-replay/check.py</code>
+          <p class="result"><strong>Observed output:</strong> Fixture labels matched: 7/7.</p>
+          <p class="note">The checker scans a narrow marked section and named terms. A 7/7 fixture match is a behavior check, not an accuracy estimate. See the <a href="../../projects/ch6-paired-replay/README.md">lab limits</a>.</p>
+        </div>
+      </article>
+
+      <section class="secondary" aria-label="Briefs on the Chapter 6 study">
+        <div class="section-label">Briefs · Method and limits</div>
+        <h2>What the pairs can tell us</h2>
+
+        <article>
+          <h4 class="brief-title">Judge the whole conversation</h4>
+          <p class="brief">The session verdict asks whether the user’s goal was met by the end. Pipeline-stage labels help diagnose where a failure began; they are not interchangeable with the final conversation verdict. <a href="../../notes/2026-10-13-ch6-multiturn-conversations.md">The trace note</a> records that distinction.</p>
+        </article>
+        <article>
+          <h4 class="brief-title">The rubric matters</h4>
+          <p class="brief">A text-only rule made the final labels observable. It did not assess broader health or safety claims. The <a href="../../projects/ch6-paired-replay/rubric.md">paired rubric</a> defines the limits.</p>
+        </article>
+        <article>
+          <h4 class="brief-title">A matched pair is not a general rule</h4>
+          <p class="brief">One response per condition leaves run-to-run variation unmeasured. The results show matching labels in these three comparisons only. The <a href="../../projects/ch6-paired-replay/README.md">lab record</a> describes the evidence and limits.</p>
+        </article>
+        <article>
+          <h4 class="brief-title">Research note</h4>
+          <p class="brief">The <a href="../../sources/laban-et-al-llms-get-lost-in-multi-turn-conversation.md">Chapter 6 source card</a> gives background on long-context conversation failures. This lab tests a small set of controlled examples; it does not reproduce a research benchmark.</p>
+        </article>
+      </section>
+
+      <aside class="rail" aria-label="Next study step and course almanac">
+        <section class="rail-box">
+          <h2>YOUR DAY</h2>
+          <p><strong>Next retrieval:</strong> continue the RAG study with the ranking failure from Chapter 7.</p>
+          <ul>
+            <li>Add graded relevance labels to the current mobile-support results.</li>
+            <li>Calculate NDCG@2 and compare it with Recall@2.</li>
+            <li>Broaden the query set before drawing a general conclusion.</li>
+          </ul>
+        </section>
+
+        <section class="rail-box">
+          <h2>THE ALMANAC</h2>
+          <p><strong>Chapter:</strong> <a href="../../6.%20Evaluating%20Multi-Turn%20Conversations.md">Evaluating Multi-Turn Conversations</a>.</p>
+          <p>A control puts the requirements together; a replay places them across turns. Compare them with the same model and rubric within each pair.</p>
+          <p class="note">Matching labels here are preliminary observations. The original course trace still has an unresolved cause.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
